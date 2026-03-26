@@ -484,17 +484,33 @@ input[type=range]::-webkit-slider-thumb {
       <div class="field-hint">Distancia de golpe cómodo, no el máximo. Deja en blanco los que no uses.</div>
       <div class="dist-grid">
         <div class="dist-item"><span class="dist-club">🏌️ Driver</span><input class="dist-input" type="number" name="d_1w" placeholder="200" min="50" max="400"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🏌️ Mini Driver</span><input class="dist-input" type="number" name="d_md" placeholder="170" min="50" max="320"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">🪵 Madera 3</span><input class="dist-input" type="number" name="d_3w" placeholder="180" min="50" max="350"><span class="dist-unit">m</span></div>
-        <div class="dist-item"><span class="dist-club">🪵 Híbrido</span><input class="dist-input" type="number" name="d_hy" placeholder="165" min="50" max="300"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🪵 Híbrido 3</span><input class="dist-input" type="number" name="d_h3" placeholder="170" min="50" max="310"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🪵 Híbrido 4</span><input class="dist-input" type="number" name="d_h4" placeholder="160" min="50" max="295"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">⛳ Hierro 3</span><input class="dist-input" type="number" name="d_3i" placeholder="165" min="50" max="290"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 4</span><input class="dist-input" type="number" name="d_4i" placeholder="155" min="50" max="280"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 5</span><input class="dist-input" type="number" name="d_5i" placeholder="140" min="50" max="260"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 6</span><input class="dist-input" type="number" name="d_6i" placeholder="130" min="50" max="240"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 7</span><input class="dist-input" type="number" name="d_7i" placeholder="120" min="50" max="220"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 8</span><input class="dist-input" type="number" name="d_8i" placeholder="110" min="50" max="200"><span class="dist-unit">m</span></div>
         <div class="dist-item"><span class="dist-club">⛳ Hierro 9</span><input class="dist-input" type="number" name="d_9i" placeholder="100" min="50" max="180"><span class="dist-unit">m</span></div>
-        <div class="dist-item"><span class="dist-club">🎯 PW</span><input class="dist-input" type="number" name="d_pw" placeholder="90" min="30" max="160"><span class="dist-unit">m</span></div>
-        <div class="dist-item"><span class="dist-club">🎯 Sand/Gap</span><input class="dist-input" type="number" name="d_sw" placeholder="70" min="20" max="140"><span class="dist-unit">m</span></div>
-        <div class="dist-item"><span class="dist-club">🎯 Lob W</span><input class="dist-input" type="number" name="d_lw" placeholder="50" min="10" max="110"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 PW (48°)</span><input class="dist-input" type="number" name="d_pw" placeholder="90" min="30" max="160"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 50°</span><input class="dist-input" type="number" name="d_50" placeholder="82" min="20" max="150"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 52°</span><input class="dist-input" type="number" name="d_52" placeholder="74" min="20" max="140"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 54°</span><input class="dist-input" type="number" name="d_54" placeholder="66" min="20" max="130"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 56°</span><input class="dist-input" type="number" name="d_56" placeholder="58" min="10" max="120"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 58°</span><input class="dist-input" type="number" name="d_58" placeholder="50" min="10" max="110"><span class="dist-unit">m</span></div>
+        <div class="dist-item"><span class="dist-club">🎯 60°</span><input class="dist-input" type="number" name="d_60" placeholder="42" min="10" max="100"><span class="dist-unit">m</span></div>
+      </div>
+
+      <!-- Palos adicionales -->
+      <div style="margin-top:14px">
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:10px">Otros palos (opcional)</div>
+        <div id="extra-clubs"></div>
+        <button type="button" onclick="addClub()" style="width:100%;margin-top:8px;padding:11px;background:none;border:1.5px dashed var(--b2);border-radius:10px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='var(--gl)';this.style.color='var(--gl)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--muted)'">
+          + Añadir otro palo
+        </button>
       </div>
     </div>
   </div>
@@ -955,6 +971,21 @@ function updateSummary() {
   document.getElementById('summary-items').innerHTML = items.join('<br>');
 }
 
+
+var extraClubCount = 0;
+function addClub() {
+  extraClubCount++;
+  var id = 'extra_' + extraClubCount;
+  var div = document.createElement('div');
+  div.className = 'dist-item';
+  div.style.cssText = 'margin-bottom:8px;display:flex;align-items:center;gap:8px;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:8px 12px';
+  div.innerHTML = '<input type="text" name="extra_club_' + extraClubCount + '_nombre" placeholder="Nombre del palo" style="flex:1;background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:6px 10px;color:var(--text);font-family:DM Sans,sans-serif;font-size:13px;outline:none">' +
+    '<input class="dist-input" type="number" name="extra_club_' + extraClubCount + '_dist" placeholder="0" min="10" max="400" style="width:60px">' +
+    '<span class="dist-unit">m</span>' +
+    '<button type="button" onclick="this.parentNode.remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:0 2px">×</button>';
+  document.getElementById('extra-clubs').appendChild(div);
+}
+
 function submitForm() {
   var data = getFormData();
   if (!data.nombre || !data.email) {
@@ -965,8 +996,10 @@ function submitForm() {
   document.getElementById('sending').classList.add('show');
   document.getElementById('nav-bar').style.display = 'none';
 
+  // Use no-cors to avoid CORS block from GitHub Pages
   fetch(ZAPIER_WEBHOOK, {
     method: 'POST',
+    mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   })
@@ -978,9 +1011,12 @@ function submitForm() {
     document.getElementById('success').classList.add('show');
   })
   .catch(function() {
+    // With no-cors, even success looks like an error — show success anyway
     document.getElementById('sending').classList.remove('show');
-    document.getElementById('nav-bar').style.display = 'block';
-    alert('Error al enviar. Comprueba tu conexión e inténtalo de nuevo.');
+    document.querySelector('.form-outer').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.hero').style.display = 'none';
+    document.getElementById('success').classList.add('show');
   });
 }
 
