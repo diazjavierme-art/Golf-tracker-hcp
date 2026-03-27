@@ -922,20 +922,31 @@ function rv(el, id, sfx) {
 }
 
 function getFormData() {
-  var fd = new FormData(document.getElementById('eval-form'));
   var data = {};
-  fd.forEach(function(v, k) {
-    if (data[k]) {
-      if (!Array.isArray(data[k])) data[k] = [data[k]];
-      data[k].push(v);
+  var form = document.getElementById('eval-form');
+
+  // Collect ALL inputs regardless of visibility (display:none sections excluded by FormData)
+  var inputs = form.querySelectorAll('input, textarea, select');
+  inputs.forEach(function(el) {
+    if (!el.name) return;
+    var k = el.name;
+    if (el.type === 'radio') {
+      if (el.checked) data[k] = el.value;
+    } else if (el.type === 'checkbox') {
+      if (el.checked) {
+        if (data[k]) {
+          data[k] = data[k] + ', ' + el.value;
+        } else {
+          data[k] = el.value;
+        }
+      }
+    } else if (el.type === 'range') {
+      data[k] = el.value;
     } else {
-      data[k] = v;
+      if (el.value && el.value.trim()) data[k] = el.value.trim();
     }
   });
-  // Convert arrays to comma-separated strings
-  Object.keys(data).forEach(function(k) {
-    if (Array.isArray(data[k])) data[k] = data[k].join(', ');
-  });
+
   data.submitted_at = new Date().toISOString();
   return data;
 }
