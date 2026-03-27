@@ -998,28 +998,23 @@ function submitForm() {
   document.getElementById('sending').classList.add('show');
   document.getElementById('nav-bar').style.display = 'none';
 
-  // Use no-cors to avoid CORS block from GitHub Pages
+  // Send as text/plain — avoids CORS preflight so Zapier receives full JSON
   fetch(ZAPIER_WEBHOOK, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(data)
   })
-  .then(function() {
-    document.getElementById('sending').classList.remove('show');
-    document.querySelector('.form-outer').style.display = 'none';
-    document.querySelector('.progress-wrap').style.display = 'none';
-    document.querySelector('.hero').style.display = 'none';
-    document.getElementById('success').classList.add('show');
-  })
-  .catch(function() {
-    // With no-cors, even success looks like an error — show success anyway
-    document.getElementById('sending').classList.remove('show');
-    document.querySelector('.form-outer').style.display = 'none';
-    document.querySelector('.progress-wrap').style.display = 'none';
-    document.querySelector('.hero').style.display = 'none';
-    document.getElementById('success').classList.add('show');
-  });
+  .then(function() { showSuccess(); })
+  .catch(function() { showSuccess(); });
+}
+
+function showSuccess() {
+  document.getElementById('sending').classList.remove('show');
+  document.querySelector('.form-outer').style.display = 'none';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.querySelector('.hero').style.display = 'none';
+  document.getElementById('success').classList.add('show');
 }
 
 initDots();
