@@ -15,22 +15,24 @@
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
   :root {
-    --bg:        #0c1d12;
-    --surface:   #152a1c;
-    --surface2:  #1d3826;
-    --border:    #2a5038;
-    --green:     #3d9c62;
-    --greenl:    #5bc483;
-    --gold:      #e8a63a;
+    --bg:        #1a0f05;
+    --surface:   #2a1a08;
+    --surface2:  #3a2510;
+    --border:    #5a3a18;
+    --green:     #e07830;
+    --greenl:    #f5a054;
+    --gold:      #f5c842;
     --orange:    #e0623a;
     --red:       #d94040;
-    --text:      #e8f2eb;
-    --muted:     #7aaa8a;
+    --text:      #fdf0e0;
+    --muted:     #b88a5a;
     --radius:    14px;
-    --shadow:    0 4px 24px rgba(0,0,0,.45);
+    --shadow:    0 4px 24px rgba(0,0,0,.5);
   }
 
+  html { background: #1a0f05; }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @keyframes screenIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -60,12 +62,21 @@
   }
   .nav-btn svg { width: 24px; height: 24px; }
   .nav-btn span { font-size: 10px; letter-spacing: .2px; }
-  .nav-btn.active { color: var(--greenl); }
-  .nav-btn.active svg { filter: drop-shadow(0 0 4px rgba(91,196,131,.4)); }
+  .nav-btn.active { color: var(--greenl); position: relative; }
+  .nav-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%; transform: translateX(-50%);
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--greenl);
+  }
+  .nav-btn.active svg { filter: drop-shadow(0 0 4px rgba(245,160,84,.4)); }
 
   /* ── SCREENS ─────────────────────────────────── */
-  .screen { display: none; min-height: calc(100dvh - 60px); padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); }
-  .screen.active { display: block; }
+  .screen { display: none; min-height: calc(100dvh - 60px); padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px)); background: var(--bg); }
+  .screen.active { display: block; animation: screenIn .2s ease; }
 
   /* ── HEADER ──────────────────────────────────── */
   .header {
@@ -107,7 +118,7 @@
   .day-tab[data-day="1"].active  { background: var(--green);  border-color: var(--green); }
   .day-tab[data-day="2"].active  { background: var(--gold);   border-color: var(--gold); }
   .day-tab[data-day="3"].active  { background: var(--orange); border-color: var(--orange); }
-  .day-tab[data-day="4"].active  { background: var(--greenl); border-color: var(--greenl); color: #0c1d12; }
+  .day-tab[data-day="4"].active  { background: var(--greenl); border-color: var(--greenl); color: #1a0f05; }
 
   /* ── SESSION BLOCKS ──────────────────────────── */
   .sessions { padding: 14px 18px; display: flex; flex-direction: column; gap: 14px; }
@@ -193,7 +204,7 @@
   /* ── OBJECTIVE CHIP ──────────────────────────── */
   .obj-chip {
     display: inline-flex; align-items: center; gap: 5px;
-    background: rgba(61,156,98,.12); border: 1px solid rgba(61,156,98,.3);
+    background: rgba(224,120,48,.12); border: 1px solid rgba(224,120,48,.3);
     color: var(--greenl); padding: 4px 10px; border-radius: 20px;
     font-size: 11px; font-weight: 500; margin-top: 8px;
   }
@@ -239,7 +250,7 @@
     font-size: 13px; font-weight: 700;
     padding: 3px 10px; border-radius: 20px;
   }
-  .session-score.high { background: rgba(91,196,131,.15); color: var(--greenl); }
+  .session-score.high { background: rgba(245,160,84,.15); color: var(--greenl); }
   .session-score.mid  { background: rgba(232,166,58,.15);  color: var(--gold); }
   .session-score.low  { background: rgba(224,98,58,.15);   color: var(--orange); }
 
@@ -261,9 +272,9 @@
     display: flex; align-items: center; justify-content: center; gap: 8px;
   }
   .cta-btn:active { transform: scale(.98); }
-  .cta-btn.d2 { background: var(--gold); color: #0c1d12; }
+  .cta-btn.d2 { background: var(--gold); color: #1a0f05; }
   .cta-btn.d3 { background: var(--orange); }
-  .cta-btn.d4 { background: var(--greenl); color: #0c1d12; }
+  .cta-btn.d4 { background: var(--greenl); color: #1a0f05; }
 
   .hcp-display {
     background: var(--surface); border: 1px solid var(--border);
@@ -294,12 +305,12 @@
     font-size: 12px; color: var(--muted); font-weight: 600; flex-direction: column;
     gap: 2px;
   }
-  .week-day.done  { background: rgba(61,156,98,.25); color: var(--greenl); }
+  .week-day.done  { background: rgba(224,120,48,.25); color: var(--greenl); }
   .week-day.today { border: 2px solid var(--green); color: var(--text); }
   .week-day-label { font-size: 10px; color: var(--muted); }
 
   /* ── MODAL ───────────────────────────────────── */
-  .modal-overlay {
+  .modal-overlay { background: rgba(0,0,0,.85) !important;
     display: none; position: fixed; inset: 0; z-index: 200;
     background: rgba(0,0,0,.7); align-items: flex-end; justify-content: center;
   }
@@ -341,10 +352,10 @@
   ::-webkit-scrollbar { width: 0; }
 
   /* Objective chip colors per day */
-  .obj-chip.d1 { background: rgba(61,156,98,.12); border-color: rgba(61,156,98,.3); color: var(--greenl); }
+  .obj-chip.d1 { background: rgba(224,120,48,.12); border-color: rgba(224,120,48,.3); color: var(--greenl); }
   .obj-chip.d2 { background: rgba(232,166,58,.12); border-color: rgba(232,166,58,.3); color: var(--gold); }
   .obj-chip.d3 { background: rgba(224,98,58,.12);  border-color: rgba(224,98,58,.3);  color: var(--orange); }
-  .obj-chip.d4 { background: rgba(91,196,131,.12); border-color: rgba(91,196,131,.3); color: var(--greenl); }
+  .obj-chip.d4 { background: rgba(245,160,84,.12); border-color: rgba(245,160,84,.3); color: var(--greenl); }
 
   /* ── FITNESS SCREEN ───────────────────────────── */
   .fit-tabs {
@@ -360,10 +371,10 @@
     cursor:pointer; transition:all .2s; white-space:nowrap;
   }
   .fit-tab.active { background:var(--green); border-color:var(--green); color:#fff; }
-  .fit-tab.speed.active  { background:#e8a63a; border-color:#e8a63a; color:#0c1d12; }
-  .fit-tab.rotation.active { background:#5bc483; border-color:#5bc483; color:#0c1d12; }
+  .fit-tab.speed.active  { background:#e8a63a; border-color:#e8a63a; color:#1a0f05; }
+  .fit-tab.rotation.active { background:#f5a054; border-color:#f5a054; color:#1a0f05; }
   .fit-tab.core.active   { background:#e0623a; border-color:#e0623a; }
-  .fit-tab.movilidad.active { background:#64a8c8; border-color:#64a8c8; color:#0c1d12; }
+  .fit-tab.movilidad.active { background:#64a8c8; border-color:#64a8c8; color:#1a0f05; }
   [data-prog='equilibrio'].active { background:#7c5cbf; border-color:#7c5cbf; color:#fff; }
 
   .fit-program { padding:14px 18px; display:flex; flex-direction:column; gap:12px; }
@@ -412,7 +423,7 @@
   .fit-ex-sets span { color:var(--greenl); }
 
   .fit-tip {
-    background:rgba(61,156,98,.08); border:1px solid rgba(61,156,98,.2);
+    background:rgba(224,120,48,.08); border:1px solid rgba(224,120,48,.2);
     border-radius:10px; padding:12px 14px; margin:0 18px;
     font-size:12px; color:var(--greenl); line-height:1.55;
   }
@@ -523,13 +534,13 @@
     border-radius:20px; background:var(--surface2);
     border:1px solid var(--border);
   }
-  .macro-chip.p { border-color:#5bc48344; color:#5bc483; }
+  .macro-chip.p { border-color:#f5a05444; color:#f5a054; }
   .macro-chip.c { border-color:#e8a63a44; color:#e8a63a; }
   .macro-chip.g { border-color:#64a8c844; color:#64a8c8; }
 
   .golf-tip-meal {
     margin-top:8px; padding:8px 10px;
-    background:rgba(61,156,98,.08); border:1px solid rgba(61,156,98,.2);
+    background:rgba(224,120,48,.08); border:1px solid rgba(224,120,48,.2);
     border-radius:8px; font-size:11px; color:var(--greenl); line-height:1.45;
   }
 
@@ -595,8 +606,8 @@
     transition: all .2s; margin: 0 16px 14px;
     background: var(--surface2);
   }
-  .rfeg-upload-zone:hover { border-color: var(--green); background: rgba(61,156,98,.08); }
-  .rfeg-upload-zone.dragover { border-color: var(--greenl); background: rgba(91,196,131,.12); }
+  .rfeg-upload-zone:hover { border-color: var(--green); background: rgba(224,120,48,.08); }
+  .rfeg-upload-zone.dragover { border-color: var(--greenl); background: rgba(245,160,84,.12); }
   .rfeg-upload-zone input[type=file] { display:none; }
   .rfeg-upload-icon { font-size: 36px; margin-bottom: 10px; }
   .rfeg-upload-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
@@ -612,8 +623,8 @@
 
   .rfeg-result-card {
     margin: 0 16px 14px;
-    background: rgba(91,196,131,.08);
-    border: 1px solid rgba(91,196,131,.3);
+    background: rgba(245,160,84,.08);
+    border: 1px solid rgba(245,160,84,.3);
     border-radius: 10px; padding: 14px;
   }
   .rfeg-result-title { font-size:12px; font-weight:700; color:var(--greenl); margin-bottom:10px; letter-spacing:.3px; }
@@ -632,6 +643,62 @@
   .rfeg-rounds-table th { color:var(--muted); font-weight:600; padding:4px 6px; border-bottom:1px solid var(--border); text-align:left; white-space:nowrap; }
   .rfeg-rounds-table td { padding:5px 6px; border-bottom:1px solid var(--border); color:var(--text); white-space:nowrap; }
   .rfeg-rounds-table tr.best-round td { color:var(--greenl); }
+
+  /* ── VIDEO MODAL ─────────────────────────────── */
+  #video-modal {
+    display: none;
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,.92);
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 20px;
+    animation: fadeIn .2s ease;
+  }
+  #video-modal.open { display: flex; }
+  .video-modal-header {
+    width: 100%; max-width: 600px;
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .video-modal-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px; color: var(--text);
+    max-width: 80%; line-height: 1.3;
+  }
+  .video-modal-close {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,.1); border: none;
+    color: var(--text); font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .video-modal-close:active { background: rgba(255,255,255,.2); }
+  .video-container {
+    width: 100%; max-width: 600px;
+    aspect-ratio: 16/9;
+    border-radius: 12px; overflow: hidden;
+    background: #000;
+    box-shadow: 0 8px 40px rgba(0,0,0,.6);
+  }
+  .video-container iframe {
+    width: 100%; height: 100%; border: none;
+  }
+  .video-modal-tip {
+    margin-top: 12px; font-size: 12px;
+    color: rgba(255,255,255,.4); text-align: center;
+  }
+  .btn-video {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(224,120,48,.15); border: 1px solid rgba(224,120,48,.35);
+    border-radius: 8px; padding: 7px 12px;
+    color: var(--greenl); font-size: 12px; font-weight: 600;
+    cursor: pointer; margin-top: 8px;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-video:active { background: rgba(224,120,48,.25); transform: scale(.97); }
+  .btn-video svg { flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -644,8 +711,8 @@
   <div class="header">
     <div class="header-top">
       <div>
-        <h1>Golf Tracker</h1>
-        <p id="home-date">Cargando...</p>
+        <h1 style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px">⛳ Golf Tracker</h1>
+        <p id="home-date" style="font-size:12px;color:var(--muted);margin-top:2px">Cargando...</p>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
         <button onclick="openBackupModal()" title="Copia de seguridad"
@@ -877,7 +944,7 @@
         <h1>Físico Golf</h1>
         <p>Velocidad · Rotación · Core · Movilidad</p>
       </div>
-      <span class="badge" style="background:var(--gold);color:#0c1d12">3 días/sem</span>
+      <span class="badge" style="background:var(--gold);color:#1a0f05">3 días/sem</span>
     </div>
     <div class="fit-tabs" id="fit-tabs">
       <button class="fit-tab active"    data-prog="semana" onclick="switchFitProg('semana')">📅 Semana</button>
@@ -970,15 +1037,41 @@
       </div>
     </div>
 
+    <!-- Enviar al entrenador -->
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+      <div style="font-size:12px;font-weight:700;color:var(--text);letter-spacing:.3px;margin-bottom:4px">📊 ENVIAR PROGRESO AL ENTRENADOR</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:10px">
+        Manda tu evolución directamente a tu entrenador con un solo toque. Incluye todas tus sesiones, HCP actual y estadísticas.
+      </div>
+      <button onclick="sendProgressToCoach()" style="width:100%;padding:14px;border:none;border-radius:10px;background:linear-gradient(135deg,#e07830,#2a7a48);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Enviar progreso al entrenador
+      </button>
+      <div id="send-progress-status" style="font-size:11px;color:var(--muted);text-align:center;min-height:16px"></div>
+    </div>
+
     <!-- Info card -->
-    <div style="margin-top:16px;padding:12px;background:rgba(61,156,98,.08);border:1px solid rgba(61,156,98,.2);border-radius:10px;font-size:11px;color:var(--greenl);line-height:1.6">
-      💡 <strong>Consejo:</strong> Haz una copia mensual y envíamela junto con una captura de Stats → Todo. Así actualizo tu plan de entrenamiento y dieta con tu progreso real.
+    <div style="margin-top:16px;padding:12px;background:rgba(224,120,48,.08);border:1px solid rgba(224,120,48,.2);border-radius:10px;font-size:11px;color:var(--greenl);line-height:1.6">
+      💡 Envía tu progreso cada 15 días para que tu entrenador actualice tu plan.
     </div>
 
     <button onclick="closeBackupModal()" style="width:100%;padding:13px;border:none;border-radius:10px;background:var(--surface2);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:14px;border:1px solid var(--border)">
       Cerrar
     </button>
   </div>
+</div>
+
+
+<!-- ════════════════════ VIDEO MODAL ════════════════════ -->
+<div id="video-modal">
+  <div class="video-modal-header">
+    <div class="video-modal-title" id="video-modal-title">Ejercicio</div>
+    <button class="video-modal-close" onclick="closeVideo()">×</button>
+  </div>
+  <div class="video-container">
+    <iframe id="video-iframe" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+  </div>
+  <p class="video-modal-tip">Pulsa × para cerrar y volver al ejercicio</p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -992,7 +1085,7 @@ const DAYS = {
   1: {
     title: "Día 1 · Anti-Slice",
     subtitle: "2h · Driver + Hierros 5-6 + Putt Distancia",
-    color: "#3d9c62",
+    color: "#e07830",
     blocks: [
       {
         id: "d1b1", name: "Driver + H5/H6 — Path", emoji: "🏌️", time: "40 min",
@@ -1111,7 +1204,7 @@ const DAYS = {
   4: {
     title: "Día 4 · Wedges",
     subtitle: "1h · Los 4 Wedges + Cierre con Confianza",
-    color: "#5bc483",
+    color: "#f5a054",
     blocks: [
       {
         id: "d4b1", name: "Wedges — Los 4 palos", emoji: "🎯", time: "30 min",
@@ -1249,7 +1342,7 @@ function renderExercise(ex, col) {
   const val    = currentSession[ex.id]?.done   || 0;
   const notes  = currentSession[ex.id]?.notes  || '';
   const pct    = Math.min(100, Math.round((val / ex.target) * 100));
-  const fillCol = pct >= 80 ? '#5bc483' : pct >= 50 ? '#e8a63a' : '#e0623a';
+  const fillCol = pct >= 80 ? '#f5a054' : pct >= 50 ? '#e8a63a' : '#e0623a';
 
   return `
   <div class="exercise" id="exwrap-${ex.id}">
@@ -1300,7 +1393,7 @@ function adjust(exId, target, delta) {
 
   valEl.textContent = v;
   const pct = Math.min(100, Math.round((v / target) * 100));
-  const fillCol = pct >= 80 ? '#5bc483' : pct >= 50 ? '#e8a63a' : '#e0623a';
+  const fillCol = pct >= 80 ? '#f5a054' : pct >= 50 ? '#e8a63a' : '#e0623a';
   fillEl.style.width      = pct + '%';
   fillEl.style.background = fillCol;
 
@@ -1549,11 +1642,11 @@ function renderFitStats(container) {
   const PROG_META = {
     wk1:  { name:'Día 1 Semana · Vel+Rot',   col:'#e8a63a' },
     wk2:  { name:'Día 2 Semana · Core+Eq',    col:'#e0623a' },
-    wk3:  { name:'Día 3 Semana · Full Body',  col:'#5bc483' },
+    wk3:  { name:'Día 3 Semana · Full Body',  col:'#f5a054' },
     wk4:  { name:'Pre-Ronda · Movilidad',     col:'#64a8c8' },
     sp1:  { name:'Velocidad A · Potencia',    col:'#e8a63a' },
     sp2:  { name:'Velocidad B · Pura',        col:'#f0b840' },
-    rot1: { name:'Rotación A · Torácica',     col:'#5bc483' },
+    rot1: { name:'Rotación A · Torácica',     col:'#f5a054' },
     rot2: { name:'Rotación B · Cadera',       col:'#4da870' },
     core1:{ name:'Core A · Antirotación',     col:'#e0623a' },
     core2:{ name:'Core B · Potencia Rot.',    col:'#c85530' },
@@ -1609,7 +1702,7 @@ function renderFitStats(container) {
         <div style="font-size:11px;color:var(--muted);margin-bottom:6px">Evolución de completado (%)</div>
         <div class="fit-hist-bar" id="fit-sparkline">
           ${history.slice(-12).map(s => {
-            const meta = PROG_META[s.dayId] || { col: '#3d9c62' };
+            const meta = PROG_META[s.dayId] || { col: '#e07830' };
             return '<div style="background:' + meta.col + ';height:' + Math.max(4, s.pct * 0.32) + 'px" title="' + s.pct + '%"></div>';
           }).join('')}
         </div>
@@ -1682,7 +1775,7 @@ function renderFitStats(container) {
       <h3>HISTORIAL FÍSICO</h3>
       <div class="session-list">
         ${[...history].reverse().slice(0,12).map(s => {
-          const meta = PROG_META[s.dayId] || { name: s.dayName, col: '#3d9c62' };
+          const meta = PROG_META[s.dayId] || { name: s.dayName, col: '#e07830' };
           const cls  = s.pct >= 80 ? 'high' : s.pct >= 50 ? 'mid' : 'low';
           const ds   = new Date(s.date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'});
           return '<div class="session-item">' +
@@ -1813,7 +1906,7 @@ function renderActivityGrid(merged) {
       const onlyFit  = act.types.has('fit')  && !act.types.has('golf');
       const onlyGolf = act.types.has('golf') && !act.types.has('fit');
       if (both)     bg = 'linear-gradient(135deg, var(--greenl) 50%, #e8a63a 50%)';
-      else if (onlyGolf) bg = 'rgba(91,196,131,0.5)';
+      else if (onlyGolf) bg = 'rgba(245,160,84,0.5)';
       else if (onlyFit)  bg = 'rgba(232,166,58,0.5)';
     }
     if (isToday) border = '2px solid var(--greenl)';
@@ -1824,7 +1917,7 @@ function renderActivityGrid(merged) {
   }
   html += '</div>';
   html += '<div style="display:flex;gap:14px;margin-top:10px;font-size:11px;color:var(--muted)">' +
-    '<div style="display:flex;align-items:center;gap:5px"><div style="width:12px;height:12px;border-radius:3px;background:rgba(91,196,131,0.5)"></div>Golf</div>' +
+    '<div style="display:flex;align-items:center;gap:5px"><div style="width:12px;height:12px;border-radius:3px;background:rgba(245,160,84,0.5)"></div>Golf</div>' +
     '<div style="display:flex;align-items:center;gap:5px"><div style="width:12px;height:12px;border-radius:3px;background:rgba(232,166,58,0.5)"></div>Físico</div>' +
     '<div style="display:flex;align-items:center;gap:5px"><div style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,var(--greenl) 50%,#e8a63a 50%)"></div>Ambos</div>' +
   '</div>';
@@ -1897,7 +1990,7 @@ function drawChart() {
   const cH = H - pad.top - pad.bottom;
 
   // Grid lines
-  ctx.strokeStyle = '#2a5038';
+  ctx.strokeStyle = '#5a3a18';
   ctx.lineWidth = 0.5;
   [0, 25, 50, 75, 100].forEach(v => {
     const y = pad.top + cH - (v / 100) * cH;
@@ -1908,8 +2001,8 @@ function drawChart() {
 
   // Gradient fill
   const grd = ctx.createLinearGradient(0, pad.top, 0, pad.top + cH);
-  grd.addColorStop(0, 'rgba(91,196,131,0.35)');
-  grd.addColorStop(1, 'rgba(91,196,131,0)');
+  grd.addColorStop(0, 'rgba(245,160,84,0.35)');
+  grd.addColorStop(1, 'rgba(245,160,84,0)');
 
   const pts = scores.map((v, i) => ({
     x: pad.left + (i / (scores.length - 1)) * cW,
@@ -1938,16 +2031,16 @@ function drawChart() {
     ctx.quadraticCurveTo(pts[i-1].x, pts[i-1].y, cp.x, cp.y);
   }
   ctx.lineTo(pts[pts.length-1].x, pts[pts.length-1].y);
-  ctx.strokeStyle = '#5bc483'; ctx.lineWidth = 2; ctx.stroke();
+  ctx.strokeStyle = '#f5a054'; ctx.lineWidth = 2; ctx.stroke();
 
   // Dots
   pts.forEach((p, i) => {
     ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-    ctx.fillStyle = i === pts.length-1 ? '#fff' : '#5bc483';
+    ctx.fillStyle = i === pts.length-1 ? '#fff' : '#f5a054';
     ctx.fill();
     if (i === pts.length-1) {
       ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-      ctx.strokeStyle = '#5bc483'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.strokeStyle = '#f5a054'; ctx.lineWidth = 2; ctx.stroke();
     }
   });
 }
@@ -2098,7 +2191,7 @@ function loadRFEGState() {
 
 const MEAL_COLORS = {
   'Romper ayuno': { bg:'#e8a63a22', tc:'#e8a63a' },
-  'Almuerzo':     { bg:'#3d9c6222', tc:'#5bc483' },
+  'Almuerzo':     { bg:'#e0783022', tc:'#f5a054' },
   'Comida':       { bg:'#3d6a9c22', tc:'#64a8c8' },
   'Merienda':     { bg:'#9c3d6a22', tc:'#c87aaa' },
   'Cena':         { bg:'#5a3d9c22', tc:'#9c7ae8' },
@@ -2107,7 +2200,7 @@ const MEAL_COLORS = {
 
 const MENU = [
   {
-    dia: 'Lunes', icon: '🟢', color: '#5bc483',
+    dia: 'Lunes', icon: '🟢', color: '#f5a054',
     nota: 'Día de entrenamiento físico en ayunas · Rompes ayuno post-entreno',
     kcal: 1920,
     comidas: [
@@ -2362,7 +2455,7 @@ const FIELD_TIPS = [
   },
   {
     titulo: '🍌 Kit de snacks para el campo',
-    color: '#5bc483',
+    color: '#f5a054',
     contenido: 'Lo que metes en la bolsa de golf:\n• Hoyos 1-9: plátano + 6 nueces (rompe la curva de azúcar al llegar al hoyo 6)\n• Hoyo 9: dátiles (3 uds) si notas bajada de energía o tensión mental\n• Hidratación: 500ml mínimo en verano, 300ml en invierno. Sorbo cada 3 hoyos aunque no tengas sed\n• EVITA: bollería, snacks salados del bar, zumos industriales y alcohol en campo'
   },
   {
@@ -2429,7 +2522,7 @@ function renderDietMenu(c) {
 
     MENU.map(function(day) {
       var meals = day.comidas.map(function(m) {
-        var mc = MEAL_COLORS[m.tipo] || { bg:'#3d9c6222', tc:'#5bc483' };
+        var mc = MEAL_COLORS[m.tipo] || { bg:'#e0783022', tc:'#f5a054' };
         return '<div class="meal">' +
           '<span class="meal-type" style="background:' + mc.bg + ';color:' + mc.tc + '">' + m.tipo.toUpperCase() + ' · ' + m.hora + '</span>' +
           '<div class="meal-name">' + m.nombre + '</div>' +
@@ -2537,7 +2630,7 @@ function renderFieldTips(c) {
 // ════════════════════════════════════════════════════════
 const FIT_COLORS = {
   speed:    { bg:'#e8a63a22', border:'#e8a63a', text:'#e8a63a', icon:'#e8a63a' },
-  rotation: { bg:'#5bc48322', border:'#5bc483', text:'#5bc483', icon:'#5bc483' },
+  rotation: { bg:'#f5a05422', border:'#f5a054', text:'#f5a054', icon:'#f5a054' },
   core:     { bg:'#e0623a22', border:'#e0623a', text:'#e0623a', icon:'#e0623a' },
   movilidad:{ bg:'#7c5cbf22', border:'#7c5cbf', text:'#c4a8ff', icon:'#7c5cbf' },
 };
@@ -2556,9 +2649,9 @@ const FIT_PROGRAMS = {
         id:'sp1', name:'Día A · Potencia Explosiva', icon:'⚡', sub:'3-4 series · 25 min · Mancuernas + Banda',
         color:'#e8a63a',
         exercises: [
-          { name:'Goblet Squat Explosivo', sets:'4×8', detail:'Mancuerna al pecho. Baja controlado (2 seg) → sube EXPLOSIVO intentando saltar. No despegues el suelo. Activa glúteos y cuádriceps que inician el swing desde el suelo.' },
+          { name:'Goblet Squat Explosivo', video:'medicball', sets:'4×8', detail:'Mancuerna al pecho. Baja controlado (2 seg) → sube EXPLOSIVO intentando saltar. No despegues el suelo. Activa glúteos y cuádriceps que inician el swing desde el suelo.' },
           { name:'Lunge con rotación + mancuerna', sets:'3×10 lado', detail:'Zancada hacia adelante con mancuerna de 5-8kg en el pecho. En el punto bajo, rota el torso hacia la rodilla delantera. Replica exactamente la separación cadera/hombro del downswing.' },
-          { name:'Banda: Chop diagonal (swing pattern)', sets:'3×12 lado', detail:'Banda anclada arriba a la izquierda. Tira en diagonal hacia abajo-derecha con los brazos rectos. Pies quietos. Replica el plano del swing con resistencia real. Máxima velocidad en la fase de bajada.' },
+          { name:'Banda: Chop diagonal (swing pattern)', video:'medicball', sets:'3×12 lado', detail:'Banda anclada arriba a la izquierda. Tira en diagonal hacia abajo-derecha con los brazos rectos. Pies quietos. Replica el plano del swing con resistencia real. Máxima velocidad en la fase de bajada.' },
           { name:'Remo con mancuerna', sets:'3×10 lado', detail:'Una mano en banco, mancuerna 8-12kg. Tira del codo hacia el techo. Los dorsales son el motor principal del downswing — un dorsal fuerte añade metros sin tocar el swing.' },
         ]
       },
@@ -2566,7 +2659,7 @@ const FIT_PROGRAMS = {
         id:'sp2', name:'Día B · Velocidad Pura', icon:'🚀', sub:'3-4 series · 25 min · Bandas + Peso corporal',
         color:'#e8a63a',
         exercises: [
-          { name:'Overspeed: swing con palo ligero', sets:'4×10', detail:'Usa un hierro 9 o un paraguas. Haz 10 swings seguidos al 100% de velocidad. Sin bola. El cerebro aprende patrones de velocidad 3x más rápido así. Descansa 90 seg entre series.' },
+          { name:'Overspeed: swing con palo ligero', video:'overspeed', sets:'4×10', detail:'Usa un hierro 9 o un paraguas. Haz 10 swings seguidos al 100% de velocidad. Sin bola. El cerebro aprende patrones de velocidad 3x más rápido así. Descansa 90 seg entre series.' },
           { name:'Banda: Rotación de cadera explosiva', sets:'4×15', detail:'Banda anclada a un poste a la altura de la cadera. De espaldas, gira la cadera derecha hacia el poste (carga) y luego explota a la izquierda (descarga). Solo cadera, torso relajado al principio.' },
           { name:'Romanian Deadlift (RDL) mancuernas', sets:'3×10', detail:'Mancuernas 10-15kg. Baja con la espalda recta y las caderas atrás hasta sentir tirón en isquiotibiales. Sube empujando el suelo. Los isquios fuertes estabilizan la postura de golf en 18 hoyos.' },
           { name:'Press unilateral con banda (anti-rotación)', sets:'3×12 lado', detail:'Banda en el pecho desde un lado. Empuja con una mano hacia adelante sin que el cuerpo gire. Activa el core antirotacional necesario para mantener la postura en el impacto.' },
@@ -2581,14 +2674,14 @@ const FIT_PROGRAMS = {
   rotation: {
     title: 'Rotación y Movilidad de Cadera',
     subtitle: 'Columna torácica · Cadera · X-Factor',
-    color: '#5bc483',
+    color: '#f5a054',
     tip: '💡 El X-Factor (separación cadera/hombros en el backswing) es el predictor número 1 de velocidad de swing en amateur. Cada 5° extra de separación = ~5 mph más de velocidad.',
     days: [
       {
         id:'rot1', name:'Día A · Columna Torácica', icon:'🔄', sub:'3 series · 20 min · Solo peso corporal',
-        color:'#5bc483',
+        color:'#f5a054',
         exercises: [
-          { name:'Rotación torácica en 4 apoyos', sets:'3×12 lado', detail:'A cuatro patas, mano detrás de la cabeza. Rota el codo hacia el techo lo máximo posible. Caderas QUIETAS. Esta es la articulación que genera el backswing real. 5 min diarios aquí = +10° de giro.' },
+          { name:'Rotación torácica en 4 apoyos', video:'rotacion', sets:'3×12 lado', detail:'A cuatro patas, mano detrás de la cabeza. Rota el codo hacia el techo lo máximo posible. Caderas QUIETAS. Esta es la articulación que genera el backswing real. 5 min diarios aquí = +10° de giro.' },
           { name:'Thoracic Rotation en postura golf', sets:'3×20', detail:'Adopta tu setup exacto de golf. Brazos cruzados. Gira SOLO la columna torácica: 10 veces a la derecha (backswing completo) y 10 a la izquierda (follow-through). Visualiza el swing.' },
           { name:'Windmill (stretch de cajero)', sets:'3×8 lado', detail:'De pie, pies separados al doble del ancho de hombros. Baja la mano derecha hacia el pie izquierdo girando el torso. La mano izquierda apunta al techo. Aguanta 2 seg en el punto máximo.' },
           { name:'X-Factor Drill con banda', sets:'3×15', detail:'Banda en la cadera, anclada a un poste. Gira las caderas hacia el poste (simulando backswing) pero mantén los hombros al frente 2 seg más. Esto es el X-Factor. Siente la tensión de separación.' },
@@ -2596,9 +2689,9 @@ const FIT_PROGRAMS = {
       },
       {
         id:'rot2', name:'Día B · Movilidad de Cadera', icon:'🦾', sub:'3 series · 20 min · Solo peso corporal',
-        color:'#5bc483',
+        color:'#f5a054',
         exercises: [
-          { name:'Hip 90/90 dinámico', sets:'3×10 lado', detail:'Sentado en el suelo, ambas rodillas a 90°. Rota lentamente de un lado al otro controlando la cadera. Trabaja rotación interna y externa. La cadera libre = 20m más de driver sin cambiar nada del swing.' },
+          { name:'Hip 90/90 dinámico', video:'hip90', sets:'3×10 lado', detail:'Sentado en el suelo, ambas rodillas a 90°. Rota lentamente de un lado al otro controlando la cadera. Trabaja rotación interna y externa. La cadera libre = 20m más de driver sin cambiar nada del swing.' },
           { name:'Slider Hip Rotation', sets:'3×15 lado', detail:'De pie, un pie en un trapo liso. Deja que la pierna gire hacia dentro (rotación interna) y hacia fuera sin mover la cadera. Replica la carga de cadera derecha en el backswing.' },
           { name:'Sentadilla búlgara con pausa', sets:'3×8 lado', detail:'Pie trasero en silla, pie delantero adelantado. Baja lentamente (3 seg), pausa en el fondo (2 seg), sube. Abre la cadera delantera. Esencial para el pivote de follow-through sin lesionarse la rodilla.' },
           { name:'Separación cadera/hombro (X-Factor pasivo)', sets:'3×10', detail:'Sujeta una mancuerna ligera (4-6kg) con brazos extendidos. Gira caderas a la derecha → mantén 2 seg → gira hombros. Luego al revés. Enseña al cuerpo el patrón de secuencia correcto.' },
@@ -2620,9 +2713,9 @@ const FIT_PROGRAMS = {
         id:'core1', name:'Día A · Antirotación', icon:'💪', sub:'3 series · 20 min · Banda + Mancuerna',
         color:'#e0623a',
         exercises: [
-          { name:'Pallof Press con banda', sets:'3×12 lado', detail:'Banda anclada al lateral. De pie en postura atlética. Empuja las manos al frente y aguanta 2 seg sin que el cuerpo gire. El core resiste la rotación. Esto es exactamente lo que hace en el impacto.' },
+          { name:'Pallof Press con banda', video:'pallof', sets:'3×12 lado', detail:'Banda anclada al lateral. De pie en postura atlética. Empuja las manos al frente y aguanta 2 seg sin que el cuerpo gire. El core resiste la rotación. Esto es exactamente lo que hace en el impacto.' },
           { name:'Farmer Carry unilateral', sets:'3×20 pasos', detail:'Mancuerna pesada (12-16kg) en una mano. Camina sin inclinarte. El core trabaja lateralmente contra la carga. Activa cuadrado lumbar y oblicuos que estabilizan la postura las 18 hoyos.' },
-          { name:'Dead Bug con mancuerna', sets:'3×10', detail:'Boca arriba, mancuerna ligera (4kg) en mano derecha extendida al techo. Baja brazo derecho + pierna izquierda simultáneamente sin que la lumbar se despegue del suelo. Pausa 1 seg abajo.' },
+          { name:'Dead Bug con mancuerna', video:'deadbug', sets:'3×10', detail:'Boca arriba, mancuerna ligera (4kg) en mano derecha extendida al techo. Baja brazo derecho + pierna izquierda simultáneamente sin que la lumbar se despegue del suelo. Pausa 1 seg abajo.' },
           { name:'Plancha lateral con cadera', sets:'3×12 lado', detail:'Plancha lateral. Baja la cadera al suelo y sube controlado. Activa oblicuos y cuadrado lumbar. Esenciales para mantener la inclinación lateral del torso constante durante el swing.' },
         ]
       },
@@ -2630,7 +2723,7 @@ const FIT_PROGRAMS = {
         id:'core2', name:'Día B · Potencia Rotacional', icon:'🌀', sub:'3 series · 20 min · Banda + Mancuerna',
         color:'#e0623a',
         exercises: [
-          { name:'Chop alto→bajo con banda', sets:'3×12 lado', detail:'Banda anclada arriba. Tira en diagonal de arriba-izquierda a abajo-derecha manteniendo brazos rectos. Pies quietos. Añade velocidad progresivamente cada serie. Es el swing con resistencia.' },
+          { name:'Chop alto→bajo con banda', video:'medicball', sets:'3×12 lado', detail:'Banda anclada arriba. Tira en diagonal de arriba-izquierda a abajo-derecha manteniendo brazos rectos. Pies quietos. Añade velocidad progresivamente cada serie. Es el swing con resistencia.' },
           { name:'Russian Twist con mancuerna', sets:'3×15', detail:'Sentado con torso a 45°. Mancuerna 6-8kg. Rota el peso de lado a lado de forma controlada. Mantén la columna recta. En la última serie, aumenta la velocidad (sin perder el control).' },
           { name:'Bird Dog con mancuerna', sets:'3×10', detail:'A cuatro patas, mancuerna ligera en una mano. Extiende brazo derecho + pierna izquierda al mismo tiempo. Aguanta 2 seg. La columna no se mueve ni un milímetro. Clave para la estabilidad lumbar bajo presión.' },
           { name:'Hip Hinge con mancuernas (RDL)', sets:'3×12', detail:'Dos mancuernas 10-14kg. Bisagra de cadera pura: empuja el culo hacia atrás con la espalda plana. Activa glúteos e isquios. El "motor" de la potencia del swing nace en la cadera, no en la espalda.' },
@@ -2702,7 +2795,7 @@ const FIT_PROGRAMS = {
 FIT_PROGRAMS.semana = {
   title: 'Tu Plan Semanal Personalizado',
   subtitle: '2-3 días · 20-30 min · Mancuernas + Bandas',
-  color: '#3d9c62',
+  color: '#e07830',
   tip: '💡 Plan adaptado a ti: priorizas velocidad → rotación → core → equilibrio con mancuernas y bandas. 2 días mínimo + pre-ronda. En 8 semanas notarás +8-12 yardas de driver.',
   days: [
     {
@@ -2727,7 +2820,7 @@ FIT_PROGRAMS.semana = {
     },
     {
       id:'wk3', name:'Día 3 · Fuerza de Base (opcional)', icon:'🏋️', sub:'Sábado · ~25 min · Si tienes tiempo',
-      color:'#5bc483',
+      color:'#f5a054',
       exercises: [
         { name:'Romanian Deadlift mancuernas', sets:'3×10', detail:'Mancuernas 12-16kg. Bisagra de cadera pura con espalda plana. Los dorsales e isquios fuertes son el motor oculto del driver. Este ejercicio los trabaja ambos.' },
         { name:'Remo unilateral con mancuerna', sets:'3×10 lado', detail:'Una mano en banco. Tira del codo hacia el techo con mancuerna 10-14kg. Los dorsales son el músculo más activo en el downswing. Fortalecerlos añade metros sin tocar el swing.' },
@@ -2796,7 +2889,7 @@ function renderFitDay(day) {
       <div style="padding:12px 16px">
         <button class="fit-complete-btn"
           onclick="completeFitDay('${day.id}', ${day.exercises.length}, '${day.color}')"
-          style="background:${day.color};${day.color === '#e8a63a' || day.color === '#5bc483' ? 'color:#0c1d12' : ''}">
+          style="background:${day.color};${day.color === '#e8a63a' || day.color === '#f5a054' ? 'color:#1a0f05' : ''}">
           ✓ Completar sesión
         </button>
       </div>
@@ -2831,6 +2924,10 @@ function renderFitExercise(ex, idx, dayId, color) {
                  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer">
           ${done ? '✓ Listo' : 'Marcar hecho'}
         </button>
+        ${ex.video ? `<button class="btn-video" onclick="openVideo('${ex.video}','${ex.name.replace(/'/g,"\\'")}')">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Ver técnica
+        </button>` : ''}
       </div>
     </div>
   </div>`;
@@ -3166,7 +3263,7 @@ function showRFEGResult(parsed) {
         '<span class="rfeg-result-label">Fecha del PDF</span>' +
         '<span class="rfeg-result-value">' + (parsed.fecha || '—') + '</span>' +
       '</div>' +
-      '<div class="rfeg-result-row" style="margin-top:6px;padding-top:8px;border-top:1px solid rgba(91,196,131,.2)">' +
+      '<div class="rfeg-result-row" style="margin-top:6px;padding-top:8px;border-top:1px solid rgba(245,160,84,.2)">' +
         '<span class="rfeg-result-label">Resultados analizados</span>' +
         '<span class="rfeg-result-value">' + (parsed.num_resultados || (parsed.torneos ? parsed.torneos.length : '—')) + '</span>' +
       '</div>' +
@@ -3178,7 +3275,7 @@ function showRFEGResult(parsed) {
         '<span class="rfeg-result-label">NUEVO HÁNDICAP</span>' +
         '<span class="rfeg-result-value big">' + parsed.nuevo_hcp.toFixed(1) + '</span>' +
       '</div>' +
-      (difHtml ? '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(91,196,131,.2)">' +
+      (difHtml ? '<div style="margin-top:8px;padding-top:8px;border-top:1px solid rgba(245,160,84,.2)">' +
         '<div class="rfeg-result-title" style="margin-bottom:6px">Mejores diferenciales usados</div>' +
         difHtml + '</div>' : '') +
       (torneosHtml ? '<button class="rfeg-rounds-toggle" onclick="toggleRFEGRounds(this)">Ver todos los torneos ▾</button>' +
@@ -3339,6 +3436,68 @@ function importBackup() {
 }
 
 
+
+// ════════════════════════════════════════════════════════
+// VIDEO MODAL
+// ════════════════════════════════════════════════════════
+
+// YouTube video IDs for each exercise category
+var EXERCISE_VIDEOS = {
+  // Swing mechanics & path
+  'motorcycle':    { id: 'KhMIFNLlB0A', title: 'Motorcycle Drill — Corrección de path' },
+  'canal':         { id: '6L7pKBPqSbw', title: 'Canal sticks — Inside-out path' },
+  'toalla':        { id: 'mTHkHCMGDC4', title: 'Toalla bajo axila — Conexión del swing' },
+  'outside-in':    { id: 'KhMIFNLlB0A', title: 'Corrección outside-in' },
+  'slice':         { id: 'KhMIFNLlB0A', title: 'Cómo eliminar el slice' },
+
+  // Short game
+  'chip':          { id: 'Cz6sQdpJFOI', title: 'Técnica de chip — Juego corto' },
+  'bunker':        { id: 'VIgNMDtJfPQ', title: 'Salida de bunker — Técnica completa' },
+  'putting':       { id: 'r9fGGOSrMDY', title: 'Técnica de putting — Fundamentos' },
+  'flop':          { id: 'b7GAtJwHoUs', title: 'Flop shot — Golpe de altura' },
+  'pitch':         { id: 'WGBdAFhVbX0', title: 'Pitch shot — Control de distancia' },
+  'wedge':         { id: 'WGBdAFhVbX0', title: 'Control de wedges — Distancias' },
+
+  // Fitness golf
+  'pallof':        { id: 'AH_QZLm_0-s', title: 'Pallof Press — Anti-rotación core' },
+  'deadbug':       { id: 'KHRrQMy_uZ4', title: 'Dead Bug — Estabilidad lumbar' },
+  'hip90':         { id: 'L6UvTb4LqiM', title: '90/90 Hip Stretch — Movilidad cadera' },
+  'medicball':     { id: 'Zk-wpFoQqvQ', title: 'Medicine Ball Rotations — Potencia rotacional' },
+  'overspeed':     { id: 'rQJBBMhfv5I', title: 'Overspeed Training — Velocidad de swing' },
+  'rotacion':      { id: 'Zk-wpFoQqvQ', title: 'Rotación torácica — Amplitud de swing' },
+  'equilibrio':    { id: 'YyvdBCLMgGY', title: 'Equilibrio — Estabilidad en el swing' },
+  'movilidad':     { id: 'L6UvTb4LqiM', title: 'Movilidad general para golf' },
+  'rdl':           { id: 'VsNzbRFrmpw', title: 'Single Leg RDL — Equilibrio y fuerza' },
+  'plank':         { id: 'ASdvN_XEl_c', title: 'Plank variaciones — Core golf' },
+
+  // Default
+  'default':       { id: 'WGBdAFhVbX0', title: 'Ejercicio de golf' }
+};
+
+function openVideo(exerciseKey, customTitle) {
+  var video = EXERCISE_VIDEOS[exerciseKey] || EXERCISE_VIDEOS['default'];
+  var title = customTitle || video.title;
+
+  document.getElementById('video-modal-title').textContent = '▶ ' + title;
+  document.getElementById('video-iframe').src =
+    'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if (navigator.vibrate) navigator.vibrate(10);
+}
+
+function closeVideo() {
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('video-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+// Close on background tap
+document.getElementById('video-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeVideo();
+});
+
 // ════════════════════════════════════════════════════════
 // PERFIL DEL JUGADOR
 // ════════════════════════════════════════════════════════
@@ -3365,6 +3524,68 @@ function openGoogleForm() {
 
 // ════════════════════════════════════════════════════════
 // HCP — 100% MANUAL
+
+// ════════════════════════════════════════════════════════
+// VIDEO MODAL
+// ════════════════════════════════════════════════════════
+
+// YouTube video IDs for each exercise category
+var EXERCISE_VIDEOS = {
+  // Swing mechanics & path
+  'motorcycle':    { id: 'KhMIFNLlB0A', title: 'Motorcycle Drill — Corrección de path' },
+  'canal':         { id: '6L7pKBPqSbw', title: 'Canal sticks — Inside-out path' },
+  'toalla':        { id: 'mTHkHCMGDC4', title: 'Toalla bajo axila — Conexión del swing' },
+  'outside-in':    { id: 'KhMIFNLlB0A', title: 'Corrección outside-in' },
+  'slice':         { id: 'KhMIFNLlB0A', title: 'Cómo eliminar el slice' },
+
+  // Short game
+  'chip':          { id: 'Cz6sQdpJFOI', title: 'Técnica de chip — Juego corto' },
+  'bunker':        { id: 'VIgNMDtJfPQ', title: 'Salida de bunker — Técnica completa' },
+  'putting':       { id: 'r9fGGOSrMDY', title: 'Técnica de putting — Fundamentos' },
+  'flop':          { id: 'b7GAtJwHoUs', title: 'Flop shot — Golpe de altura' },
+  'pitch':         { id: 'WGBdAFhVbX0', title: 'Pitch shot — Control de distancia' },
+  'wedge':         { id: 'WGBdAFhVbX0', title: 'Control de wedges — Distancias' },
+
+  // Fitness golf
+  'pallof':        { id: 'AH_QZLm_0-s', title: 'Pallof Press — Anti-rotación core' },
+  'deadbug':       { id: 'KHRrQMy_uZ4', title: 'Dead Bug — Estabilidad lumbar' },
+  'hip90':         { id: 'L6UvTb4LqiM', title: '90/90 Hip Stretch — Movilidad cadera' },
+  'medicball':     { id: 'Zk-wpFoQqvQ', title: 'Medicine Ball Rotations — Potencia rotacional' },
+  'overspeed':     { id: 'rQJBBMhfv5I', title: 'Overspeed Training — Velocidad de swing' },
+  'rotacion':      { id: 'Zk-wpFoQqvQ', title: 'Rotación torácica — Amplitud de swing' },
+  'equilibrio':    { id: 'YyvdBCLMgGY', title: 'Equilibrio — Estabilidad en el swing' },
+  'movilidad':     { id: 'L6UvTb4LqiM', title: 'Movilidad general para golf' },
+  'rdl':           { id: 'VsNzbRFrmpw', title: 'Single Leg RDL — Equilibrio y fuerza' },
+  'plank':         { id: 'ASdvN_XEl_c', title: 'Plank variaciones — Core golf' },
+
+  // Default
+  'default':       { id: 'WGBdAFhVbX0', title: 'Ejercicio de golf' }
+};
+
+function openVideo(exerciseKey, customTitle) {
+  var video = EXERCISE_VIDEOS[exerciseKey] || EXERCISE_VIDEOS['default'];
+  var title = customTitle || video.title;
+
+  document.getElementById('video-modal-title').textContent = '▶ ' + title;
+  document.getElementById('video-iframe').src =
+    'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&modestbranding=1';
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if (navigator.vibrate) navigator.vibrate(10);
+}
+
+function closeVideo() {
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('video-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+// Close on background tap
+document.getElementById('video-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeVideo();
+});
+
 // ════════════════════════════════════════════════════════
 // PERFIL DEL JUGADOR
 // ════════════════════════════════════════════════════════
