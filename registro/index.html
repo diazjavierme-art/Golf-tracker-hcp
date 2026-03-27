@@ -1009,15 +1009,46 @@ function submitForm() {
   document.getElementById('sending').classList.add('show');
   document.getElementById('nav-bar').style.display = 'none';
 
-  // Send as text/plain — avoids CORS preflight so Zapier receives full JSON
-  fetch(ZAPIER_WEBHOOK, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(data)
-  })
-  .then(function() { showSuccess(); })
-  .catch(function() { showSuccess(); });
+  // Send via hidden form POST — bypasses CORS completely
+  // Zapier receives each field individually and maps them correctly
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = ZAPIER_WEBHOOK;
+  form.target = 'hidden-iframe';
+  form.style.display = 'none';
+
+  // Add all data fields as hidden inputs
+  Object.keys(data).forEach(function(k) {
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = k;
+    input.value = data[k] || '';
+    form.appendChild(input);
+  });
+
+  // Also add a JSON field with everything
+  var jsonInput = document.createElement('input');
+  jsonInput.type = 'hidden';
+  jsonInput.name = 'data_json';
+  jsonInput.value = JSON.stringify(data);
+  form.appendChild(jsonInput);
+
+  // Create hidden iframe to receive response (avoids page redirect)
+  var iframe = document.getElementById('hidden-iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = 'hidden-iframe';
+    iframe.id = 'hidden-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // Show success after short delay
+  setTimeout(function() { showSuccess(); }, 1500);
 }
 
 function showSuccess() {
