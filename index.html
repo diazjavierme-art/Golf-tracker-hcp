@@ -3562,18 +3562,6 @@ var EXERCISE_VIDEOS = {
   'default':       { id: 'WGBdAFhVbX0', title: 'Ejercicio de golf' }
 };
 
-function openVideo(exerciseKey, customTitle) {
-  var video = EXERCISE_VIDEOS[exerciseKey] || EXERCISE_VIDEOS['default'];
-  var title = customTitle || video.title;
-
-  document.getElementById('video-modal-title').textContent = '▶ ' + title;
-  document.getElementById('video-iframe').src =
-    'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&modestbranding=1';
-  document.getElementById('video-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  if (navigator.vibrate) navigator.vibrate(10);
-}
 
 function closeVideo() {
   document.getElementById('video-modal').classList.remove('open');
