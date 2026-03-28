@@ -644,96 +644,7 @@
   .rfeg-rounds-table td { padding:5px 6px; border-bottom:1px solid var(--border); color:var(--text); white-space:nowrap; }
   .rfeg-rounds-table tr.best-round td { color:var(--greenl); }
   .btn-video svg { flex-shrink: 0; }
-  /* ═══════════════════════════════════════════════
-     ONBOARDING / REGISTRO COMPLETO
-  ═══════════════════════════════════════════════ */
-  .ob-overlay {
-    display:flex; position:fixed; inset:0; z-index:1000;
-    background:rgba(0,0,0,.97);
-    align-items:flex-end; justify-content:center;
-  }
-  .ob-overlay.hidden { display:none; }
-  .ob-sheet {
-    background:var(--bg); width:100%; max-width:440px;
-    border-radius:24px 24px 0 0;
-    max-height:94dvh; overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-    animation:slideUp .35s cubic-bezier(.22,1,.36,1);
-  }
-  @keyframes slideUp { from{transform:translateY(60px);opacity:0} to{transform:translateY(0);opacity:1} }
-  .ob-handle { width:36px;height:4px;background:var(--border);border-radius:2px;margin:14px auto 0; }
-  .ob-progress { display:flex;gap:4px;padding:12px 20px 0; }
-  .ob-dot { height:3px;flex:1;border-radius:2px;background:var(--surface2);transition:background .3s; }
-  .ob-dot.active { background:var(--green); }
-  .ob-dot.done   { background:var(--greenl); }
-  .ob-step { display:none;padding:20px 20px 36px; }
-  .ob-step.active { display:block; }
-  .ob-icon { font-size:42px;text-align:center;margin-bottom:10px; }
-  .ob-title { font-family:'DM Serif Display',serif;font-size:24px;text-align:center;margin-bottom:6px; }
-  .ob-sub { font-size:13px;color:var(--muted);text-align:center;line-height:1.65;margin-bottom:20px; }
-  .ob-label { font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.6px;
-    text-transform:uppercase;display:block;margin-bottom:7px;margin-top:16px; }
-  .ob-input {
-    width:100%;background:var(--surface);border:1.5px solid var(--border);
-    border-radius:12px;padding:13px 16px;color:var(--text);
-    font-family:'DM Sans',sans-serif;font-size:15px;outline:none;
-    transition:border-color .2s;-moz-appearance:textfield;appearance:textfield;
-  }
-  .ob-input:focus { border-color:var(--greenl); }
-  .ob-textarea {
-    width:100%;background:var(--surface);border:1.5px solid var(--border);
-    border-radius:12px;padding:13px 16px;color:var(--text);
-    font-family:'DM Sans',sans-serif;font-size:14px;outline:none;
-    resize:none;line-height:1.5;transition:border-color .2s;
-  }
-  .ob-textarea:focus { border-color:var(--greenl); }
-  .ob-chips { display:flex;flex-wrap:wrap;gap:8px;margin-top:8px; }
-  .ob-chip {
-    padding:9px 14px;border-radius:30px;
-    border:1.5px solid var(--border);background:var(--surface);
-    color:var(--muted);font-family:'DM Sans',sans-serif;
-    font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;
-    -webkit-tap-highlight-color:transparent;
-  }
-  .ob-chip.on { background:var(--green);border-color:var(--green);color:#fff; }
-  .ob-chip.on.gold { background:var(--gold);border-color:var(--gold);color:#1a0f05; }
-  .ob-chip.on.orange { background:var(--orange);border-color:var(--orange);color:#fff; }
-  .ob-btn {
-    width:100%;margin-top:24px;padding:16px;border:none;border-radius:var(--radius);
-    background:var(--green);color:#fff;
-    font-family:'DM Serif Display',serif;font-size:17px;
-    cursor:pointer;letter-spacing:.3px;transition:opacity .2s;
-  }
-  .ob-btn:disabled { opacity:.4;cursor:not-allowed; }
-  .ob-btn-skip {
-    width:100%;margin-top:8px;padding:11px;border:none;background:none;
-    color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;
-  }
-  /* Generating screen */
-  .ob-gen {
-    display:none;padding:40px 20px 60px;
-    text-align:center;flex-direction:column;align-items:center;
-  }
-  .ob-gen.active { display:flex; }
-  .ob-gen-spinner {
-    width:60px;height:60px;border:3px solid var(--surface2);
-    border-top-color:var(--greenl);border-radius:50%;
-    animation:spin .9s linear infinite;margin-bottom:20px;
-  }
-  @keyframes spin { to{transform:rotate(360deg)} }
-  .ob-gen-title { font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px; }
-  .ob-gen-status { font-size:13px;color:var(--muted);min-height:20px; }
-  .ob-gen-steps { margin-top:24px;display:flex;flex-direction:column;gap:8px;width:100%; }
-  .ob-gen-item {
-    display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);
-    padding:10px 14px;border-radius:10px;background:var(--surface);transition:all .3s;
-  }
-  .ob-gen-item.done { color:var(--greenl);background:rgba(245,160,84,.08); }
-  .ob-gen-item.active { color:var(--text);border:1px solid var(--border); }
-  .ob-gen-dot {
-    width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .3s;
-  }
-  .ob-gen-item.done .ob-gen-dot { background:var(--greenl); }
+  
   .ob-gen-item.active .ob-gen-dot { background:var(--green);animation:pulse 1s ease infinite; }
   @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.5)} }
 
@@ -845,202 +756,6 @@
 
 </style>
 </head>
-
-<!-- ══════════════════ ONBOARDING / REGISTRO ══════════════════ -->
-<div class="ob-overlay" id="ob-overlay">
-  <div class="ob-sheet">
-    <div class="ob-handle"></div>
-    <div class="ob-progress" id="ob-progress"></div>
-
-    <!-- PASO 0: Bienvenida + perfil básico -->
-    <div class="ob-step active" id="ob-step-0">
-      <div class="ob-icon">⛳</div>
-      <div class="ob-title">Bienvenido al campo</div>
-      <div class="ob-sub">Voy a prepararte un plan de golf, físico y dieta 100% personalizado. Tardas 5 minutos.</div>
-      <label class="ob-label">Tu nombre</label>
-      <input class="ob-input" id="ob-nombre" type="text" placeholder="Ej: Javier" autocomplete="off">
-      <label class="ob-label">Tu edad</label>
-      <input class="ob-input" id="ob-edad" type="number" placeholder="Ej: 35" min="10" max="90">
-      <label class="ob-label">Handicap actual (RFEG)</label>
-      <input class="ob-input" id="ob-hcp" type="number" placeholder="Ej: 18.4" step="0.1" min="0" max="54">
-      <label class="ob-label">Objetivo de handicap</label>
-      <input class="ob-input" id="ob-obj" type="number" placeholder="Ej: 12.0" step="0.1" min="0" max="54">
-      <button class="ob-btn" onclick="obNext(0)">Siguiente →</button>
-    </div>
-
-    <!-- PASO 1: Tu golf -->
-    <div class="ob-step" id="ob-step-1">
-      <div class="ob-icon">🏌️</div>
-      <div class="ob-title">Tu juego actual</div>
-      <div class="ob-sub">Sé honesto — cuanto más detalle, mejor el plan.</div>
-      <label class="ob-label">¿Dónde pierdes más golpes?</label>
-      <div class="ob-chips" id="ob-errores">
-        <div class="ob-chip" onclick="tog(this)">🍌 Slice con driver</div>
-        <div class="ob-chip" onclick="tog(this)">↙️ Hook / cierre</div>
-        <div class="ob-chip" onclick="tog(this)">💨 Poca distancia</div>
-        <div class="ob-chip" onclick="tog(this)">🏌️ Hierros inconsistentes</div>
-        <div class="ob-chip" onclick="tog(this)">⛳ Putting distancia</div>
-        <div class="ob-chip" onclick="tog(this)">🎳 Putting corto</div>
-        <div class="ob-chip" onclick="tog(this)">🌿 Chip / juego corto</div>
-        <div class="ob-chip" onclick="tog(this)">🏖️ Bunker</div>
-        <div class="ob-chip" onclick="tog(this)">😰 Nervios / presión</div>
-        <div class="ob-chip" onclick="tog(this)">🗺️ Gestión del campo</div>
-        <div class="ob-chip" onclick="tog(this)">📐 Compresión hierro</div>
-        <div class="ob-chip" onclick="tog(this)">🏹 Wedges / distancia</div>
-      </div>
-      <label class="ob-label">¿Juegas torneos?</label>
-      <div class="ob-chips" id="ob-torneos">
-        <div class="ob-chip" onclick="one('ob-torneos',this)">Sí, regularmente</div>
-        <div class="ob-chip" onclick="one('ob-torneos',this)">Alguno ocasional</div>
-        <div class="ob-chip" onclick="one('ob-torneos',this)">Solo partidas amistosas</div>
-      </div>
-      <label class="ob-label">¿Tienes entrenador?</label>
-      <div class="ob-chips" id="ob-coach">
-        <div class="ob-chip" onclick="one('ob-coach',this)">Sí, regularmente</div>
-        <div class="ob-chip" onclick="one('ob-coach',this)">Ocasionalmente</div>
-        <div class="ob-chip" onclick="one('ob-coach',this)">No, autoaprendizaje</div>
-      </div>
-      <button class="ob-btn-skip" onclick="obBack(1)" style="margin-top:4px">← Atrás</button>
-      <button class="ob-btn" onclick="obNext(1)">Siguiente →</button>
-    </div>
-
-    <!-- PASO 2: Disponibilidad -->
-    <div class="ob-step" id="ob-step-2">
-      <div class="ob-icon">📅</div>
-      <div class="ob-title">Tu tiempo disponible</div>
-      <div class="ob-sub">El plan se adapta a tu agenda real, no a la ideal.</div>
-      <label class="ob-label">Días de entrenamiento por semana</label>
-      <div class="ob-chips" id="ob-dias">
-        <div class="ob-chip" onclick="one('ob-dias',this)">2 días</div>
-        <div class="ob-chip" onclick="one('ob-dias',this)">3 días</div>
-        <div class="ob-chip" onclick="one('ob-dias',this)">4 días</div>
-        <div class="ob-chip" onclick="one('ob-dias',this)">5+ días</div>
-      </div>
-      <label class="ob-label">Duración media por sesión</label>
-      <div class="ob-chips" id="ob-duracion">
-        <div class="ob-chip" onclick="one('ob-duracion',this)">45 min</div>
-        <div class="ob-chip" onclick="one('ob-duracion',this)">1 hora</div>
-        <div class="ob-chip" onclick="one('ob-duracion',this)">1.5 horas</div>
-        <div class="ob-chip" onclick="one('ob-duracion',this)">2+ horas</div>
-      </div>
-      <label class="ob-label">Instalaciones disponibles</label>
-      <div class="ob-chips" id="ob-acceso">
-        <div class="ob-chip" onclick="tog(this)">🏌️ Campo de prácticas</div>
-        <div class="ob-chip" onclick="tog(this)">⛳ Campo completo</div>
-        <div class="ob-chip" onclick="tog(this)">🏋️ Gimnasio</div>
-        <div class="ob-chip" onclick="tog(this)">🏠 Entreno en casa</div>
-        <div class="ob-chip" onclick="tog(this)">🌿 Zona verde exterior</div>
-      </div>
-      <button class="ob-btn-skip" onclick="obBack(2)" style="margin-top:4px">← Atrás</button>
-      <button class="ob-btn" onclick="obNext(2)">Siguiente →</button>
-    </div>
-
-    <!-- PASO 3: Físico -->
-    <div class="ob-step" id="ob-step-3">
-      <div class="ob-icon">💪</div>
-      <div class="ob-title">Tu condición física</div>
-      <div class="ob-sub">Para diseñar el plan físico correcto sin lesionarte.</div>
-      <label class="ob-label">Nivel de forma física actual</label>
-      <div class="ob-chips" id="ob-forma">
-        <div class="ob-chip" onclick="one('ob-forma',this)">Sedentario</div>
-        <div class="ob-chip" onclick="one('ob-forma',this)">Activo ocasional</div>
-        <div class="ob-chip" onclick="one('ob-forma',this)">Activo regular</div>
-        <div class="ob-chip" onclick="one('ob-forma',this)">Deportista habitual</div>
-      </div>
-      <label class="ob-label">¿Tienes alguna lesión o limitación?</label>
-      <div class="ob-chips" id="ob-lesiones">
-        <div class="ob-chip" onclick="tog(this)">🦴 Espalda / lumbar</div>
-        <div class="ob-chip" onclick="tog(this)">💪 Codo / muñeca</div>
-        <div class="ob-chip" onclick="tog(this)">🦵 Rodilla</div>
-        <div class="ob-chip" onclick="tog(this)">🦷 Hombro</div>
-        <div class="ob-chip" onclick="tog(this)">✅ Sin lesiones</div>
-      </div>
-      <label class="ob-label">Objetivo físico para el golf</label>
-      <div class="ob-chips" id="ob-obj-fisico">
-        <div class="ob-chip" onclick="tog(this)">🚀 Más velocidad de swing</div>
-        <div class="ob-chip" onclick="tog(this)">🔄 Mejor rotación</div>
-        <div class="ob-chip" onclick="tog(this)">💪 Más fuerza core</div>
-        <div class="ob-chip" onclick="tog(this)">🧘 Movilidad y flexibilidad</div>
-        <div class="ob-chip" onclick="tog(this)">⚖️ Equilibrio y estabilidad</div>
-        <div class="ob-chip" onclick="tog(this)">🏃 Resistencia en campo</div>
-      </div>
-      <button class="ob-btn-skip" onclick="obBack(3)" style="margin-top:4px">← Atrás</button>
-      <button class="ob-btn" onclick="obNext(3)">Siguiente →</button>
-    </div>
-
-    <!-- PASO 4: Dieta -->
-    <div class="ob-step" id="ob-step-4">
-      <div class="ob-icon">🥗</div>
-      <div class="ob-title">Tu nutrición</div>
-      <div class="ob-sub">La dieta correcta marca la diferencia en el campo.</div>
-      <label class="ob-label">Peso aproximado (kg)</label>
-      <input class="ob-input" id="ob-peso" type="number" placeholder="Ej: 78" min="40" max="150">
-      <label class="ob-label">Objetivo de peso</label>
-      <div class="ob-chips" id="ob-peso-obj">
-        <div class="ob-chip" onclick="one('ob-peso-obj',this)">Perder peso</div>
-        <div class="ob-chip" onclick="one('ob-peso-obj',this)">Mantener peso</div>
-        <div class="ob-chip" onclick="one('ob-peso-obj',this)">Ganar masa muscular</div>
-      </div>
-      <label class="ob-label">Alimentos que no comes o alergias</label>
-      <div class="ob-chips" id="ob-alergias">
-        <div class="ob-chip" onclick="tog(this)">🚫 Gluten</div>
-        <div class="ob-chip" onclick="tog(this)">🥛 Lácteos</div>
-        <div class="ob-chip" onclick="tog(this)">🥩 Sin carne roja</div>
-        <div class="ob-chip" onclick="tog(this)">🐟 Sin pescado</div>
-        <div class="ob-chip" onclick="tog(this)">🫘 Sin legumbres</div>
-        <div class="ob-chip" onclick="tog(this)">🫀 Sin vísceras</div>
-        <div class="ob-chip" onclick="tog(this)">✅ Sin restricciones</div>
-      </div>
-      <label class="ob-label">¿Cuándo sueles jugar al golf?</label>
-      <div class="ob-chips" id="ob-horario">
-        <div class="ob-chip" onclick="one('ob-horario',this)">🌅 Mañanas</div>
-        <div class="ob-chip" onclick="one('ob-horario',this)">☀️ Mediodía</div>
-        <div class="ob-chip" onclick="one('ob-horario',this)">🌆 Tardes</div>
-      </div>
-      <button class="ob-btn-skip" onclick="obBack(4)" style="margin-top:4px">← Atrás</button>
-      <button class="ob-btn" onclick="obNext(4)">Siguiente →</button>
-    </div>
-
-    <!-- PASO 5: Mentalidad -->
-    <div class="ob-step" id="ob-step-5">
-      <div class="ob-icon">🧠</div>
-      <div class="ob-title">Tu mentalidad</div>
-      <div class="ob-sub">Último paso. Define cómo estructurar tu plan.</div>
-      <label class="ob-label">¿Cuál es tu prioridad ahora?</label>
-      <div class="ob-chips" id="ob-prioridad">
-        <div class="ob-chip" onclick="one('ob-prioridad',this)">🎯 Bajar HCP lo antes posible</div>
-        <div class="ob-chip" onclick="one('ob-prioridad',this)">🏗️ Mejorar técnica base</div>
-        <div class="ob-chip" onclick="one('ob-prioridad',this)">🎮 Disfrutar más cada ronda</div>
-        <div class="ob-chip" onclick="one('ob-prioridad',this)">🏆 Competir en torneos</div>
-      </div>
-      <label class="ob-label">¿Cómo prefieres entrenar?</label>
-      <div class="ob-chips" id="ob-estilo">
-        <div class="ob-chip" onclick="one('ob-estilo',this)">📋 Con estructura y métricas</div>
-        <div class="ob-chip" onclick="one('ob-estilo',this)">🎲 Variado y dinámico</div>
-        <div class="ob-chip" onclick="one('ob-estilo',this)">🔁 Repetición hasta dominar</div>
-      </div>
-      <label class="ob-label">Algo más que deba saber (opcional)</label>
-      <textarea class="ob-textarea" id="ob-extra" rows="3" placeholder="Campo donde juegas, lesiones antiguas, swing plano, etc..."></textarea>
-      <button class="ob-btn-skip" onclick="obBack(5)" style="margin-top:4px">← Atrás</button>
-      <button class="ob-btn" id="ob-btn-generar" onclick="generarTodo()">⚡ Generar mis planes personalizados</button>
-      <button class="ob-btn-skip" onclick="skipOb()">Saltar y usar planes genéricos</button>
-    </div>
-
-    <!-- GENERANDO -->
-    <div class="ob-gen" id="ob-gen">
-      <div class="ob-gen-spinner"></div>
-      <div class="ob-gen-title">Creando tus planes</div>
-      <div class="ob-gen-status" id="ob-gen-status">Analizando tu perfil...</div>
-      <div class="ob-gen-steps">
-        <div class="ob-gen-item active" id="gs-0"><div class="ob-gen-dot"></div>Analizando nivel y errores</div>
-        <div class="ob-gen-item" id="gs-1"><div class="ob-gen-dot"></div>Generando plan de golf</div>
-        <div class="ob-gen-item" id="gs-2"><div class="ob-gen-dot"></div>Creando plan físico</div>
-        <div class="ob-gen-item" id="gs-3"><div class="ob-gen-dot"></div>Diseñando plan de dieta</div>
-        <div class="ob-gen-item" id="gs-4"><div class="ob-gen-dot"></div>Calibrando Coach IA</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- SETTINGS SCREEN -->
 <div class="screen" id="screen-settings">
@@ -2660,8 +2375,6 @@ function loadRFEGState() {
   if (lastCheck) updateRFEGLastCheck(lastCheck);
 }
 
-
-
 // ════════════════════════════════════════════════════════
 // DIETA — Plan personalizado golf (Lunes-Viernes)
 // Perfil: Mantener peso · Sin restricciones · 20-30min cocina
@@ -3511,8 +3224,6 @@ function completeFitDay(dayId, totalEx, color) {
   renderHome();
 }
 
-
-
 // ════════════════════════════════════════════════════════
 // RFEG PDF PARSER — Lee el PDF de la RFEG y extrae el HCP
 // Estructura del PDF (7 páginas):
@@ -3914,9 +3625,6 @@ function importBackup() {
   }
 }
 
-
-
-
 // Close on background tap
 
 
@@ -3954,26 +3662,6 @@ function openGoogleForm() {
 // ════════════════════════════════════════════════════════
 // PERFIL DEL JUGADOR
 // ════════════════════════════════════════════════════════
-function loadProfile() {
-  try { return JSON.parse(localStorage.getItem('golf_profile') || 'null'); } catch(e) { return null; }
-}
-
-function saveProfile(p) {
-  localStorage.setItem('golf_profile', JSON.stringify(p));
-}
-
-function applyProfile(p) {
-  if (!p) return;
-  var badge = document.getElementById('home-badge');
-  if (badge && p.nombre) badge.textContent = p.nombre.split(' ')[0] + ' · Golf';
-  var rfegEl = document.getElementById('rfeg-licencia-display');
-  if (rfegEl && p.rfeg) rfegEl.textContent = p.rfeg;
-}
-
-function openGoogleForm() {
-  var url = localStorage.getItem('google_form_url') || 'https://docs.google.com/forms';
-  window.open(url, '_blank');
-}
 
 // ════════════════════════════════════════════════════════
 // HCP — 100% MANUAL
@@ -4051,7 +3739,7 @@ async function callClaude(system, messages, maxTokens) {
   if (!APP_CONFIG.apiKey) throw new Error('NO_KEY');
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','x-api-key':APP_CONFIG.apiKey,'anthropic-version':'2023-06-01'},
     body: JSON.stringify({
       model:'claude-sonnet-4-20250514',
       max_tokens: maxTokens || 1000,
@@ -4070,245 +3758,12 @@ async function callClaude(system, messages, maxTokens) {
 let obStep = 0;
 const OB_STEPS = 6;
 
-function initOBProgress() {
-  const bar = document.getElementById('ob-progress');
-  if (!bar) return;
-  bar.innerHTML = Array.from({length: OB_STEPS}, (_, i) =>
-    `<div class="ob-dot ${i===0?'active':'rest'}" id="ob-dot-${i}"></div>`
-  ).join('');
-}
-
-function updateOBProgress(step) {
-  for (let i = 0; i < OB_STEPS; i++) {
-    const d = document.getElementById('ob-dot-' + i);
-    if (!d) continue;
-    d.className = 'ob-dot ' + (i < step ? 'done' : i === step ? 'active' : 'rest');
-  }
-}
-
-function tog(el) { el.classList.toggle('on'); }
-function one(groupId, el) {
-  document.querySelectorAll('#' + groupId + ' .ob-chip').forEach(c => c.classList.remove('on'));
-  el.classList.add('on');
-}
 function getChips(groupId) {
   return [...document.querySelectorAll('#' + groupId + ' .ob-chip.on')].map(c => c.textContent.trim());
 }
 function getOne(groupId) { return getChips(groupId)[0] || ''; }
 
-
-function obBack(step) {
-  document.getElementById('ob-step-' + step).classList.remove('active');
-  var prev = step - 1;
-  document.getElementById('ob-step-' + prev).classList.add('active');
-  obStep = prev;
-  updateOBProgress(prev);
-  document.querySelector('.ob-sheet').scrollTo({top:0, behavior:'smooth'});
-}
-
-function obNext(step) {
-  if (step === 0) {
-    if (!document.getElementById('ob-nombre').value.trim()) { showToast('⚠️ Introduce tu nombre'); return; }
-    if (!document.getElementById('ob-hcp').value) { showToast('⚠️ Introduce tu handicap'); return; }
-  }
-  if (step === 2) {
-    if (!getOne('ob-dias')) { showToast('⚠️ Selecciona los días disponibles'); return; }
-  }
-  document.getElementById('ob-step-' + step).classList.remove('active');
-  obStep = step + 1;
-  document.getElementById('ob-step-' + obStep).classList.add('active');
-  updateOBProgress(obStep);
-  document.querySelector('.ob-sheet').scrollTo({top:0, behavior:'smooth'});
-}
-
-async function generarTodo() {
-  // Gather all data
-  const perfil = {
-    nombre:    document.getElementById('ob-nombre').value.trim(),
-    edad:      document.getElementById('ob-edad').value || '—',
-    hcp:       parseFloat(document.getElementById('ob-hcp').value),
-    objetivo:  parseFloat(document.getElementById('ob-obj').value) || null,
-    errores:   getChips('ob-errores'),
-    torneos:   getOne('ob-torneos'),
-    coach:     getOne('ob-coach'),
-    dias:      getOne('ob-dias'),
-    duracion:  getOne('ob-duracion'),
-    acceso:    getChips('ob-acceso'),
-    forma:     getOne('ob-forma'),
-    lesiones:  getChips('ob-lesiones'),
-    objFisico: getChips('ob-obj-fisico'),
-    peso:      document.getElementById('ob-peso').value || '—',
-    pesoObj:   getOne('ob-peso-obj'),
-    alergias:  getChips('ob-alergias'),
-    horario:   getOne('ob-horario'),
-    prioridad: getOne('ob-prioridad'),
-    estilo:    getOne('ob-estilo'),
-    extra:     document.getElementById('ob-extra').value.trim(),
-  };
-
-  // Save profile
-  localStorage.setItem('golf_profile', JSON.stringify({ nombre: perfil.nombre, hcp: perfil.hcp.toString(), rfeg: '' }));
-  localStorage.setItem('hcp_manual', perfil.hcp.toString());
-  localStorage.setItem('hcp_history', JSON.stringify([{ hcp: perfil.hcp, date: new Date().toISOString(), note: 'Inicio' }]));
-  if (perfil.objetivo && perfil.objetivo < perfil.hcp) localStorage.setItem('hcp_objetivo', perfil.objetivo.toString());
-  localStorage.setItem('golf_perfil_completo', JSON.stringify(perfil));
-
-  // Show generating screen
-  document.getElementById('ob-step-5').classList.remove('active');
-  document.getElementById('ob-gen').classList.add('active');
-
-  const genItems = ['gs-0','gs-1','gs-2','gs-3','gs-4'];
-  let gi = 0;
-  function advanceGen() {
-    if (gi > 0 && gi <= genItems.length) document.getElementById(genItems[gi-1]).className = 'ob-gen-item done';
-    if (gi < genItems.length) { document.getElementById(genItems[gi]).className = 'ob-gen-item active'; gi++; }
-  }
-  advanceGen();
-  const genTimer = setInterval(advanceGen, 3000);
-
-  const perfilStr = `
-Nombre: ${perfil.nombre}, Edad: ${perfil.edad}
-HCP actual: ${perfil.hcp}, Objetivo HCP: ${perfil.objetivo || 'no indicado'}
-Errores principales: ${perfil.errores.join(', ') || 'no indicado'}
-Torneos: ${perfil.torneos}, Entrenador: ${perfil.coach}
-Días entreno/sem: ${perfil.dias}, Duración sesión: ${perfil.duracion}
-Instalaciones: ${perfil.acceso.join(', ')}
-Forma física: ${perfil.forma}, Lesiones: ${perfil.lesiones.join(', ')}
-Objetivos físicos: ${perfil.objFisico.join(', ')}
-Peso: ${perfil.peso}kg, Objetivo peso: ${perfil.pesoObj}
-Restricciones dieta: ${perfil.alergias.join(', ')}
-Horario golf: ${perfil.horario}
-Prioridad: ${perfil.prioridad}, Estilo: ${perfil.estilo}
-Notas: ${perfil.extra || 'ninguna'}`;
-
-  try {
-    // Generate golf plan
-    document.getElementById('ob-gen-status').textContent = 'Generando plan de golf...';
-    const golfPrompt = `Eres un entrenador de golf experto. Genera un plan de entrenamiento personalizado en JSON para este jugador:
-${perfilStr}
-
-Genera exactamente ${perfil.dias.startsWith('2')?2:perfil.dias.startsWith('3')?3:4} días de entrenamiento.
-
-Respende SOLO con JSON (sin backticks):
-{"days":{"1":{"title":"Día 1 · [tema]","subtitle":"[duracion] · [desc]","color":"#e07830","blocks":[{"id":"d1b1","name":"[nombre]","emoji":"[emoji]","time":"[tiempo]","objetivo":"[objetivo max 80 chars]","exercises":[{"id":"d1e1","name":"[nombre]","meta":"[metrica]","target":[numero],"desc":"[instruccion 1-2 frases]"}]}]},"2":{...},"3":{...}}}
-
-Reglas: IDs únicos (d1b1,d1e1...), 2-3 bloques/día, 3-4 ejercicios/bloque, target 3-30, colores día1=#e07830 día2=#e8a63a día3=#e0623a día4=#f5a054, español, nivel HCP ${perfil.hcp}`;
-
-    const golfRaw = await callClaude('', [{role:'user', content:golfPrompt}], 4000);
-    const golfJson = JSON.parse(golfRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
-
-    // Apply golf plan
-    if (golfJson.days) {
-      const newDays = {};
-      Object.keys(golfJson.days).forEach(k => { newDays[parseInt(k)] = golfJson.days[k]; });
-      Object.keys(DAYS).forEach(k => delete DAYS[k]);
-      Object.assign(DAYS, newDays);
-      localStorage.setItem('golf_custom_plan', JSON.stringify(newDays));
-    }
-
-    // Generate fitness plan
-    document.getElementById('ob-gen-status').textContent = 'Generando plan físico...';
-    const fitPrompt = `Eres un preparador físico experto en golf. Genera un plan físico semanal en JSON para:
-${perfilStr}
-
-Responde SOLO con JSON (sin backticks):
-{"semana":[{"dia":"Lunes","nombre":"[nombre sesion]","duracion":"[X min]","objetivo":"[objetivo]","ejercicios":[{"nombre":"[ej]","series":"[X series x Y reps]","descanso":"[X seg]","notas":"[cómo hacerlo]"}]},...],"frecuencia":"[X días/semana]","nota_general":"[consejo importante]"}
-
-Adapta a: lesiones=${perfil.lesiones.join(',')}, objetivo=${perfil.objFisico.join(',')}, forma=${perfil.forma}, instalaciones=${perfil.acceso.join(',')}`;
-
-    const fitRaw = await callClaude('', [{role:'user', content:fitPrompt}], 3000);
-    const fitJson = JSON.parse(fitRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
-    localStorage.setItem('golf_custom_fit', JSON.stringify(fitJson));
-
-    // Generate diet plan
-    document.getElementById('ob-gen-status').textContent = 'Generando plan de dieta...';
-    const dietPrompt = `Eres un nutricionista deportivo experto en golf. Genera un plan de dieta semanal personalizado en JSON para:
-${perfilStr}
-
-Responde SOLO con JSON (sin backticks):
-{"kcal_objetivo":[numero],"distribucion":{"proteinas":"[X]%","carbos":"[X]%","grasas":"[X]%"},"dias":[{"dia":"Lunes","tipo":"[Entreno/Descanso/Campo]","comidas":[{"nombre":"[Desayuno|Almuerzo|Comida|Merienda|Cena]","plato":"[nombre plato]","ingredientes":"[lista]","kcal":[numero],"proteinas_g":[numero],"nota_golf":"[consejo especifico golf opcional]"}]}],"lista_compra":["[item]"],"consejos_campo":["[consejo]"]}
-
-Restricciones a respetar: ${perfil.alergias.join(', ')}. Horario golf: ${perfil.horario}. Objetivo peso: ${perfil.pesoObj}.`;
-
-    const dietRaw = await callClaude('', [{role:'user', content:dietPrompt}], 4000);
-    const dietJson = JSON.parse(dietRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
-    localStorage.setItem('golf_custom_diet', JSON.stringify(dietJson));
-
-    clearInterval(genTimer);
-    genItems.forEach(id => { document.getElementById(id).className = 'ob-gen-item done'; });
-    document.getElementById('ob-gen-status').textContent = '¡Planes listos! 🎉';
-    localStorage.setItem('onboarding_done', '1');
-
-    setTimeout(() => {
-      document.getElementById('ob-overlay').classList.add('hidden');
-      applyProfile(JSON.parse(localStorage.getItem('golf_profile')));
-      renderHome();
-      renderHCPCard();
-      switchDay(1);
-      showToast('¡Bienvenido ' + perfil.nombre.split(' ')[0] + '! Planes personalizados listos 🏌️');
-    }, 1200);
-
-  } catch(err) {
-    clearInterval(genTimer);
-    console.error(err);
-    if (err.message === 'NO_KEY') {
-      document.getElementById('ob-gen').classList.remove('active');
-      document.getElementById('ob-gen-status').textContent = '';
-      // Skip AI generation, save profile and continue with generic plans
-      localStorage.setItem('onboarding_done', '1');
-      setTimeout(function() {
-        document.getElementById('ob-overlay').classList.add('hidden');
-        renderHome();
-        renderHCPCard();
-        switchDay(1);
-        showToast('Perfil guardado · Configura tu API key en Ajustes para planes IA');
-      }, 500);
-    } else {
-      document.getElementById('ob-gen-status').textContent = 'Error. Usando planes base.';
-      setTimeout(() => {
-        localStorage.setItem('onboarding_done', '1');
-        document.getElementById('ob-overlay').classList.add('hidden');
-        renderHome();
-        showToast('Perfil guardado · Planes base activos');
-      }, 1500);
-    }
-  }
-}
-
-function skipOb() {
-  const nombre = document.getElementById('ob-nombre').value.trim();
-  const hcp = parseFloat(document.getElementById('ob-hcp').value);
-  if (nombre) {
-    localStorage.setItem('golf_profile', JSON.stringify({ nombre, hcp: hcp||0, rfeg:'' }));
-    if (!isNaN(hcp)) {
-      localStorage.setItem('hcp_manual', hcp.toString());
-      localStorage.setItem('hcp_history', JSON.stringify([{hcp, date:new Date().toISOString(), note:'Inicio'}]));
-    }
-  }
-  localStorage.setItem('onboarding_done', '1');
-  document.getElementById('ob-overlay').classList.add('hidden');
-  renderHome();
-  renderHCPCard();
-}
-
-function checkOnboarding() {
-  const done    = localStorage.getItem('onboarding_done');
-  const profile = loadProfile();
-  const hcp     = localStorage.getItem('hcp_manual');
-  const overlay = document.getElementById('ob-overlay');
-  if (!overlay) return;
-
-  if (!done || !profile?.nombre || !hcp) {
-    // Show registration
-    localStorage.removeItem('onboarding_done');
-    initOBProgress();
-    overlay.classList.remove('hidden');
-  } else {
-    // All good — hide overlay
-    overlay.classList.add('hidden');
-  }
-}
-
+async 
 
 function editObjetivo() {
   const current = getHCPObjective ? getHCPObjective() : null;
@@ -4332,13 +3787,7 @@ function editObjetivo() {
 
 function reGeneratePlan() {
   localStorage.removeItem('onboarding_done');
-  obStep = 0;
-  document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
-  document.getElementById('ob-step-0').classList.add('active');
-  document.getElementById('ob-gen').classList.remove('active');
-  document.querySelectorAll('.ob-chip').forEach(c => c.classList.remove('on'));
-  initOBProgress();
-  document.getElementById('ob-overlay').classList.remove('hidden');
+  window.location.href = 'registro.html';
 }
 
 function loadCustomPlan() {
@@ -4693,8 +4142,14 @@ function resetTodo() {
 // INIT
 // ════════════════════════════════════════════════════════
 function initApp() {
-  // Check onboarding FIRST before anything else loads
-  checkOnboarding();
+  // Redirect to registro if no profile
+  var done    = localStorage.getItem('onboarding_done');
+  var profile = JSON.parse(localStorage.getItem('golf_profile') || 'null');
+  var hcp     = localStorage.getItem('hcp_manual');
+  if (!done || !profile || !profile.nombre || !hcp) {
+    window.location.href = 'registro.html';
+    return;
+  }
   loadCustomPlan();
   loadData();
   loadRFEGState();
