@@ -330,21 +330,12 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </div>
 
 <!-- ══════ STATS ══════ -->
-<div class="screen" id="screen-stats">
-  <div class="header">
-    <div class="header-top">
-      <div><h1>Estadísticas</h1><p>Tu progreso completo</p></div>
-    </div>
-  </div>
-  <div class="wrap" id="stats-container"></div>
-</div>
-
 <!-- ══════ DIETA ══════ -->
 <div class="screen" id="screen-diet">
   <div class="header">
     <div class="header-top">
-      <div><h1>Plan de Dieta</h1><p>Personalizado · ~1.800 kcal · Perder peso</p></div>
-      <span class="badge" style="background:var(--gold);color:#0f1a0f">~1.800 kcal</span>
+      <div><h1>Plan de Dieta</h1><p>Ayuno 22:30-12:30 · ~2.100 kcal · Perder peso + tonificar</p></div>
+      <span class="badge" style="background:var(--gold);color:#0f1a0f">~2.100 kcal</span>
     </div>
     <div class="tabs" style="margin-bottom:0">
       <button class="tab active" onclick="switchDietTab('semana',this)">📅 Semana</button>
@@ -424,10 +415,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     <span>Entreno</span>
   </button>
-  <button class="nav-btn" id="nav-stats" onclick="navigate('stats')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    <span>Stats</span>
-  </button>
+
   <button class="nav-btn" id="nav-diet" onclick="navigate('diet')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
     <span>Dieta</span>
@@ -600,7 +588,7 @@ const FIT_PLAN = [
 
 // ══════════════════════════════════════════════════════════
 // PLAN DE DIETA — Javier · 73kg · Perder peso · Mediodía
-// ~1.800 kcal/día · Sin restricciones
+// ~2.100 kcal/día · Ayuno IF 22:30-12:30
 // ══════════════════════════════════════════════════════════
 const DIETA = {
   semana: [
@@ -815,7 +803,6 @@ function navigate(s) {
   document.getElementById('nav-'+s).classList.add('active');
   if (s==='home')    renderHome();
   if (s==='train')   renderTrain();
-  if (s==='stats')   renderStats();
   if (s==='diet')    { currentDietTab='semana'; renderDiet('semana'); }
   if (s==='fit')     renderFit();
   if (s==='report')  renderReport();
@@ -1210,7 +1197,7 @@ function renderDiet(tab) {
   if (tab === 'compra') {
     c.innerHTML =
       '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:4px">'+
-        '<div style="font-size:13px;color:var(--muted);line-height:1.6">Lista de la compra para <strong style="color:var(--text)">una semana completa</strong> · ~1.800 kcal/día · 73kg · perder peso</div>'+
+        '<div style="font-size:13px;color:var(--muted);line-height:1.6">Lista de la compra para <strong style="color:var(--text)">una semana completa</strong> · ~2.100 kcal/día · Ayuno 22:30-12:30 · 73kg</div>'+
         '<button onclick="copiarListaCompra()" style="margin-top:10px;width:100%;padding:11px;border:none;border-radius:8px;background:var(--green);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">📋 Copiar lista de la compra</button>'+
       '</div>'+
       DIETA.compra.map(function(cat,ci){
@@ -1506,7 +1493,7 @@ function renderReport() {
         [
           {icon:'⛳', label:'Golf', val:'2 días/sem · 1h · Putting, juego corto, hierros'},
           {icon:'💪', label:'Físico', val:'2 días/sem · Espalda y hombro adaptados'},
-          {icon:'🥗', label:'Dieta', val:'~1.800 kcal · Perder peso · Sin restricciones'},
+          {icon:'🥗', label:'Dieta', val:'~2.100 kcal · Ayuno IF 22:30-12:30 · Perder + tonificar'},
           {icon:'🎯', label:'Objetivo', val:'Bajar de HCP 12 a HCP '+obj.toFixed(1)}
         ].map(function(row){
           return '<div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);border-radius:10px;padding:11px 14px">'+
@@ -1527,6 +1514,54 @@ function renderReport() {
       '<textarea id="report-notes" rows="4" placeholder="Ej: Esta semana mejoré el putting de distancia, pero sigo fallando chips de rough..." style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;resize:none;outline:none;line-height:1.5;transition:border-color .2s" onfocus="this.style.borderColor=\'var(--greenl)\'" onblur="this.style.borderColor=\'var(--border)\'">'+( localStorage.getItem('report_notes')||'')+'</textarea>'+
       '<button onclick="localStorage.setItem(\'report_notes\',document.getElementById(\'report-notes\').value);showToast(\'✅ Notas guardadas\')" style="margin-top:8px;padding:10px 16px;border:none;border-radius:8px;background:var(--surface2);color:var(--greenl);font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border)">Guardar notas</button>'+
     '</div>'+
+
+    // ESTADÍSTICAS DE SESIONES
+    (total>0?
+    '<div class="report-section" style="margin-bottom:14px">'+
+      '<h3>Estadísticas de entrenamiento</h3>'+
+      '<div style="display:flex;gap:10px;margin-bottom:12px">'+
+        '<div style="flex:1;background:var(--surface2);border-radius:10px;padding:12px;text-align:center">'+
+          '<div style="font-family:serif;font-size:26px">'+total+'</div>'+
+          '<div style="font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.4px;text-transform:uppercase">Sesiones</div>'+
+        '</div>'+
+        '<div style="flex:1;background:var(--surface2);border-radius:10px;padding:12px;text-align:center">'+
+          '<div style="font-family:serif;font-size:26px">'+avg+'%</div>'+
+          '<div style="font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.4px;text-transform:uppercase">Media</div>'+
+        '</div>'+
+        '<div style="flex:1;background:var(--surface2);border-radius:10px;padding:12px;text-align:center">'+
+          '<div style="font-family:serif;font-size:26px;color:'+(sessions.length>1&&sessions[sessions.length-1].score>=sessions[sessions.length-2].score?'var(--greenl)':'var(--orange)')+'">'+
+            (sessions.length>1?(sessions[sessions.length-1].score>=sessions[sessions.length-2].score?'↑':'↓'):'—')+
+          '</div>'+
+          '<div style="font-size:10px;color:var(--muted);margin-top:2px;letter-spacing:.4px;text-transform:uppercase">Tendencia</div>'+
+        '</div>'+
+      '</div>'+
+      [1,2,3].map(function(d){
+        var scores=sessions.filter(function(s){return s.day===d;}).map(function(s){return s.score;});
+        if(!scores.length) return '';
+        var a=Math.round(scores.reduce(function(a,b){return a+b;},0)/scores.length);
+        var col=a>=75?'var(--greenl)':a>=50?'var(--gold)':'var(--orange)';
+        return '<div style="padding:10px 0;border-bottom:1px solid var(--border)">'+
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">'+
+            '<span style="font-size:12px;font-weight:600">'+DAYS[d].title.split('·').slice(1).join('·').trim()+'</span>'+
+            '<span style="font-size:14px;font-weight:700;color:'+col+'">'+a+'%</span>'+
+          '</div>'+
+          '<div style="height:4px;background:var(--surface2);border-radius:2px;overflow:hidden">'+
+            '<div style="height:100%;width:'+a+'%;background:'+col+';border-radius:2px"></div>'+
+          '</div>'+
+        '</div>';
+      }).join('')+
+      '<div style="margin-top:12px">'+
+        sessions.slice().reverse().slice(0,8).map(function(s){
+          var d=new Date(s.date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'});
+          var col=s.score>=75?'var(--greenl)':s.score>=50?'var(--gold)':'var(--orange)';
+          return '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">'+
+            '<div style="font-size:11px;color:var(--muted);min-width:36px">'+d+'</div>'+
+            '<div style="font-size:12px;flex:1">'+DAYS[s.day].title.split('·').slice(1).join('·').trim()+'</div>'+
+            '<div style="font-size:13px;font-weight:700;color:'+col+'">'+s.score+'%</div>'+
+          '</div>';
+        }).join('')+
+      '</div>'+
+    '</div>' : '')+
 
     // BOTONES COMPARTIR
     '<button class="report-btn" onclick="compartirInforme()">'+
