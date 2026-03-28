@@ -1189,7 +1189,6 @@
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
 </div>
 
 <!-- SETTINGS SCREEN -->
@@ -2711,7 +2710,7 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  const t = document.getElementById('reg-toast') || document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
@@ -4669,7 +4668,11 @@ function next(step) {
     if (!v('f-hcp'))    { toast('⚠️ Introduce tu handicap'); return; }
   }
   if (step === 2) {
-    if (!getOne('c-dias')) { toast('⚠️ Selecciona los días disponibles'); return; }
+    // Auto-select first option if none chosen
+    if (!getOne('c-dias')) {
+      var first = document.querySelector('#c-dias .chip');
+      if (first) first.classList.add('on');
+    }
   }
   show(step, step + 1);
 }
@@ -4698,11 +4701,7 @@ function one(groupId, el) {
 // ─── HELPERS ──────────────────────────────────────────
 function v(id) { return document.getElementById(id)?.value.trim(); }
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
+function toast(msg) { showToast(msg); }
 
 // ─── COLLECT DATA ─────────────────────────────────────
 function collectData() {
