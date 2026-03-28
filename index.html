@@ -376,6 +376,44 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="wrap" id="report-container"></div>
 </div>
 
+
+<!-- ══════ AJUSTES ══════ -->
+<div class="screen" id="screen-ajustes">
+  <div class="header">
+    <div class="header-top">
+      <div><h1>⚙️ Ajustes</h1><p>Configuración de la app</p></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card" style="padding:16px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Objetivo HCP</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="number" id="obj-input-ajustes" step="0.1" min="0" max="54" placeholder="Ej: 8.0" class="field-input" style="margin-top:0">
+        <button onclick="guardarObjetivoAjustes()" style="padding:12px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">Guardar</button>
+      </div>
+    </div>
+    <div class="card" style="overflow:hidden">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+        <div style="font-size:14px;font-weight:700">🔄 Resetear plan de entrenamiento</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra todas las sesiones guardadas y reinicia los contadores. El HCP y el objetivo se mantienen.</div>
+      </div>
+      <div style="padding:14px 16px">
+        <button onclick="resetearPlan()" style="width:100%;padding:13px;border:1.5px solid var(--orange);border-radius:10px;background:rgba(224,98,58,.08);color:var(--orange);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Resetear sesiones</button>
+      </div>
+    </div>
+    <div class="card" style="overflow:hidden">
+      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+        <div style="font-size:14px;font-weight:700">🗑️ Borrar todos los datos</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra absolutamente todo — sesiones, HCP, historial, notas. No se puede deshacer.</div>
+      </div>
+      <div style="padding:14px 16px">
+        <button onclick="borrarTodo()" style="width:100%;padding:13px;border:1.5px solid var(--red);border-radius:10px;background:rgba(217,64,64,.08);color:var(--red);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Borrar todo</button>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--muted);padding:8px 0">Golf · Javier · App personal</div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
   <button class="nav-btn active" id="nav-home" onclick="navigate('home')">
@@ -401,6 +439,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <button class="nav-btn" id="nav-report" onclick="navigate('report')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
     <span>Informe</span>
+  </button>
+  <button class="nav-btn" id="nav-ajustes" onclick="navigate('ajustes')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span>Ajustes</span>
   </button>
 </nav>
 
@@ -563,142 +605,185 @@ const FIT_PLAN = [
 const DIETA = {
   semana: [
     {
-      dia: "Lunes", tipo: "Entreno golf", kcal: 1820,
+      dia: "Lunes · Entreno golf", tipo: "Ayuno hasta 12:30 · ~2.100 kcal", kcal: 2100,
       comidas: [
-        { tipo: "Desayuno", nombre: "Tortilla + tostada integral", desc: "2 huevos revueltos, 1 tostada de pan integral con aguacate. Café solo.", kcal: 380, p: 22, c: 28, g: 16,
+        { tipo: "12:30 · Primera comida", nombre: "Rotura de ayuno — Proteína + carbos", desc: "3 huevos revueltos, 80g arroz integral cocido, 1 aguacate mediano (100g), café solo sin azúcar.", kcal: 620, p: 38, c: 52, g: 24,
+          tip: "La primera comida tras el ayuno debe ser proteína + carbos. Activa el metabolismo y repone glucógeno para el golf de mediodía." },
+        { tipo: "15:00 · Pre-golf", nombre: "Plátano + 20g almendras", desc: "1 plátano maduro + 20g almendras crudas. Energía lenta para el campo.", kcal: 220, p: 5, c: 32, g: 10,
+          tip: "Cómelo 60 min antes de salir. El plátano sube la glucosa justo cuando empieza la ronda." },
+        { tipo: "18:00 · Comida principal", nombre: "Pollo + patata + ensalada", desc: "180g pechuga de pollo a la plancha, 200g patata cocida con piel, ensalada grande con AOVE y limón.", kcal: 580, p: 50, c: 48, g: 14,
           tip: null },
-        { tipo: "Almuerzo pre-campo", nombre: "Plátano + puñado de frutos secos", desc: "1 plátano maduro + 20g almendras. Energía sostenida para el entreno de mediodía.", kcal: 220, p: 5, c: 30, g: 10,
-          tip: "Come esto 45-60 min antes de entrenar. Evita el bajón de glucosa en la 2ª hora." },
-        { tipo: "Comida", nombre: "Pechuga de pollo + arroz + ensalada", desc: "150g pechuga a la plancha, 80g arroz integral cocido, ensalada de tomate y pepino con AOVE.", kcal: 520, p: 45, c: 52, g: 12,
+        { tipo: "20:30 · Merienda-cena", nombre: "Yogur griego + frutos rojos + nueces", desc: "200g yogur griego natural, 100g fresas o arándanos, 5 nueces. Sin azúcar añadido.", kcal: 290, p: 18, c: 22, g: 14,
           tip: null },
-        { tipo: "Merienda", nombre: "Yogur griego natural + fresas", desc: "150g yogur griego (0% grasa), 100g fresas. Sin azúcar añadido.", kcal: 160, p: 14, c: 14, g: 2, tip: null },
-        { tipo: "Cena", nombre: "Merluza al horno + verduras", desc: "200g merluza con limón y ajo, 200g brócoli al vapor, ensalada verde.", kcal: 380, p: 42, c: 12, g: 10,
-          tip: "Cena temprana y ligera. Favorece la recuperación y el sueño reparador." }
+        { tipo: "22:00 · Última comida (antes de 22:30)", nombre: "Tortilla + verduras salteadas", desc: "3 huevos en tortilla, 200g espinacas + champiñones salteados con ajo y AOVE.", kcal: 390, p: 30, c: 8, g: 26,
+          tip: "Alta en proteína y baja en carbos. Protege el músculo durante el ayuno nocturno." }
       ]
     },
     {
-      dia: "Martes", tipo: "Descanso / ronda", kcal: 1750,
+      dia: "Martes · Ronda de golf", tipo: "Ayuno hasta 12:30 · ~2.000 kcal", kcal: 2000,
       comidas: [
-        { tipo: "Desayuno", nombre: "Avena con fruta", desc: "60g avena cocida con leche desnatada, 1 manzana troceada, canela. Sin azúcar.", kcal: 350, p: 14, c: 58, g: 6, tip: null },
-        { tipo: "Si juegas ronda: pre-partida", nombre: "Sándwich integral de pavo", desc: "2 rebanadas pan integral, 80g pavo en fiambre, tomate, lechuga. Come 1h antes de salir.", kcal: 340, p: 28, c: 36, g: 8,
-          tip: "Fundamental antes de 18 hoyos. Sin esto, bajas el rendimiento en los últimos 6 hoyos." },
-        { tipo: "Comida", nombre: "Lentejas con verduras", desc: "250g lentejas cocidas, zanahoria, cebolla, pimiento. Un chorro de AOVE.", kcal: 450, p: 22, c: 65, g: 8, tip: null },
-        { tipo: "Merienda", nombre: "Manzana + queso fresco", desc: "1 manzana + 60g queso fresco batido 0%. Saciante y bajo en calorías.", kcal: 160, p: 10, c: 22, g: 2, tip: null },
-        { tipo: "Cena", nombre: "Revuelto de huevos con champiñones", desc: "3 huevos, 150g champiñones salteados, espinacas. Pan integral tostado.", kcal: 380, p: 30, c: 22, g: 18, tip: null }
+        { tipo: "12:30 · Primera comida", nombre: "Avena proteica + huevo duro", desc: "70g avena cocida con leche, 2 huevos duros, 1 plátano. Opción perfecta si juegas ronda por la tarde.", kcal: 560, p: 32, c: 72, g: 12,
+          tip: "Si la ronda es a las 12-13h, adelanta esta comida a las 11:00 y rompe el ayuno 90 min antes." },
+        { tipo: "En campo (hoyos 9-10)", nombre: "Barrita de dátiles y frutos secos", desc: "1 barrita natural sin azúcar añadido o 1 plátano + puñado de almendras.", kcal: 200, p: 4, c: 28, g: 8,
+          tip: "Sin esto el rendimiento cae en los hoyos 14-18. No lo saltes aunque no tengas hambre." },
+        { tipo: "16:00 · Post-ronda", nombre: "Salmón + arroz + ensalada", desc: "180g salmón a la plancha, 80g arroz integral, ensalada verde con AOVE.", kcal: 580, p: 44, c: 42, g: 20,
+          tip: "Come en las 2h post-ronda. El omega-3 del salmón reduce la inflamación articular." },
+        { tipo: "21:00 · Cena", nombre: "Merluza + brócoli + huevo", desc: "200g merluza al horno, 200g brócoli al vapor, 1 huevo duro. Cena ligera y proteica.", kcal: 380, p: 48, c: 10, g: 14,
+          tip: null },
+        { tipo: "22:00 · Snack cierre ventana", nombre: "Requesón o queso fresco", desc: "150g requesón o queso fresco 0%. Caseína lenta que protege músculo durante el ayuno.", kcal: 120, p: 18, c: 6, g: 2,
+          tip: "La caseína del requesón se digiere lentamente — ideal como última comida antes del ayuno." }
       ]
     },
     {
-      dia: "Miércoles", tipo: "Entreno físico", kcal: 1850,
+      dia: "Miércoles · Entreno físico", tipo: "Ayuno hasta 12:30 · ~2.200 kcal", kcal: 2200,
       comidas: [
-        { tipo: "Desayuno", nombre: "Tortilla francesa + zumo natural", desc: "3 huevos, 1 zumo de naranja natural pequeño, 1 tostada integral.", kcal: 420, p: 24, c: 32, g: 18, tip: null },
-        { tipo: "Pre-entreno", nombre: "Plátano + café", desc: "1 plátano 30 min antes del entreno físico. Cafeína para activación.", kcal: 130, p: 1, c: 30, g: 0,
-          tip: "El café pre-entreno mejora el rendimiento físico un 10-15%. No abuses." },
-        { tipo: "Comida", nombre: "Salmón + patata + ensalada", desc: "180g salmón a la plancha, 150g patata cocida, ensalada verde.", kcal: 560, p: 40, c: 38, g: 22,
-          tip: "El salmón tiene omega-3 que reduce la inflamación — importante con espalda y hombro." },
-        { tipo: "Merienda", nombre: "Kéfir + nueces", desc: "200ml kéfir natural, 5 nueces. Probióticos + grasas buenas.", kcal: 200, p: 8, c: 14, g: 13, tip: null },
-        { tipo: "Cena", nombre: "Pollo al limón + espárragos", desc: "150g pollo en tiras con limón y ajo, 200g espárragos verdes, ensalada.", kcal: 360, p: 38, c: 8, g: 14, tip: null }
+        { tipo: "12:30 · Primera comida", nombre: "Tortilla 4 huevos + arroz + aguacate", desc: "4 huevos en tortilla, 100g arroz integral, medio aguacate. Carga de carbos pre-entreno.", kcal: 680, p: 44, c: 58, g: 26,
+          tip: "Día de más calorías — el entreno físico necesita más combustible. Los carbos son clave." },
+        { tipo: "15:30 · Pre-entreno", nombre: "Plátano + café solo", desc: "1 plátano grande + café solo sin azúcar 30 min antes del entreno.", kcal: 130, p: 1, c: 30, g: 0,
+          tip: "La cafeína sube el rendimiento un 10-15% y moviliza grasa como combustible." },
+        { tipo: "Post-entreno inmediato", nombre: "Batido proteico o atún + plátano", desc: "30g proteína de suero (o 1 lata atún) + 1 plátano. En los 30 min post-entreno.", kcal: 280, p: 32, c: 30, g: 2,
+          tip: "La ventana anabólica es real. En 30 min post-entreno el músculo absorbe mejor los nutrientes." },
+        { tipo: "19:00 · Comida principal", nombre: "Ternera + patata + ensalada", desc: "180g solomillo o entrecot de ternera, 200g patata asada, ensalada grande.", kcal: 620, p: 46, c: 44, g: 20,
+          tip: "Día de entreno = más proteína animal. La ternera tiene creatina natural." },
+        { tipo: "22:00 · Cierre ventana", nombre: "Yogur griego + nueces + canela", desc: "200g yogur griego natural, 6 nueces, canela. Cierra la ventana con proteína.", kcal: 300, p: 20, c: 14, g: 18,
+          tip: null }
       ]
     },
     {
-      dia: "Jueves a Domingo", tipo: "Rondas + descanso", kcal: 1750,
+      dia: "Jueves · Descanso activo", tipo: "Ayuno hasta 12:30 · ~1.900 kcal", kcal: 1900,
       comidas: [
-        { tipo: "Desayuno (antes de ronda)", nombre: "Avena + huevo duro", desc: "50g avena cocida, 1 huevo duro, 1 plátano pequeño. Energía de 4-5 horas.", kcal: 400, p: 20, c: 55, g: 8,
-          tip: "El mejor desayuno pre-ronda. Come 90 min antes de salir al hoyo 1." },
-        { tipo: "Snack en campo (hoyos 9-10)", nombre: "Barrita de frutos secos o plátano", desc: "Una barrita sin azúcar añadido o 1 plátano. Recarga glucógeno para la vuelta.", kcal: 180, p: 4, c: 28, g: 6,
-          tip: "Crítico: sin esto, los hoyos 14-18 se caen. Muchos bogeys innecesarios vienen del cansancio." },
-        { tipo: "Comida post-ronda", nombre: "Pasta con atún y tomate", desc: "80g pasta integral, 120g atún al natural, tomate frito casero, AOVE.", kcal: 520, p: 38, c: 62, g: 12,
-          tip: "Come en las 2h post-ronda para recuperar glucógeno y reparar músculo." },
-        { tipo: "Cena", nombre: "Tortilla de verduras + ensalada", desc: "3 huevos, pimiento, cebolla, tomate. Ensalada verde con AOVE.", kcal: 400, p: 28, c: 18, g: 22, tip: null }
+        { tipo: "12:30 · Primera comida", nombre: "Huevos + tostada integral + fruta", desc: "3 huevos revueltos, 1 tostada integral con tomate y AOVE, 1 naranja.", kcal: 480, p: 28, c: 42, g: 18,
+          tip: null },
+        { tipo: "15:30 · Comida", nombre: "Lentejas con verduras y huevo", desc: "250g lentejas cocidas, zanahoria, cebolla, pimiento, 1 huevo duro encima. AOVE.", kcal: 520, p: 28, c: 68, g: 10,
+          tip: "Las legumbres son clave para la microbiota — importante para recuperación y sistema inmune." },
+        { tipo: "19:00 · Merienda", nombre: "Manzana + requesón + almendras", desc: "1 manzana, 100g requesón, 15g almendras. Saciante y bajo en calorías.", kcal: 260, p: 14, c: 24, g: 12,
+          tip: null },
+        { tipo: "21:30 · Cena ligera", nombre: "Pechuga + verduras al vapor", desc: "150g pechuga de pollo, 300g verduras mixtas al vapor (calabacín, judía verde, zanahoria).", kcal: 340, p: 40, c: 18, g: 8,
+          tip: null },
+        { tipo: "22:00 · Cierre", nombre: "Kéfir natural", desc: "200ml kéfir natural. Probióticos para la digestión y el sueño.", kcal: 100, p: 6, c: 8, g: 4,
+          tip: null }
+      ]
+    },
+    {
+      dia: "Viernes · Golf o descanso", tipo: "Ayuno hasta 12:30 · ~2.000 kcal", kcal: 2000,
+      comidas: [
+        { tipo: "12:30 · Primera comida", nombre: "Salmón + arroz + espinacas", desc: "180g salmón a la plancha, 80g arroz integral, 150g espinacas salteadas con ajo.", kcal: 580, p: 44, c: 42, g: 20,
+          tip: "Si juegas por la tarde, este es el mejor plato: proteína + carbos + omega-3." },
+        { tipo: "16:00 · Pre-golf (si juegas)", nombre: "Plátano + almendras", desc: "1 plátano + 20g almendras. 60 min antes de salir al campo.", kcal: 220, p: 5, c: 32, g: 10,
+          tip: null },
+        { tipo: "19:30 · Comida", nombre: "Pasta integral + atún + tomate", desc: "80g pasta integral, 120g atún al natural, tomate natural, AOVE, albahaca.", kcal: 520, p: 38, c: 60, g: 12,
+          tip: null },
+        { tipo: "22:00 · Cena-cierre", nombre: "Tortilla + ensalada + queso fresco", desc: "3 huevos, ensalada verde, 60g queso fresco. Cierre proteico antes del ayuno.", kcal: 420, p: 34, c: 8, g: 26,
+          tip: null }
+      ]
+    },
+    {
+      dia: "Fin de semana · Golf", tipo: "Ayuno hasta 12:30 · ~2.100 kcal", kcal: 2100,
+      comidas: [
+        { tipo: "12:30 · Pre-ronda (si juegas a las 13-14h)", nombre: "Avena + 2 huevos + plátano", desc: "60g avena, 2 huevos duros, 1 plátano. La mejor combinación pre-ronda con ayuno.", kcal: 500, p: 28, c: 65, g: 12,
+          tip: "Con ayuno, esta primera comida es crítica. Sin ella el rendimiento en el campo cae desde el hoyo 1." },
+        { tipo: "En campo hoyos 9-10", nombre: "Barrita natural o plátano", desc: "Barrita sin azúcar añadido o 1 plátano. Mantiene glucosa en la vuelta.", kcal: 180, p: 3, c: 30, g: 6,
+          tip: "Con el ayuno matinal, el glucógeno baja antes — este snack es aún más importante que para el resto." },
+        { tipo: "16:00 · Post-ronda / comida fuerte", nombre: "Carne o pescado + patata + ensalada", desc: "200g proteína (pollo, ternera, merluza) + 200g patata + ensalada grande. Recuperación completa.", kcal: 650, p: 50, c: 50, g: 18,
+          tip: "La comida más importante del día de ronda. Recupera glucógeno y repara el músculo." },
+        { tipo: "21:00 · Cena", nombre: "Huevos + verduras + aguacate", desc: "3-4 huevos en tortilla o revueltos, verduras salteadas, medio aguacate.", kcal: 480, p: 30, c: 10, g: 34,
+          tip: null },
+        { tipo: "22:00 · Cierre ventana", nombre: "Requesón o yogur griego", desc: "150g requesón o yogur griego. Proteína de absorción lenta.", kcal: 120, p: 18, c: 6, g: 2,
+          tip: null }
       ]
     }
   ],
   campo: [
-    { titulo: "☀️ Pre-ronda (90 min antes)", desc: "Avena + huevo duro + plátano. Nunca salgas en ayunas." },
-    { titulo: "🥤 Hidratación", desc: "500ml agua antes de salir. Al menos 250ml cada 4-5 hoyos. Con calor: isotónico en la vuelta." },
-    { titulo: "⛳ Hoyo 9-10: recarga", desc: "Plátano o barrita sin azúcar. Sin esto el rendimiento cae en los últimos hoyos." },
-    { titulo: "🚫 Evita en campo", desc: "Bocadillos grasos, alcohol (1 cerveza máx post-ronda), bollería. Destrozan la concentración." },
-    { titulo: "🌡️ Si hace calor (>25°C)", desc: "Añade sales minerales. Sube agua a 1.5L en campo. El calor baja el HCP más que el swing." },
-    { titulo: "💊 Post-ronda (2h)", desc: "Comida rica en proteína + carbohidrato. Recuperación muscular. No esperes a tener mucha hambre." }
+    { titulo: "⏰ Ayuno hasta 12:30 — estrategia", desc: "Si la ronda es antes de las 14h, rompe el ayuno 90 min antes con avena + huevos + plátano. Nunca salgas al campo en ayunas." },
+    { titulo: "☀️ Ronda después de las 15h", desc: "Haz tu primera comida normal a las 12:30 (proteína + carbos) y añade un snack pre-golf a las 14:30-15:00." },
+    { titulo: "🥤 Hidratación (CRÍTICO con ayuno)", desc: "Durante el ayuno bebe agua, café o té sin azúcar. En campo: 500ml antes de salir + 250ml cada 4-5 hoyos. El ayuno deshidrata más." },
+    { titulo: "⛳ Hoyos 9-10: recarga", desc: "Plátano o barrita sin azúcar. Con el ayuno matinal el glucógeno baja antes — este snack es más importante que para alguien sin ayuno." },
+    { titulo: "🚫 Evita en campo", desc: "Alcohol, bollería, refrescos con azúcar. Rompen el trabajo del ayuno y destrozan la concentración en los últimos hoyos." },
+    { titulo: "💊 Post-ronda (primeras 2h)", desc: "Proteína + carbos obligatorio. Con el ayuno la ventana anabólica post-ronda es mayor — aprovéchala." },
+    { titulo: "🌡️ Calor + ayuno = peligro", desc: "Con calor extremo y ayuno el riesgo de hipoglucemia sube. Lleva siempre un plátano de emergencia y sales minerales." }
   ],
   compra: [
     {
       categoria: "🥚 Proteínas",
       items: [
-        { nombre: "Huevos camperos", gramos: "21 unidades", nota: "3-4 huevos/día" },
-        { nombre: "Pechuga de pollo", gramos: "600g", nota: "Lunes y miércoles" },
-        { nombre: "Merluza o dorada", gramos: "400g", nota: "Lunes noche" },
-        { nombre: "Salmón fresco o congelado", gramos: "360g", nota: "Miércoles comida · omega-3 espalda" },
-        { nombre: "Atún al natural (latas)", gramos: "3 latas x 120g", nota: "Jueves-domingo" },
-        { nombre: "Pavo en fiambre (bajo sal)", gramos: "200g", nota: "Para sándwich ronda" },
-        { nombre: "Queso fresco batido 0%", gramos: "250g", nota: "Meriendas" }
+        { nombre: "Huevos camperos", gramos: "28 unidades", nota: "4 huevos/día · base del plan" },
+        { nombre: "Pechuga de pollo", gramos: "700g", nota: "Lunes, jueves, viernes" },
+        { nombre: "Salmón fresco o congelado", gramos: "540g", nota: "Martes y viernes · omega-3" },
+        { nombre: "Merluza o dorada", gramos: "400g", nota: "Martes cena" },
+        { nombre: "Solomillo o entrecot ternera", gramos: "360g", nota: "Miércoles (día entreno físico)" },
+        { nombre: "Atún al natural (latas)", gramos: "4 latas x 120g", nota: "Viernes comida y fin de semana" },
+        { nombre: "Requesón", gramos: "450g", nota: "Cierre ventana ayuno · caseína lenta" }
       ]
     },
     {
       categoria: "🥛 Lácteos y fermentados",
       items: [
-        { nombre: "Yogur griego natural 0%", gramos: "4 x 150g", nota: "Meriendas entre semana" },
-        { nombre: "Leche desnatada", gramos: "1L", nota: "Para avena" },
-        { nombre: "Kéfir natural", gramos: "400ml", nota: "Miércoles merienda" }
+        { nombre: "Yogur griego natural 0%", gramos: "6 x 200g", nota: "Snack y cierre ventana diario" },
+        { nombre: "Leche (para avena)", gramos: "1L", nota: "Martes y fin de semana" },
+        { nombre: "Kéfir natural", gramos: "400ml", nota: "Jueves · probióticos" },
+        { nombre: "Proteína de suero (whey)", gramos: "500g", nota: "Post-entreno miércoles · opcional" }
       ]
     },
     {
       categoria: "🌾 Carbohidratos",
       items: [
-        { nombre: "Avena en copos", gramos: "500g", nota: "Desayunos y pre-ronda" },
-        { nombre: "Pan integral de molde", gramos: "600g (1 barra)", nota: "Tostadas y sándwiches" },
-        { nombre: "Arroz integral", gramos: "400g", nota: "Lunes comida" },
-        { nombre: "Pasta integral", gramos: "320g", nota: "Post-ronda fines de semana" },
-        { nombre: "Patata", gramos: "600g", nota: "Miércoles comida" }
+        { nombre: "Avena en copos", gramos: "600g", nota: "Rotura ayuno martes y fin de semana" },
+        { nombre: "Arroz integral", gramos: "500g", nota: "Lunes y miércoles · fuente principal" },
+        { nombre: "Pasta integral", gramos: "320g", nota: "Viernes comida" },
+        { nombre: "Patata", gramos: "800g", nota: "Lunes, jueves, fin de semana" },
+        { nombre: "Pan integral (sin tostadas)", gramos: "1 barra", nota: "Solo si se necesita" }
       ]
     },
     {
       categoria: "🥑 Grasas saludables",
       items: [
-        { nombre: "Aceite de oliva virgen extra", gramos: "500ml", nota: "Para toda la semana" },
-        { nombre: "Aguacate", gramos: "2 unidades", nota: "Tostadas desayuno" },
-        { nombre: "Almendras crudas", gramos: "100g", nota: "Snack pre-campo" },
-        { nombre: "Nueces", gramos: "100g", nota: "Merienda miércoles" }
+        { nombre: "Aceite de oliva virgen extra", gramos: "750ml", nota: "Base de todos los platos" },
+        { nombre: "Aguacate", gramos: "3 unidades", nota: "Lunes rotura ayuno + fin de semana" },
+        { nombre: "Almendras crudas", gramos: "140g", nota: "20g/día · snack pre-campo" },
+        { nombre: "Nueces", gramos: "100g", nota: "Yogur griego y meriendas" }
       ]
     },
     {
       categoria: "🥦 Verduras y hortalizas",
       items: [
-        { nombre: "Brócoli", gramos: "400g", nota: "Lunes cena" },
-        { nombre: "Espárragos verdes", gramos: "400g", nota: "Miércoles cena" },
-        { nombre: "Champiñones", gramos: "300g", nota: "Martes cena" },
-        { nombre: "Espinacas", gramos: "200g", nota: "Revueltos y ensaladas" },
+        { nombre: "Espinacas frescas o bolsa", gramos: "400g", nota: "Salteadas con huevos · diarias" },
+        { nombre: "Champiñones", gramos: "300g", nota: "Lunes cena y revueltos" },
+        { nombre: "Brócoli", gramos: "400g", nota: "Martes cena al vapor" },
+        { nombre: "Espárragos verdes", gramos: "300g", nota: "Acompañamiento proteínas" },
+        { nombre: "Calabacín", gramos: "2 unidades", nota: "Verduras al vapor jueves" },
+        { nombre: "Judía verde", gramos: "300g", nota: "Verduras vapor jueves" },
         { nombre: "Tomates", gramos: "1kg", nota: "Ensaladas toda la semana" },
-        { nombre: "Pepino", gramos: "3 unidades", nota: "Ensaladas" },
-        { nombre: "Lechuga o mix ensalada", gramos: "300g", nota: "Ensaladas toda la semana" },
-        { nombre: "Pimiento rojo y verde", gramos: "3 unidades", nota: "Revueltos y guisos" },
-        { nombre: "Cebolla", gramos: "3 unidades", nota: "Lentejas y guisos" },
-        { nombre: "Zanahoria", gramos: "300g", nota: "Lentejas martes" },
-        { nombre: "Ajo", gramos: "1 cabeza", nota: "Para condimentar" }
+        { nombre: "Lechuga o mix ensalada", gramos: "400g", nota: "Ensaladas diarias" },
+        { nombre: "Cebolla", gramos: "4 unidades", nota: "Guisos y salteados" },
+        { nombre: "Ajo", gramos: "1 cabeza", nota: "Para condimentar todo" },
+        { nombre: "Pimiento rojo y verde", gramos: "3 unidades", nota: "Tortillas y salteados" },
+        { nombre: "Zanahoria", gramos: "200g", nota: "Lentejas jueves" }
       ]
     },
     {
       categoria: "🍌 Frutas",
       items: [
-        { nombre: "Plátanos", gramos: "7 unidades", nota: "1/día · snack pre-campo y ronda" },
-        { nombre: "Manzanas", gramos: "4 unidades", nota: "Meriendas martes-jueves" },
-        { nombre: "Fresas o frutos rojos", gramos: "400g", nota: "Con yogur griego" },
-        { nombre: "Naranja", gramos: "3 unidades", nota: "Zumo miércoles desayuno" },
-        { nombre: "Limón", gramos: "3 unidades", nota: "Para pescado y aderezos" }
+        { nombre: "Plátanos", gramos: "10 unidades", nota: "Pre-campo y pre-entreno diario" },
+        { nombre: "Fresas o arándanos", gramos: "400g", nota: "Con yogur griego · antioxidantes" },
+        { nombre: "Manzanas", gramos: "3 unidades", nota: "Merienda jueves" },
+        { nombre: "Naranja", gramos: "2 unidades", nota: "Postres o zumo ocasional" },
+        { nombre: "Limón", gramos: "4 unidades", nota: "Pescados y aderezos" }
       ]
     },
     {
       categoria: "🫘 Legumbres y conservas",
       items: [
-        { nombre: "Lentejas cocidas (bote)", gramos: "500g", nota: "Martes comida" },
-        { nombre: "Tomate frito casero (bote)", gramos: "350g", nota: "Pasta fines de semana" }
+        { nombre: "Lentejas cocidas (bote)", gramos: "500g", nota: "Jueves comida" },
+        { nombre: "Tomate natural triturado", gramos: "400g", nota: "Pasta viernes" }
       ]
     },
     {
-      categoria: "🧂 Básicos y condimentos",
+      categoria: "🧂 Básicos",
       items: [
-        { nombre: "Canela molida", gramos: "1 bote pequeño", nota: "Para avena" },
-        { nombre: "Café", gramos: "250g", nota: "Pre-entreno y desayunos" },
-        { nombre: "Sal y pimienta", gramos: "Básico", nota: "" }
+        { nombre: "Café (grano o molido)", gramos: "250g", nota: "Pre-entreno y durante ayuno" },
+        { nombre: "Canela molida", gramos: "1 bote", nota: "Para avena y yogures" },
+        { nombre: "Sal, pimienta, orégano", gramos: "Básico", nota: "" },
+        { nombre: "Albahaca seca", gramos: "1 bote", nota: "Para pasta y ensaladas" }
       ]
     }
   ]
@@ -728,12 +813,13 @@ function navigate(s) {
   document.querySelectorAll('.nav-btn').forEach(function(el){ el.classList.remove('active'); });
   document.getElementById('screen-'+s).classList.add('active');
   document.getElementById('nav-'+s).classList.add('active');
-  if (s==='home')   renderHome();
-  if (s==='train')  renderTrain();
-  if (s==='stats')  renderStats();
-  if (s==='diet')   renderDiet('semana');
-  if (s==='fit')    renderFit();
-  if (s==='report') renderReport();
+  if (s==='home')    renderHome();
+  if (s==='train')   renderTrain();
+  if (s==='stats')   renderStats();
+  if (s==='diet')    { currentDietTab='semana'; renderDiet('semana'); }
+  if (s==='fit')     renderFit();
+  if (s==='report')  renderReport();
+  if (s==='ajustes') renderAjustes();
 }
 function goTrain(d) { navigate('train'); switchDay(d); }
 
@@ -1127,14 +1213,18 @@ function renderDiet(tab) {
         '<div style="font-size:13px;color:var(--muted);line-height:1.6">Lista de la compra para <strong style="color:var(--text)">una semana completa</strong> · ~1.800 kcal/día · 73kg · perder peso</div>'+
         '<button onclick="copiarListaCompra()" style="margin-top:10px;width:100%;padding:11px;border:none;border-radius:8px;background:var(--green);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">📋 Copiar lista de la compra</button>'+
       '</div>'+
-      DIETA.compra.map(function(cat){
+      DIETA.compra.map(function(cat,ci){
         return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px">'+
           '<div style="padding:11px 16px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:13px;font-weight:700">'+cat.categoria+'</div>'+
-          cat.items.map(function(item){
-            return '<div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">'+
-              '<div style="width:20px;height:20px;border:2px solid var(--border);border-radius:5px;flex-shrink:0"></div>'+
+          cat.items.map(function(item,ii){
+            var key='shop_'+ci+'_'+ii;
+            var bought=localStorage.getItem(key)==='1';
+            return '<div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer;opacity:'+(bought?.5:1)+'" onclick="toggleShopItem(\''+key+'\')">'+
+              '<div style="width:22px;height:22px;border:2px solid '+(bought?'var(--greenl)':'var(--border)')+';border-radius:6px;background:'+(bought?'var(--greenl)':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s">'+
+                (bought?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+
+              '</div>'+
               '<div style="flex:1">'+
-                '<div style="font-size:13px;font-weight:600">'+item.nombre+'</div>'+
+                '<div style="font-size:13px;font-weight:600;text-decoration:'+(bought?'line-through':'none')+'">'+item.nombre+'</div>'+
                 (item.nota?'<div style="font-size:11px;color:var(--muted);margin-top:1px">'+item.nota+'</div>':'')+
               '</div>'+
               '<div style="font-size:13px;font-weight:700;color:var(--greenl);white-space:nowrap">'+item.gramos+'</div>'+
@@ -1145,27 +1235,43 @@ function renderDiet(tab) {
     return;
   }
   // semana
-  c.innerHTML = DIETA.semana.map(function(day){
+  var mealState;
+  try { mealState = JSON.parse(localStorage.getItem('j_meals')||'{}'); } catch(e){ mealState={}; }
+  c.innerHTML = DIETA.semana.map(function(day,di){
+    var done = day.comidas.filter(function(_,mi){ return mealState[di+'_'+mi]; }).length;
     return '<div class="meal-card">'+
-      '<div class="meal-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\'">'+
-        '<div><div class="meal-day">'+day.dia+'</div><div class="meal-day-sub">'+day.tipo+'</div></div>'+
+      '<div class="meal-header" onclick="togglePanel(this)">'+
+        '<div style="flex:1"><div class="meal-day">'+day.dia+'</div><div class="meal-day-sub">'+day.tipo+'</div>'+
+        (done>0?'<div data-meal-count="'+di+'" style="font-size:11px;color:var(--greenl);margin-top:2px">'+done+'/'+day.comidas.length+' ✓</div>':'<div data-meal-count="'+di+'" style="font-size:11px;color:var(--greenl);margin-top:2px"></div>')+
+        '</div>'+
         '<div class="meal-kcal">~'+day.kcal+' kcal</div>'+
       '</div>'+
       '<div style="display:none">'+
-        day.comidas.map(function(m){
-          return '<div class="meal-item">'+
-            '<div class="meal-type">'+m.tipo+'</div>'+
-            '<div class="meal-name">'+m.nombre+'</div>'+
-            '<div class="meal-desc">'+m.desc+'</div>'+
-            '<div class="meal-macros">'+
-              '<span class="macro p">P '+m.p+'g</span>'+
-              '<span class="macro c">C '+m.c+'g</span>'+
-              '<span class="macro g">G '+m.g+'g</span>'+
-              '<span class="macro" style="color:var(--muted)">'+m.kcal+' kcal</span>'+
+        day.comidas.map(function(m,mi){
+          var ck = !!mealState[di+'_'+mi];
+          return '<div class="meal-item" data-meal="'+di+'_'+mi+'" onclick="event.stopPropagation();toggleMeal('+di+','+mi+')" style="cursor:pointer;opacity:'+(ck?.55:1)+';transition:opacity .2s">'+
+            '<div style="display:flex;gap:12px;align-items:flex-start">'+
+              '<div class="chk-box" style="width:22px;height:22px;border-radius:6px;border:2px solid '+(ck?'var(--greenl)':'var(--border)')+';background:'+(ck?'var(--greenl)':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .2s">'+
+                (ck?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+
+              '</div>'+
+              '<div style="flex:1">'+
+                '<div class="meal-type">'+m.tipo+'</div>'+
+                '<div class="meal-name" style="text-decoration:'+(ck?'line-through':'none')+';color:'+(ck?'var(--muted)':'var(--text)')+'">'+m.nombre+'</div>'+
+                '<div class="meal-desc">'+m.desc+'</div>'+
+                '<div class="meal-macros">'+
+                  '<span class="macro p">P '+m.p+'g</span>'+
+                  '<span class="macro c">C '+m.c+'g</span>'+
+                  '<span class="macro g">G '+m.g+'g</span>'+
+                  '<span class="macro" style="color:var(--muted)">'+m.kcal+' kcal</span>'+
+                '</div>'+
+                (m.tip?'<div class="golf-tip">⛳ '+m.tip+'</div>':'')+
+              '</div>'+
             '</div>'+
-            (m.tip?'<div class="golf-tip">⛳ '+m.tip+'</div>':'')+
           '</div>';
         }).join('')+
+        '<div style="padding:10px 16px;border-top:1px solid var(--border)">'+
+          '<button onclick="event.stopPropagation();resetMealDay('+di+')" style="padding:9px 14px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:12px;cursor:pointer">Resetear día</button>'+
+        '</div>'+
       '</div>'+
     '</div>';
   }).join('');
@@ -1175,24 +1281,116 @@ function renderDiet(tab) {
 // FÍSICO
 // ══════════════════════════════════════════════════════════
 function renderFit() {
-  document.getElementById('fit-container').innerHTML = FIT_PLAN.map(function(day){
+  var state;
+  try { state = JSON.parse(localStorage.getItem('j_fit')||'{}'); } catch(e){ state={}; }
+  document.getElementById('fit-container').innerHTML = FIT_PLAN.map(function(day,di){
+    var total = day.ejercicios.length;
+    var done  = day.ejercicios.filter(function(_,ei){ return state[di+'_'+ei]; }).length;
+    var pct   = Math.round((done/total)*100);
+    var col   = pct===100?'var(--greenl)':pct>0?'var(--gold)':'var(--border)';
     return '<div class="fit-day">'+
-      '<div class="fit-day-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\'">'+
-        '<div><div class="fit-day-name">'+day.dia+'</div><div class="fit-day-sub">'+day.duracion+' · '+day.objetivo+'</div></div>'+
-        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>'+
+      '<div class="fit-day-header" onclick="togglePanel(this)">'+
+        '<div style="flex:1">'+
+          '<div class="fit-day-name">'+day.dia+'</div>'+
+          '<div class="fit-day-sub">'+day.duracion+' · '+day.objetivo+'</div>'+
+          '<div style="display:flex;align-items:center;gap:8px;margin-top:6px">'+
+            '<div style="flex:1;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden">'+
+              '<div data-fit-bar="'+di+'" style="height:100%;width:'+pct+'%;background:'+col+';border-radius:2px;transition:width .3s"></div>'+
+            '</div>'+
+            '<div data-fit-count="'+di+'" style="font-size:11px;color:'+col+';font-weight:700;white-space:nowrap">'+done+'/'+total+'</div>'+
+          '</div>'+
+        '</div>'+
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" style="flex-shrink:0;margin-left:10px"><polyline points="6 9 12 15 18 9"/></svg>'+
       '</div>'+
       '<div style="display:none">'+
         '<div style="padding:10px 16px;background:rgba(200,90,42,.06);border-bottom:1px solid var(--border);font-size:12px;color:var(--orange);line-height:1.5">⚠️ '+day.warning+'</div>'+
-        day.ejercicios.map(function(ex){
-          return '<div class="fit-ex">'+
-            '<div class="fit-ex-name">'+ex.nombre+'</div>'+
-            '<div class="fit-ex-sets">'+ex.series+'</div>'+
-            '<div class="fit-ex-desc">'+ex.desc+'</div>'+
+        day.ejercicios.map(function(ex,ei){
+          var ck = !!state[di+'_'+ei];
+          return '<div class="fit-ex" data-fit="'+di+'_'+ei+'" onclick="event.stopPropagation();toggleFitEx('+di+','+ei+')" style="cursor:pointer;opacity:'+(ck?.55:1)+';transition:opacity .2s">'+
+            '<div style="display:flex;gap:12px;align-items:flex-start">'+
+              '<div class="chk-box" style="width:22px;height:22px;border-radius:6px;border:2px solid '+(ck?'var(--greenl)':'var(--border)')+';background:'+(ck?'var(--greenl)':'transparent')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .2s">'+
+                (ck?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+
+              '</div>'+
+              '<div style="flex:1">'+
+                '<div class="fit-ex-name" style="text-decoration:'+(ck?'line-through':'none')+';color:'+(ck?'var(--muted)':'var(--text)')+'">'+ex.nombre+'</div>'+
+                '<div class="fit-ex-sets">'+ex.series+'</div>'+
+                '<div class="fit-ex-desc">'+ex.desc+'</div>'+
+              '</div>'+
+            '</div>'+
           '</div>';
         }).join('')+
+        '<div style="padding:12px 16px;border-top:1px solid var(--border)">'+
+          '<button onclick="event.stopPropagation();resetFitDay('+di+')" style="padding:9px 14px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:12px;cursor:pointer">Resetear día</button>'+
+        '</div>'+
       '</div>'+
     '</div>';
   }).join('');
+}
+
+function toggleFitEx(di, ei) {
+  var state; try { state=JSON.parse(localStorage.getItem('j_fit')||'{}'); } catch(e){ state={}; }
+  state[di+'_'+ei] = !state[di+'_'+ei];
+  localStorage.setItem('j_fit', JSON.stringify(state));
+  var ck = state[di+'_'+ei];
+  var item = document.querySelector('[data-fit="'+di+'_'+ei+'"]');
+  if (!item) return;
+  item.style.opacity = ck ? '.55' : '1';
+  var box = item.querySelector('.chk-box');
+  var name = item.querySelector('.fit-ex-name');
+  if (box) {
+    box.style.background = ck ? 'var(--greenl)' : 'transparent';
+    box.style.borderColor = ck ? 'var(--greenl)' : 'var(--border)';
+    box.innerHTML = ck ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '';
+  }
+  if (name) { name.style.textDecoration = ck ? 'line-through' : 'none'; name.style.color = ck ? 'var(--muted)' : 'var(--text)'; }
+  // Update progress bar
+  var total = FIT_PLAN[di].ejercicios.length;
+  var done = FIT_PLAN[di].ejercicios.filter(function(_,i){ return state[di+'_'+i]; }).length;
+  var bar = document.querySelector('[data-fit-bar="'+di+'"]');
+  var count = document.querySelector('[data-fit-count="'+di+'"]');
+  var pct = Math.round((done/total)*100);
+  var col = pct===100?'var(--greenl)':pct>0?'var(--gold)':'var(--border)';
+  if (bar) { bar.style.width = pct+'%'; bar.style.background = col; }
+  if (count) { count.textContent = done+'/'+total; count.style.color = col; }
+}
+function resetFitDay(di) {
+  var state; try { state=JSON.parse(localStorage.getItem('j_fit')||'{}'); } catch(e){ state={}; }
+  FIT_PLAN[di].ejercicios.forEach(function(_,ei){ delete state[di+'_'+ei]; });
+  localStorage.setItem('j_fit', JSON.stringify(state));
+  renderFit(); showToast('Día reseteado');
+}
+function togglePanel(header) {
+  var panel = header.nextElementSibling;
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleMeal(di, mi) {
+  var s; try { s=JSON.parse(localStorage.getItem('j_meals')||'{}'); } catch(e){ s={}; }
+  s[di+'_'+mi] = !s[di+'_'+mi];
+  localStorage.setItem('j_meals', JSON.stringify(s));
+  var ck = s[di+'_'+mi];
+  var item = document.querySelector('[data-meal="'+di+'_'+mi+'"]');
+  if (!item) return;
+  item.style.opacity = ck ? '.55' : '1';
+  var box = item.querySelector('.chk-box');
+  var name = item.querySelector('.meal-name');
+  if (box) {
+    box.style.background = ck ? 'var(--greenl)' : 'transparent';
+    box.style.borderColor = ck ? 'var(--greenl)' : 'var(--border)';
+    box.innerHTML = ck ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '';
+  }
+  if (name) { name.style.textDecoration = ck ? 'line-through' : 'none'; name.style.color = ck ? 'var(--muted)' : 'var(--text)'; }
+  // Update count badge
+  var total = DIETA.semana[di].comidas.length;
+  var done = DIETA.semana[di].comidas.filter(function(_,i){ return s[di+'_'+i]; }).length;
+  var badge = document.querySelector('[data-meal-count="'+di+'"]');
+  if (badge) badge.textContent = done > 0 ? done+'/'+total+' ✓' : '';
+}
+function resetMealDay(di) {
+  var s; try { s=JSON.parse(localStorage.getItem('j_meals')||'{}'); } catch(e){ s={}; }
+  DIETA.semana[di].comidas.forEach(function(_,mi){ delete s[di+'_'+mi]; });
+  localStorage.setItem('j_meals', JSON.stringify(s));
+  renderDiet('semana'); showToast('Día reseteado');
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1400,6 +1598,51 @@ function emailInforme() {
   var text = generarTextoInforme();
   var subject = 'Informe Golf - Javier - '+new Date().toLocaleDateString('es-ES');
   window.location.href = 'mailto:?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(text);
+}
+
+
+function toggleShopItem(key) {
+  var bought = localStorage.getItem(key)==='1';
+  localStorage.setItem(key, bought?'0':'1');
+  renderDiet('compra');
+}
+
+function resetearPlan() {
+  document.getElementById('modal-title').textContent = '🔄 Resetear sesiones';
+  document.getElementById('modal-body').textContent = '¿Borrar todas las sesiones de entrenamiento? El HCP y el objetivo se mantienen.';
+  document.getElementById('modal-confirm').textContent = 'Resetear';
+  document.getElementById('modal-confirm').style.background = 'var(--orange)';
+  document.getElementById('modal-confirm').onclick = function() {
+    sessions = []; saveAll();
+    localStorage.removeItem('j_fit');
+    localStorage.removeItem('j_meals');
+    closeModal(); renderHome(); showToast('✅ Sesiones reseteadas');
+  };
+  document.getElementById('modal').classList.add('open');
+}
+
+function borrarTodo() {
+  document.getElementById('modal-title').textContent = '🗑️ Borrar todo';
+  document.getElementById('modal-body').textContent = '¿Borrar absolutamente todos los datos? No se puede deshacer.';
+  document.getElementById('modal-confirm').textContent = 'Borrar todo';
+  document.getElementById('modal-confirm').style.background = 'var(--red)';
+  document.getElementById('modal-confirm').onclick = function() {
+    localStorage.clear(); location.reload();
+  };
+  document.getElementById('modal').classList.add('open');
+}
+
+function guardarObjetivoAjustes() {
+  var val = parseFloat(document.getElementById('obj-input-ajustes').value);
+  if (isNaN(val)||val<0||val>54) { showToast('⚠️ Introduce un objetivo válido'); return; }
+  localStorage.setItem('j_obj', val.toString());
+  showToast('🎯 Objetivo: HCP ' + val.toFixed(1));
+  renderHome();
+}
+
+function renderAjustes() {
+  var obj = getObj();
+  document.getElementById('obj-input-ajustes').value = obj;
 }
 
 // ══════════════════════════════════════════════════════════
