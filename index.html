@@ -4435,9 +4435,15 @@ let obCurrentStep = 0;
 const OB_TOTAL = 5;
 
 function checkOnboarding() {
-  const hcp  = localStorage.getItem('hcp_manual');
-  const seen = localStorage.getItem('onboarding_done');
-  if (!hcp && !seen) {
+  const seen    = localStorage.getItem('onboarding_done');
+  const hcp     = localStorage.getItem('hcp_manual');
+  const profile = loadProfile();
+  const nombre  = profile?.nombre;
+
+  // Show onboarding if: never completed, OR no name set, OR no HCP set
+  if (!seen || !nombre || !hcp) {
+    // Clear stale flag so onboarding runs properly
+    if (!nombre || !hcp) localStorage.removeItem('onboarding_done');
     document.getElementById('onboarding-overlay').classList.add('open');
   }
 }
@@ -5114,18 +5120,20 @@ REGLAS:
 // ════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════
-loadCustomPlan();
-loadData();
-loadRFEGState();
-var _p = loadProfile(); if (_p) applyProfile(_p);
-renderHome();
-renderHCPCard();
-switchDay(1);
-setTimeout(() => {
-  const firstBlock = document.querySelector('.block-header');
-  if (firstBlock) firstBlock.click();
-}, 100);
-checkOnboarding();</script>
+document.addEventListener('DOMContentLoaded', function() {
+  loadCustomPlan();
+  loadData();
+  loadRFEGState();
+  var _p = loadProfile(); if (_p) applyProfile(_p);
+  renderHome();
+  renderHCPCard();
+  switchDay(1);
+  setTimeout(() => {
+    const firstBlock = document.querySelector('.block-header');
+    if (firstBlock) firstBlock.click();
+  }, 100);
+  checkOnboarding();
+});</script>
 <!-- API KEY MODAL -->
 <div class="modal-overlay" id="modal-apikey">
   <div class="modal">
