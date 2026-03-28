@@ -289,6 +289,96 @@
   .hcp-arrow { font-size: 28px; color: var(--border); }
   .hcp-right .hcp-num { color: var(--greenl); }
 
+  /* ── HCP HERO CARD ───────────────────────────────── */
+  .hcp-hero-card {
+    background: linear-gradient(145deg, #2a1a08 0%, #1a1005 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  .hcp-hero-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(224,120,48,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hcp-hero-top {
+    padding: 18px 18px 10px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .hcp-hero-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .hcp-hero-sessions {
+    font-size: 11px; color: var(--muted);
+    background: var(--surface2); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 20px;
+  }
+  .hcp-hero-number-row {
+    padding: 0 18px 10px;
+    display: flex; align-items: flex-end; gap: 16px;
+  }
+  .hcp-hero-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 96px; line-height: .9; color: var(--text);
+    transition: color .3s;
+    text-shadow: 0 2px 20px rgba(0,0,0,.5);
+  }
+  .hcp-hero-number.improved { color: var(--greenl); }
+  .hcp-hero-number.worsened { color: var(--orange); }
+  .hcp-hero-number.empty    { color: var(--muted); font-size: 72px; }
+  .hcp-hero-meta {
+    display: flex; flex-direction: column; gap: 6px; padding-bottom: 8px;
+  }
+  .hcp-hero-trend {
+    font-size: 13px; font-weight: 600; color: var(--muted);
+  }
+  .hcp-hero-trend.good { color: var(--greenl); }
+  .hcp-hero-trend.bad  { color: var(--orange); }
+  .hcp-hero-controls {
+    display: flex; gap: 8px;
+  }
+  .hcp-ctrl-btn {
+    width: 44px; height: 44px; border: none; border-radius: 12px;
+    font-size: 24px; font-weight: 300; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s; flex-shrink: 0;
+  }
+  .hcp-ctrl-btn:active { transform: scale(.88); }
+  .hcp-ctrl-btn.minus { background: var(--surface2); color: var(--greenl); border: 1.5px solid rgba(245,160,84,.3); font-size: 28px; }
+  .hcp-ctrl-btn.plus  { background: var(--surface2); color: var(--orange); border: 1.5px solid rgba(224,98,58,.3); font-size: 28px; }
+  .hcp-hero-obj-bar {
+    padding: 0 18px 14px;
+  }
+  .hcp-hero-obj-label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: var(--muted); margin-bottom: 6px;
+  }
+  .hcp-hero-obj-label span:last-child { font-weight: 700; color: var(--text); }
+  .hcp-hero-bar-track {
+    height: 5px; background: var(--surface2); border-radius: 3px; overflow: hidden;
+  }
+  .hcp-hero-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--orange), var(--greenl));
+    border-radius: 3px; transition: width .5s ease;
+  }
+  .hcp-hero-actions {
+    border-top: 1px solid var(--border);
+    display: flex;
+  }
+  .hcp-hero-action-btn {
+    flex: 1; padding: 12px 8px; border: none; background: none;
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all .2s; border-right: 1px solid var(--border);
+  }
+  .hcp-hero-action-btn:last-child { border-right: none; }
+  .hcp-hero-action-btn:active { background: var(--surface2); }
+  .hcp-hero-action-btn svg { width: 14px; height: 14px; }
+
   .streak-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 16px;
@@ -644,64 +734,285 @@
   .rfeg-rounds-table td { padding:5px 6px; border-bottom:1px solid var(--border); color:var(--text); white-space:nowrap; }
   .rfeg-rounds-table tr.best-round td { color:var(--greenl); }
 
-  /* ── VIDEO MODAL ─────────────────────────────── */
-  #video-modal {
-    display: none;
-    position: fixed; inset: 0; z-index: 300;
-    background: rgba(0,0,0,.92);
-    flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 20px;
-    animation: fadeIn .2s ease;
-  }
-  #video-modal.open { display: flex; }
-  .video-modal-header {
-    width: 100%; max-width: 600px;
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 12px;
-  }
-  .video-modal-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 16px; color: var(--text);
-    max-width: 80%; line-height: 1.3;
-  }
-  .video-modal-close {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: rgba(255,255,255,.1); border: none;
-    color: var(--text); font-size: 20px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .video-modal-close:active { background: rgba(255,255,255,.2); }
-  .video-container {
-    width: 100%; max-width: 600px;
-    aspect-ratio: 16/9;
-    border-radius: 12px; overflow: hidden;
-    background: #000;
-    box-shadow: 0 8px 40px rgba(0,0,0,.6);
-  }
-  .video-container iframe {
-    width: 100%; height: 100%; border: none;
-  }
-  .video-modal-tip {
-    margin-top: 12px; font-size: 12px;
-    color: rgba(255,255,255,.4); text-align: center;
-  }
-  .btn-video {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: rgba(224,120,48,.15); border: 1px solid rgba(224,120,48,.35);
-    border-radius: 8px; padding: 7px 12px;
-    color: var(--greenl); font-size: 12px; font-weight: 600;
-    cursor: pointer; margin-top: 8px;
-    font-family: 'DM Sans', sans-serif;
-    transition: all .2s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-video:active { background: rgba(224,120,48,.25); transform: scale(.97); }
-  .btn-video svg { flex-shrink: 0; }
+
 </style>
 </head>
 <body>
+
+<!-- ════════════════════ ONBOARDING ════════════════════ -->
+<!-- ════════════════════ ONBOARDING INTELIGENTE ════════════════════ -->
+<style>
+  .ob-overlay {
+    display: none; position: fixed; inset: 0; z-index: 500;
+    background: rgba(0,0,0,.95);
+    align-items: flex-end; justify-content: center;
+  }
+  .ob-overlay.open { display: flex; }
+  .ob-sheet {
+    background: var(--bg); width: 100%; max-width: 430px;
+    border-radius: 20px 20px 0 0;
+    max-height: 92dvh; overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: slideUp .3s ease;
+  }
+  .ob-handle {
+    width: 36px; height: 4px; background: var(--border);
+    border-radius: 2px; margin: 14px auto 0;
+  }
+  .ob-progress {
+    display: flex; gap: 4px; padding: 14px 20px 0;
+  }
+  .ob-progress-dot {
+    height: 3px; border-radius: 2px; flex: 1;
+    background: var(--surface2); transition: background .3s;
+  }
+  .ob-progress-dot.done { background: var(--greenl); }
+  .ob-progress-dot.active { background: var(--green); }
+  .ob-step { display: none; padding: 20px 20px 32px; }
+  .ob-step.active { display: block; }
+  .ob-step-emoji { font-size: 38px; text-align: center; margin-bottom: 10px; }
+  .ob-step-title {
+    font-family: 'DM Serif Display', serif; font-size: 24px;
+    text-align: center; margin-bottom: 6px;
+  }
+  .ob-step-sub {
+    font-size: 13px; color: var(--muted); text-align: center;
+    line-height: 1.6; margin-bottom: 22px;
+  }
+  .ob-label {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    letter-spacing: .6px; text-transform: uppercase;
+    display: block; margin-bottom: 8px; margin-top: 16px;
+  }
+  .ob-input {
+    width: 100%; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 15px;
+    outline: none; transition: border-color .2s;
+    -moz-appearance: textfield; appearance: textfield;
+  }
+  .ob-input:focus { border-color: var(--greenl); }
+  .ob-chips {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+  }
+  .ob-chip {
+    padding: 9px 14px; border-radius: 30px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .15s; -webkit-tap-highlight-color: transparent;
+  }
+  .ob-chip.selected {
+    background: var(--green); border-color: var(--green); color: #fff;
+  }
+  .ob-chip.selected.gold { background: var(--gold); border-color: var(--gold); color: #1a0f05; }
+  .ob-chip.selected.orange { background: var(--orange); border-color: var(--orange); }
+  .ob-btn-next {
+    width: 100%; margin-top: 24px; padding: 16px;
+    border: none; border-radius: var(--radius);
+    background: var(--green); color: #fff;
+    font-family: 'DM Serif Display', serif; font-size: 17px;
+    cursor: pointer; transition: opacity .2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .ob-btn-next:disabled { opacity: .4; cursor: not-allowed; }
+  .ob-btn-skip {
+    width: 100%; margin-top: 8px; padding: 12px;
+    border: none; background: none;
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; cursor: pointer;
+  }
+
+  /* Generating state */
+  .ob-generating {
+    display: none; padding: 40px 20px 60px;
+    text-align: center; flex-direction: column; align-items: center;
+  }
+  .ob-generating.active { display: flex; }
+  .ob-gen-spinner {
+    width: 56px; height: 56px;
+    border: 3px solid var(--surface2);
+    border-top-color: var(--greenl);
+    border-radius: 50%;
+    animation: spin .9s linear infinite;
+    margin-bottom: 20px;
+  }
+  .ob-gen-title {
+    font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px;
+  }
+  .ob-gen-status {
+    font-size: 13px; color: var(--muted); min-height: 20px;
+    transition: opacity .3s;
+  }
+  .ob-gen-steps {
+    margin-top: 24px; display: flex; flex-direction: column; gap: 8px; width: 100%;
+  }
+  .ob-gen-step-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--muted);
+    padding: 10px 14px; border-radius: 10px; background: var(--surface);
+    transition: all .3s;
+  }
+  .ob-gen-step-item.done { color: var(--greenl); background: rgba(245,160,84,.08); }
+  .ob-gen-step-item.active { color: var(--text); border: 1px solid var(--border); }
+  .ob-gen-step-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); flex-shrink: 0; transition: background .3s;
+  }
+  .ob-gen-step-item.done .ob-gen-step-dot { background: var(--greenl); }
+  .ob-gen-step-item.active .ob-gen-step-dot { background: var(--green); animation: pulse 1s ease infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.4)} }
+</style>
+
+<div class="ob-overlay" id="onboarding-overlay">
+  <div class="ob-sheet">
+    <div class="ob-handle"></div>
+    <div class="ob-progress" id="ob-progress">
+      <div class="ob-progress-dot active" id="ob-dot-0"></div>
+      <div class="ob-progress-dot" id="ob-dot-1"></div>
+      <div class="ob-progress-dot" id="ob-dot-2"></div>
+      <div class="ob-progress-dot" id="ob-dot-3"></div>
+      <div class="ob-progress-dot" id="ob-dot-4"></div>
+    </div>
+
+    <!-- PASO 0: Nombre + HCP -->
+    <div class="ob-step active" id="ob-step-0">
+      <div class="ob-step-emoji">👋</div>
+      <div class="ob-step-title">Hola, golfista</div>
+      <div class="ob-step-sub">Cuéntame lo básico y te preparo un plan a medida.</div>
+      <label class="ob-label">Tu nombre</label>
+      <input class="ob-input" id="ob-nombre" type="text" placeholder="Ej: Javier" autocomplete="off">
+      <label class="ob-label">Handicap actual (RFEG)</label>
+      <input class="ob-input" id="ob-hcp" type="number" placeholder="Ej: 18.4" step="0.1" min="0" max="54">
+      <label class="ob-label">Objetivo de handicap</label>
+      <input class="ob-input" id="ob-obj" type="number" placeholder="Ej: 12.0" step="0.1" min="0" max="54">
+      <button class="ob-btn-next" onclick="obNext(0)">Siguiente →</button>
+      <button class="ob-btn-skip" onclick="skipOnboarding()">Configurar más tarde</button>
+    </div>
+
+    <!-- PASO 1: Errores principales -->
+    <div class="ob-step" id="ob-step-1">
+      <div class="ob-step-emoji">🎯</div>
+      <div class="ob-step-title">¿Dónde pierdes golpes?</div>
+      <div class="ob-step-sub">Selecciona todos los que apliquen. Sé honesto, es para tu plan.</div>
+      <div class="ob-chips" id="ob-errores">
+        <div class="ob-chip" onclick="toggleChip(this)">🍌 Slice con driver</div>
+        <div class="ob-chip" onclick="toggleChip(this)">↙️ Hook / cierre de cara</div>
+        <div class="ob-chip" onclick="toggleChip(this)">💨 Poca distancia</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🏌️ Hierros inconsistentes</div>
+        <div class="ob-chip" onclick="toggleChip(this)">⛳ Putting de distancia</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🎳 Putting corto (< 2m)</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🌿 Chip / juego corto</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🏖️ Bunker</div>
+        <div class="ob-chip" onclick="toggleChip(this)">😰 Nervios / presión</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🗺️ Gestión del campo</div>
+        <div class="ob-chip" onclick="toggleChip(this)">📐 Compresión del hierro</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🏹 Wedges / control distancia</div>
+      </div>
+      <button class="ob-btn-next" onclick="obNext(1)">Siguiente →</button>
+    </div>
+
+    <!-- PASO 2: Disponibilidad -->
+    <div class="ob-step" id="ob-step-2">
+      <div class="ob-step-emoji">📅</div>
+      <div class="ob-step-title">¿Cuánto tiempo tienes?</div>
+      <div class="ob-step-sub">Adaptamos el plan a tu agenda real.</div>
+      <label class="ob-label">Días de entrenamiento por semana</label>
+      <div class="ob-chips" id="ob-dias" style="gap:10px">
+        <div class="ob-chip" onclick="selectOne('ob-dias',this)">2 días</div>
+        <div class="ob-chip" onclick="selectOne('ob-dias',this)">3 días</div>
+        <div class="ob-chip" onclick="selectOne('ob-dias',this)">4 días</div>
+        <div class="ob-chip" onclick="selectOne('ob-dias',this)">5+ días</div>
+      </div>
+      <label class="ob-label">Duración media de sesión</label>
+      <div class="ob-chips" id="ob-duracion">
+        <div class="ob-chip" onclick="selectOne('ob-duracion',this)">45 min</div>
+        <div class="ob-chip" onclick="selectOne('ob-duracion',this)">1h</div>
+        <div class="ob-chip" onclick="selectOne('ob-duracion',this)">1.5h</div>
+        <div class="ob-chip" onclick="selectOne('ob-duracion',this)">2h+</div>
+      </div>
+      <label class="ob-label">¿Tienes acceso a campo?</label>
+      <div class="ob-chips" id="ob-acceso">
+        <div class="ob-chip" onclick="selectOne('ob-acceso',this)">Solo campo de prácticas</div>
+        <div class="ob-chip" onclick="selectOne('ob-acceso',this)">Campo completo</div>
+        <div class="ob-chip" onclick="selectOne('ob-acceso',this)">Ambos</div>
+      </div>
+      <button class="ob-btn-next" onclick="obNext(2)">Siguiente →</button>
+    </div>
+
+    <!-- PASO 3: Palos y detalles -->
+    <div class="ob-step" id="ob-step-3">
+      <div class="ob-step-emoji">🏌️</div>
+      <div class="ob-step-title">Tu equipo y juego</div>
+      <div class="ob-step-sub">Detalles que marcan la diferencia en el plan.</div>
+      <label class="ob-label">¿Qué palos usas principalmente?</label>
+      <div class="ob-chips" id="ob-palos">
+        <div class="ob-chip" onclick="toggleChip(this)">🪵 Driver</div>
+        <div class="ob-chip" onclick="toggleChip(this)">⛳ Hierros medios (5-7)</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🎯 Hierros cortos (8-PW)</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🏹 Wedges (SW/LW)</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🪄 Maderas de calle</div>
+        <div class="ob-chip" onclick="toggleChip(this)">🥄 Híbridos</div>
+      </div>
+      <label class="ob-label">¿Tienes entrenador?</label>
+      <div class="ob-chips" id="ob-entrenador">
+        <div class="ob-chip" onclick="selectOne('ob-entrenador',this)">Sí, regularmente</div>
+        <div class="ob-chip" onclick="selectOne('ob-entrenador',this)">Ocasionalmente</div>
+        <div class="ob-chip" onclick="selectOne('ob-entrenador',this)">No, autoaprendizaje</div>
+      </div>
+      <label class="ob-label">Algo más que deba saber (opcional)</label>
+      <textarea class="ob-input" id="ob-extra" placeholder="Ej: tengo molestias en el codo, juego en Sevilla, mi swing es plano..." rows="3" style="resize:none;line-height:1.5"></textarea>
+      <button class="ob-btn-next" onclick="obNext(3)">Siguiente →</button>
+    </div>
+
+    <!-- PASO 4: Mentalidad -->
+    <div class="ob-step" id="ob-step-4">
+      <div class="ob-step-emoji">🧠</div>
+      <div class="ob-step-title">Tu mentalidad de mejora</div>
+      <div class="ob-step-sub">Esto define cómo estructuramos el plan.</div>
+      <label class="ob-label">¿Cuál es tu prioridad ahora mismo?</label>
+      <div class="ob-chips" id="ob-prioridad">
+        <div class="ob-chip" onclick="selectOne('ob-prioridad',this)">🎯 Bajar handicap lo antes posible</div>
+        <div class="ob-chip" onclick="selectOne('ob-prioridad',this)">🏗️ Mejorar técnica base</div>
+        <div class="ob-chip" onclick="selectOne('ob-prioridad',this)">🎮 Disfrutar más cada ronda</div>
+        <div class="ob-chip" onclick="selectOne('ob-prioridad',this)">🏆 Competir en torneos</div>
+      </div>
+      <label class="ob-label">¿Cómo prefieres entrenar?</label>
+      <div class="ob-chips" id="ob-estilo">
+        <div class="ob-chip" onclick="selectOne('ob-estilo',this)">📋 Con estructura y métricas</div>
+        <div class="ob-chip" onclick="selectOne('ob-estilo',this)">🎲 Variado y dinámico</div>
+        <div class="ob-chip" onclick="selectOne('ob-estilo',this)">🔁 Repetición hasta dominar</div>
+      </div>
+      <button class="ob-btn-next" id="ob-btn-generar" onclick="generarPlan()">
+        ⚡ Generar mi plan personalizado
+      </button>
+      <button class="ob-btn-skip" onclick="skipOnboarding()">Usar plan genérico</button>
+    </div>
+
+    <!-- GENERANDO -->
+    <div class="ob-generating" id="ob-generating">
+      <div class="ob-gen-spinner"></div>
+      <div class="ob-gen-title">Creando tu plan</div>
+      <div class="ob-gen-status" id="ob-gen-status">Analizando tu perfil...</div>
+      <div class="ob-gen-steps">
+        <div class="ob-gen-step-item active" id="genstep-0">
+          <div class="ob-gen-step-dot"></div> Analizando errores y nivel
+        </div>
+        <div class="ob-gen-step-item" id="genstep-1">
+          <div class="ob-gen-step-dot"></div> Diseñando estructura semanal
+        </div>
+        <div class="ob-gen-step-item" id="genstep-2">
+          <div class="ob-gen-step-dot"></div> Creando ejercicios específicos
+        </div>
+        <div class="ob-gen-step-item" id="genstep-3">
+          <div class="ob-gen-step-dot"></div> Calibrando métricas y metas
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════ SCREENS ═══ -->
 
@@ -714,55 +1025,53 @@
         <h1 style="font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px">⛳ Golf Tracker</h1>
         <p id="home-date" style="font-size:12px;color:var(--muted);margin-top:2px">Cargando...</p>
       </div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <button onclick="openBackupModal()" title="Copia de seguridad"
-          style="width:34px;height:34px;border:1px solid var(--border);border-radius:8px;
-                 background:var(--surface);color:var(--muted);
-                 display:flex;align-items:center;justify-content:center;cursor:pointer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-        </button>
-        <span class="badge" id="home-badge">Golf Tracker</span>
-      </div>
+      <span class="badge" id="home-badge">Golf Tracker</span>
     </div>
   </div>
   <div class="today-wrap">
-    <!-- HCP Manual Card -->
-    <div class="hcp-manual-card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div class="hcp-label">Handicap</div>
-        <div style="font-size:11px;color:var(--muted)">Sesiones: <span id="sessions-done">0</span></div>
+    <!-- HCP Hero Card -->
+    <div class="hcp-hero-card">
+      <div class="hcp-hero-top">
+        <div class="hcp-hero-label">Handicap Índice</div>
+        <div class="hcp-hero-sessions">Sesiones: <span id="sessions-done">0</span></div>
       </div>
-      <div class="hcp-manual-row">
-        <div>
-          <div class="hcp-label" style="margin-bottom:4px">Actual</div>
-          <div class="hcp-big-num" id="hcp-current">—</div>
-        </div>
-        <div class="hcp-adj-btns">
-          <button class="hcp-adj-btn minus" onclick="adjustHCP(-0.1)" title="Mejorar HCP">−</button>
-          <button class="hcp-adj-btn plus"  onclick="adjustHCP(+0.1)" title="Empeorar HCP">+</button>
-        </div>
-        <div class="hcp-details">
-          <div class="hcp-label">Historial</div>
-          <div id="hcp-trend" style="font-size:12px;color:var(--muted);margin-top:4px">Sin cambios registrados</div>
-        </div>
-      </div>
-      <div class="hcp-obj-row">
-        <div>
-          <div class="hcp-label">Objetivo</div>
-          <div class="hcp-obj-num" id="hcp-obj-display">—</div>
-        </div>
-        <div style="flex:1;margin-left:16px">
-          <div id="hcp-progress-bar" style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:4px">
-            <div id="hcp-progress-fill" style="height:100%;background:var(--greenl);border-radius:3px;width:0%;transition:width .5s ease"></div>
+      <div class="hcp-hero-number-row">
+        <div class="hcp-hero-number empty" id="hcp-current">—</div>
+        <div class="hcp-hero-meta">
+          <div class="hcp-hero-trend" id="hcp-trend">Sin cambios aún</div>
+          <div class="hcp-hero-controls">
+            <button class="hcp-ctrl-btn minus" onclick="adjustHCP(-0.1)" title="Mejorar HCP">−</button>
+            <button class="hcp-ctrl-btn plus"  onclick="adjustHCP(+0.1)" title="Empeorar HCP">+</button>
           </div>
-          <div id="hcp-progress-label" style="font-size:11px;color:var(--muted);margin-top:4px"></div>
         </div>
       </div>
-      <button class="hcp-history-btn" onclick="showHCPHistory()">📈 Ver historial de HCP</button>
+      <div class="hcp-hero-obj-bar">
+        <div class="hcp-hero-obj-label">
+          <span>Objetivo: <span id="hcp-obj-display">—</span></span>
+          <span id="hcp-progress-label"></span>
+        </div>
+        <div class="hcp-hero-bar-track">
+          <div class="hcp-hero-bar-fill" id="hcp-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="hcp-hero-actions">
+        <button class="hcp-hero-action-btn" onclick="showHCPHistory()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Historial
+        </button>
+        <button class="hcp-hero-action-btn" onclick="reGeneratePlan()" style="color:var(--greenl)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10"/><polyline points="16 12 22 12 22 6"/><path d="M2 12a10 10 0 0 0 10 10"/><polyline points="8 12 2 12 2 18"/></svg>
+          Nuevo plan
+        </button>
+        <button class="hcp-hero-action-btn" onclick="showResetModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+          Resetear
+        </button>
+        <button class="hcp-hero-action-btn" onclick="openBackupModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Backup
+        </button>
+      </div>
     </div>
 
     <!-- RFEG Handicap Card -->
@@ -902,9 +1211,7 @@
         <h1>Rendimiento</h1>
         <p>Golf + Físico · Track record completo</p>
       </div>
-      <button onclick="showResetModal()" style="background:none;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer">
-        Resetear
-      </button>
+
     </div>
   </div>
   <!-- Stats mode tabs -->
@@ -1062,17 +1369,6 @@
 </div>
 
 
-<!-- ════════════════════ VIDEO MODAL ════════════════════ -->
-<div id="video-modal">
-  <div class="video-modal-header">
-    <div class="video-modal-title" id="video-modal-title">Ejercicio</div>
-    <button class="video-modal-close" onclick="closeVideo()">×</button>
-  </div>
-  <div class="video-container">
-    <iframe id="video-iframe" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-  </div>
-  <p class="video-modal-tip">Pulsa × para cerrar y volver al ejercicio</p>
-</div>
 
 <div class="toast" id="toast"></div>
 
@@ -2058,6 +2354,8 @@ function showResetModal() {
     localStorage.removeItem('hcp_objetivo');
     localStorage.removeItem('hcp_history');
     localStorage.removeItem('golf_profile');
+    localStorage.removeItem('golf_custom_plan');
+    localStorage.removeItem('onboarding_done');
     closeModal();
     renderStats();
     renderHome();
@@ -2924,10 +3222,7 @@ function renderFitExercise(ex, idx, dayId, color) {
                  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer">
           ${done ? '✓ Listo' : 'Marcar hecho'}
         </button>
-        ${ex.video ? `<button class="btn-video" onclick="openVideo('${ex.video}','${ex.name.replace(/'/g,"\\'")}')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Ver técnica
-        </button>` : ''}
+        ${ex.video ? `` : ''}
       </div>
     </div>
   </div>`;
@@ -3437,66 +3732,6 @@ function importBackup() {
 
 
 
-// ════════════════════════════════════════════════════════
-// VIDEO MODAL
-// ════════════════════════════════════════════════════════
-
-// YouTube video IDs for each exercise category
-var EXERCISE_VIDEOS = {
-  // Swing mechanics & path
-  'motorcycle':    { id: 'KhMIFNLlB0A', title: 'Motorcycle Drill — Corrección de path' },
-  'canal':         { id: '6L7pKBPqSbw', title: 'Canal sticks — Inside-out path' },
-  'toalla':        { id: 'mTHkHCMGDC4', title: 'Toalla bajo axila — Conexión del swing' },
-  'outside-in':    { id: 'KhMIFNLlB0A', title: 'Corrección outside-in' },
-  'slice':         { id: 'KhMIFNLlB0A', title: 'Cómo eliminar el slice' },
-
-  // Short game
-  'chip':          { id: 'Cz6sQdpJFOI', title: 'Técnica de chip — Juego corto' },
-  'bunker':        { id: 'VIgNMDtJfPQ', title: 'Salida de bunker — Técnica completa' },
-  'putting':       { id: 'r9fGGOSrMDY', title: 'Técnica de putting — Fundamentos' },
-  'flop':          { id: 'b7GAtJwHoUs', title: 'Flop shot — Golpe de altura' },
-  'pitch':         { id: 'WGBdAFhVbX0', title: 'Pitch shot — Control de distancia' },
-  'wedge':         { id: 'WGBdAFhVbX0', title: 'Control de wedges — Distancias' },
-
-  // Fitness golf
-  'pallof':        { id: 'AH_QZLm_0-s', title: 'Pallof Press — Anti-rotación core' },
-  'deadbug':       { id: 'KHRrQMy_uZ4', title: 'Dead Bug — Estabilidad lumbar' },
-  'hip90':         { id: 'L6UvTb4LqiM', title: '90/90 Hip Stretch — Movilidad cadera' },
-  'medicball':     { id: 'Zk-wpFoQqvQ', title: 'Medicine Ball Rotations — Potencia rotacional' },
-  'overspeed':     { id: 'rQJBBMhfv5I', title: 'Overspeed Training — Velocidad de swing' },
-  'rotacion':      { id: 'Zk-wpFoQqvQ', title: 'Rotación torácica — Amplitud de swing' },
-  'equilibrio':    { id: 'YyvdBCLMgGY', title: 'Equilibrio — Estabilidad en el swing' },
-  'movilidad':     { id: 'L6UvTb4LqiM', title: 'Movilidad general para golf' },
-  'rdl':           { id: 'VsNzbRFrmpw', title: 'Single Leg RDL — Equilibrio y fuerza' },
-  'plank':         { id: 'ASdvN_XEl_c', title: 'Plank variaciones — Core golf' },
-
-  // Default
-  'default':       { id: 'WGBdAFhVbX0', title: 'Ejercicio de golf' }
-};
-
-function openVideo(exerciseKey, customTitle) {
-  var video = EXERCISE_VIDEOS[exerciseKey] || EXERCISE_VIDEOS['default'];
-  var title = customTitle || video.title;
-
-  document.getElementById('video-modal-title').textContent = '▶ ' + title;
-  document.getElementById('video-iframe').src =
-    'https://www.youtube.com/embed/' + video.id + '?autoplay=1&rel=0&modestbranding=1';
-  document.getElementById('video-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  if (navigator.vibrate) navigator.vibrate(10);
-}
-
-function closeVideo() {
-  document.getElementById('video-modal').classList.remove('open');
-  document.getElementById('video-iframe').src = '';
-  document.body.style.overflow = '';
-}
-
-// Close on background tap
-document.getElementById('video-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeVideo();
-});
 
 // ════════════════════════════════════════════════════════
 // PERFIL DEL JUGADOR
@@ -3524,79 +3759,6 @@ function openGoogleForm() {
 
 // ════════════════════════════════════════════════════════
 // HCP — 100% MANUAL
-
-// ════════════════════════════════════════════════════════
-// VIDEO MODAL
-// ════════════════════════════════════════════════════════
-
-// YouTube video IDs for each exercise category
-var EXERCISE_VIDEOS = {
-  // Swing mechanics & path
-  'motorcycle':    { id: 'KhMIFNLlB0A', title: 'Motorcycle Drill — Corrección de path' },
-  'canal':         { id: '6L7pKBPqSbw', title: 'Canal sticks — Inside-out path' },
-  'toalla':        { id: 'mTHkHCMGDC4', title: 'Toalla bajo axila — Conexión del swing' },
-  'outside-in':    { id: 'KhMIFNLlB0A', title: 'Corrección outside-in' },
-  'slice':         { id: 'KhMIFNLlB0A', title: 'Cómo eliminar el slice' },
-
-  // Short game
-  'chip':          { id: 'Cz6sQdpJFOI', title: 'Técnica de chip — Juego corto' },
-  'bunker':        { id: 'VIgNMDtJfPQ', title: 'Salida de bunker — Técnica completa' },
-  'putting':       { id: 'r9fGGOSrMDY', title: 'Técnica de putting — Fundamentos' },
-  'flop':          { id: 'b7GAtJwHoUs', title: 'Flop shot — Golpe de altura' },
-  'pitch':         { id: 'WGBdAFhVbX0', title: 'Pitch shot — Control de distancia' },
-  'wedge':         { id: 'WGBdAFhVbX0', title: 'Control de wedges — Distancias' },
-
-  // Fitness golf
-  'pallof':        { id: 'AH_QZLm_0-s', title: 'Pallof Press — Anti-rotación core' },
-  'deadbug':       { id: 'KHRrQMy_uZ4', title: 'Dead Bug — Estabilidad lumbar' },
-  'hip90':         { id: 'L6UvTb4LqiM', title: '90/90 Hip Stretch — Movilidad cadera' },
-  'medicball':     { id: 'Zk-wpFoQqvQ', title: 'Medicine Ball Rotations — Potencia rotacional' },
-  'overspeed':     { id: 'rQJBBMhfv5I', title: 'Overspeed Training — Velocidad de swing' },
-  'rotacion':      { id: 'Zk-wpFoQqvQ', title: 'Rotación torácica — Amplitud de swing' },
-  'equilibrio':    { id: 'YyvdBCLMgGY', title: 'Equilibrio — Estabilidad en el swing' },
-  'movilidad':     { id: 'L6UvTb4LqiM', title: 'Movilidad general para golf' },
-  'rdl':           { id: 'VsNzbRFrmpw', title: 'Single Leg RDL — Equilibrio y fuerza' },
-  'plank':         { id: 'ASdvN_XEl_c', title: 'Plank variaciones — Core golf' },
-
-  // Default
-  'default':       { id: 'WGBdAFhVbX0', title: 'Ejercicio de golf' }
-};
-
-
-function closeVideo() {
-  document.getElementById('video-modal').classList.remove('open');
-  document.getElementById('video-iframe').src = '';
-  document.body.style.overflow = '';
-}
-
-// Close on background tap
-document.getElementById('video-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeVideo();
-});
-
-// ════════════════════════════════════════════════════════
-// PERFIL DEL JUGADOR
-// ════════════════════════════════════════════════════════
-function loadProfile() {
-  try { return JSON.parse(localStorage.getItem('golf_profile') || 'null'); } catch(e) { return null; }
-}
-
-function saveProfile(p) {
-  localStorage.setItem('golf_profile', JSON.stringify(p));
-}
-
-function applyProfile(p) {
-  if (!p) return;
-  var badge = document.getElementById('home-badge');
-  if (badge && p.nombre) badge.textContent = p.nombre.split(' ')[0] + ' · Golf';
-  var rfegEl = document.getElementById('rfeg-licencia-display');
-  if (rfegEl && p.rfeg) rfegEl.textContent = p.rfeg;
-}
-
-function openGoogleForm() {
-  var url = localStorage.getItem('google_form_url') || 'https://docs.google.com/forms';
-  window.open(url, '_blank');
-}
 
 // ════════════════════════════════════════════════════════
 // HCP — 100% MANUAL
@@ -3651,13 +3813,15 @@ function renderHCPCard() {
 
   if (hcp === null) {
     el.textContent = '—';
-    el.className = 'hcp-big-num';
+    el.className = 'hcp-hero-number empty';
   } else {
     el.textContent = hcp.toFixed(1);
     // Color based on direction of change
     if (hist.length >= 2) {
       const prev = hist[hist.length - 2].hcp;
-      el.className = 'hcp-big-num' + (hcp < prev ? ' improved' : hcp > prev ? ' worsened' : '');
+      el.className = 'hcp-hero-number' + (hcp < prev ? ' improved' : hcp > prev ? ' worsened' : '');
+    } else {
+      el.className = 'hcp-hero-number';
     }
   }
 
@@ -3667,15 +3831,18 @@ function renderHCPCard() {
 
   // Progress bar
   const profile = loadProfile();
-  if (hcp !== null && obj !== null && profile) {
-    const start  = parseFloat(profile.hcp) || hcp;
+  const fill  = document.getElementById('hcp-progress-fill');
+  const label = document.getElementById('hcp-progress-label');
+  if (hcp !== null && obj !== null) {
+    const start  = (profile && parseFloat(profile.hcp)) || hcp;
     const total  = start - obj;
     const done   = start - hcp;
     const pct    = total > 0 ? Math.max(0, Math.min(100, Math.round((done / total) * 100))) : 0;
-    const fill   = document.getElementById('hcp-progress-fill');
-    const label  = document.getElementById('hcp-progress-label');
     if (fill)  fill.style.width  = pct + '%';
-    if (label) label.textContent = pct + '% del camino · ' + (hcp - obj > 0 ? 'Faltan ' + (hcp - obj).toFixed(1) + ' puntos' : '¡Objetivo conseguido!');
+    if (label) label.textContent = pct + '% · ' + (hcp - obj > 0 ? 'Faltan ' + (hcp - obj).toFixed(1) : '¡Objetivo!');
+  } else {
+    if (fill)  fill.style.width = '0%';
+    if (label) label.textContent = '';
   }
 
   // Trend text
@@ -3683,26 +3850,24 @@ function renderHCPCard() {
   if (trendEl) {
     if (hist.length < 2) {
       trendEl.textContent = 'Sin cambios aún';
-      trendEl.style.color = 'var(--muted)';
+      trendEl.className = 'hcp-hero-trend';
     } else {
       const first = hist[0].hcp;
       const diff  = hcp - first;
       if (diff < 0) {
-        trendEl.textContent = '⬇️ ' + Math.abs(diff).toFixed(1) + ' pts mejorado';
-        trendEl.style.color = 'var(--greenl)';
+        trendEl.textContent = '⬇ ' + Math.abs(diff).toFixed(1) + ' pts mejorado';
+        trendEl.className = 'hcp-hero-trend good';
       } else if (diff > 0) {
-        trendEl.textContent = '⬆️ ' + diff.toFixed(1) + ' pts subido';
-        trendEl.style.color = 'var(--orange)';
+        trendEl.textContent = '⬆ ' + diff.toFixed(1) + ' pts subido';
+        trendEl.className = 'hcp-hero-trend bad';
       } else {
-        trendEl.textContent = '➡️ Sin cambios';
-        trendEl.style.color = 'var(--muted)';
+        trendEl.textContent = '→ Sin cambios';
+        trendEl.className = 'hcp-hero-trend';
       }
     }
   }
 
-  // Sync adj buttons appearance
-  document.querySelectorAll('.hcp-adj-btn.minus').forEach(b => b.classList.add('active'));
-  document.querySelectorAll('.hcp-adj-btn.plus').forEach(b => b.classList.add('active'));
+
 }
 
 function showHCPHistory() {
@@ -3726,9 +3891,265 @@ function showHCPHistory() {
 
 // Patch resetModal confirm to also reset hcp history
 const _origResetModal = typeof showResetModal !== 'undefined' ? showResetModal : null;
+
+// ════════════════════════════════════════════════════════
+// ONBOARDING INTELIGENTE — Multi-paso + Claude API
+// ════════════════════════════════════════════════════════
+let obCurrentStep = 0;
+const OB_TOTAL = 5;
+
+function checkOnboarding() {
+  const hcp  = localStorage.getItem('hcp_manual');
+  const seen = localStorage.getItem('onboarding_done');
+  if (!hcp && !seen) {
+    document.getElementById('onboarding-overlay').classList.add('open');
+  }
+}
+
+function obNext(step) {
+  // Validate step 0
+  if (step === 0) {
+    const nombre = document.getElementById('ob-nombre').value.trim();
+    const hcp    = parseFloat(document.getElementById('ob-hcp').value);
+    if (!nombre) { showToast('⚠️ Introduce tu nombre'); return; }
+    if (isNaN(hcp)) { showToast('⚠️ Introduce tu handicap actual'); return; }
+  }
+  // Validate step 2
+  if (step === 2) {
+    const dias = document.querySelector('#ob-dias .selected');
+    if (!dias) { showToast('⚠️ Selecciona los días disponibles'); return; }
+  }
+
+  // Hide current step
+  document.getElementById('ob-step-' + step).classList.remove('active');
+  // Show next
+  obCurrentStep = step + 1;
+  document.getElementById('ob-step-' + obCurrentStep).classList.add('active');
+  // Update progress
+  for (let i = 0; i < OB_TOTAL; i++) {
+    const dot = document.getElementById('ob-dot-' + i);
+    if (!dot) continue;
+    dot.classList.remove('done', 'active');
+    if (i < obCurrentStep) dot.classList.add('done');
+    else if (i === obCurrentStep) dot.classList.add('active');
+  }
+  // Scroll to top of sheet
+  document.querySelector('.ob-sheet').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+}
+
+function selectOne(groupId, el) {
+  document.querySelectorAll('#' + groupId + ' .ob-chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function getSelectedChips(groupId) {
+  return [...document.querySelectorAll('#' + groupId + ' .ob-chip.selected')]
+    .map(c => c.textContent.trim());
+}
+
+async function generarPlan() {
+  // Gather all data
+  const nombre   = document.getElementById('ob-nombre').value.trim();
+  const hcp      = parseFloat(document.getElementById('ob-hcp').value);
+  const obj      = parseFloat(document.getElementById('ob-obj').value);
+  const errores  = getSelectedChips('ob-errores');
+  const dias     = getSelectedChips('ob-dias')[0] || '3 días';
+  const duracion = getSelectedChips('ob-duracion')[0] || '1.5h';
+  const acceso   = getSelectedChips('ob-acceso')[0] || 'Ambos';
+  const palos    = getSelectedChips('ob-palos');
+  const entrenador = getSelectedChips('ob-entrenador')[0] || 'No';
+  const prioridad  = getSelectedChips('ob-prioridad')[0] || 'Bajar handicap';
+  const estilo     = getSelectedChips('ob-estilo')[0] || 'Con estructura';
+  const extra      = document.getElementById('ob-extra').value.trim();
+
+  // Save profile immediately
+  const profile = { nombre, hcp: hcp.toString(), rfeg: '' };
+  saveProfile(profile);
+  applyProfile(profile);
+  localStorage.setItem('hcp_manual', hcp.toString());
+  const hist = [{ hcp, date: new Date().toISOString(), note: 'Inicio' }];
+  localStorage.setItem('hcp_history', JSON.stringify(hist));
+  localStorage.setItem('rfeg_hcp_current', hcp.toString());
+  if (!isNaN(obj) && obj < hcp) localStorage.setItem('hcp_objetivo', obj.toString());
+
+  // Show generating screen
+  document.getElementById('ob-step-4').classList.remove('active');
+  document.getElementById('ob-generating').classList.add('active');
+  document.querySelector('.ob-progress').style.display = 'none';
+
+  // Animate gen steps
+  const genSteps = ['genstep-0','genstep-1','genstep-2','genstep-3'];
+  let stepIdx = 0;
+  const stepInterval = setInterval(() => {
+    if (stepIdx > 0) document.getElementById(genSteps[stepIdx-1]).className = 'ob-gen-step-item done';
+    if (stepIdx < genSteps.length) {
+      document.getElementById(genSteps[stepIdx]).className = 'ob-gen-step-item active';
+      stepIdx++;
+    }
+  }, 2200);
+
+  const prompt = `Eres un entrenador de golf experto. Genera un plan de entrenamiento PERSONALIZADO en JSON para este jugador:
+
+PERFIL:
+- Nombre: ${nombre}
+- Handicap actual: ${hcp}
+- Objetivo: ${!isNaN(obj) ? obj : 'No especificado'}
+- Días/semana: ${dias}
+- Duración sesión: ${duracion}
+- Acceso: ${acceso}
+- Errores principales: ${errores.length ? errores.join(', ') : 'No especificado'}
+- Palos que usa: ${palos.length ? palos.join(', ') : 'Todos'}
+- Entrenador: ${entrenador}
+- Prioridad: ${prioridad}
+- Estilo de entrenamiento: ${estilo}
+${extra ? '- Notas adicionales: ' + extra : ''}
+
+Genera exactamente ${dias.startsWith('2') ? 2 : dias.startsWith('3') ? 3 : dias.startsWith('4') ? 4 : 4} días de entrenamiento.
+
+RESPONDE ÚNICAMENTE con este JSON (sin backticks ni texto extra):
+{
+  "days": {
+    "1": {
+      "title": "Día 1 · [tema corto]",
+      "subtitle": "[duracion] · [descripcion breve]",
+      "color": "#e07830",
+      "blocks": [
+        {
+          "id": "d1b1",
+          "name": "[nombre del bloque]",
+          "emoji": "[emoji relevante]",
+          "time": "[tiempo]",
+          "objetivo": "[objetivo específico del bloque, máx 80 chars]",
+          "exercises": [
+            {
+              "id": "d1e1",
+              "name": "[nombre ejercicio]",
+              "meta": "[métrica concreta, ej: 7/10 en zona]",
+              "target": [número entero, el denominador de la meta],
+              "desc": "[instrucción clara de 1-2 frases. Específico para el nivel HCP ${hcp}]"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+REGLAS IMPORTANTES:
+- IDs únicos: d1b1, d1b2... d1e1, d1e2... para día 1; d2b1... d2e1... para día 2, etc.
+- Cada día: 2-3 bloques, cada bloque: 3-4 ejercicios
+- Colores: día1="#e07830", día2="#e8a63a", día3="#e0623a", día4="#f5a054"
+- Los ejercicios deben atacar directamente los errores: ${errores.join(', ')}
+- Target siempre > 0 (entre 3 y 30)
+- Lenguaje en español, tono directo y motivador
+- Adapta la dificultad al HCP ${hcp}: ${hcp > 20 ? 'ejercicios básicos y mecánica' : hcp > 12 ? 'técnica intermedia y consistencia' : 'refinamiento y presión'}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    clearInterval(stepInterval);
+
+    // Mark all gen steps done
+    genSteps.forEach(id => document.getElementById(id).className = 'ob-gen-step-item done');
+
+    const raw = data.content?.[0]?.text || '';
+    // Strip possible code fences
+    const jsonStr = raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    const plan = JSON.parse(jsonStr);
+
+    // Apply generated plan
+    if (plan.days) {
+      // Convert to DAYS format
+      const newDays = {};
+      Object.keys(plan.days).forEach(k => {
+        newDays[parseInt(k)] = plan.days[k];
+      });
+      // Replace global DAYS
+      Object.keys(DAYS).forEach(k => delete DAYS[k]);
+      Object.assign(DAYS, newDays);
+      // Persist
+      localStorage.setItem('golf_custom_plan', JSON.stringify(newDays));
+      localStorage.setItem('onboarding_done', '1');
+
+      document.getElementById('ob-gen-status').textContent = '¡Plan listo! 🎉';
+      setTimeout(() => {
+        document.getElementById('onboarding-overlay').classList.remove('open');
+        renderHCPCard();
+        renderHome();
+        switchDay(1);
+        showToast('¡Plan personalizado listo, ' + nombre.split(' ')[0] + '! 🏌️');
+      }, 1200);
+    } else {
+      throw new Error('Estructura inválida');
+    }
+
+  } catch(err) {
+    clearInterval(stepInterval);
+    console.error('Error generando plan:', err);
+    document.getElementById('ob-gen-status').textContent = 'Error al generar. Usando plan base.';
+    setTimeout(() => {
+      localStorage.setItem('onboarding_done', '1');
+      document.getElementById('onboarding-overlay').classList.remove('open');
+      renderHCPCard();
+      renderHome();
+      showToast('Perfil guardado · Plan base activado');
+    }, 1500);
+  }
+}
+
+function skipOnboarding() {
+  localStorage.setItem('onboarding_done', '1');
+  document.getElementById('onboarding-overlay').classList.remove('open');
+}
+
+// Load custom plan from storage if exists
+function loadCustomPlan() {
+  try {
+    const saved = localStorage.getItem('golf_custom_plan');
+    if (saved) {
+      const plan = JSON.parse(saved);
+      Object.keys(DAYS).forEach(k => delete DAYS[k]);
+      Object.assign(DAYS, plan);
+    }
+  } catch(e) {}
+}
+
+// Allow re-generating plan from Settings/Reset
+function reGeneratePlan() {
+  localStorage.removeItem('onboarding_done');
+  obCurrentStep = 0;
+  // Reset all steps
+  document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('ob-step-0').classList.add('active');
+  document.getElementById('ob-generating').classList.remove('active');
+  document.querySelector('.ob-progress').style.display = 'flex';
+  // Reset progress dots
+  for (let i = 0; i < OB_TOTAL; i++) {
+    const dot = document.getElementById('ob-dot-' + i);
+    if (dot) { dot.classList.remove('done','active'); if(i===0) dot.classList.add('active'); }
+  }
+  // Reset chips
+  document.querySelectorAll('.ob-chip').forEach(c => c.classList.remove('selected'));
+  document.getElementById('onboarding-overlay').classList.add('open');
+}
+
 // ════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════
+loadCustomPlan();
 loadData();
 loadRFEGState();
 var _p = loadProfile(); if (_p) applyProfile(_p);
@@ -3738,6 +4159,7 @@ switchDay(1);
 setTimeout(() => {
   const firstBlock = document.querySelector('.block-header');
   if (firstBlock) firstBlock.click();
-}, 100);</script>
+}, 100);
+checkOnboarding();</script>
 </body>
 </html>
