@@ -275,13 +275,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
     </div>
 
-    <!-- RFEG -->
-    <div class="card">
-      <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:13px;font-weight:700">🇪🇸 Actualizar HCP desde RFEG</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">Sube el PDF de tu ficha de actividad</div>
-      </div>
-      <div style="padding:14px 16px;display:flex;gap:8px;align-items:center">
+    <!-- Actualizar HCP manual -->
+    <div class="card" style="padding:14px 16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px">📊 Actualizar HCP</div>
+      <div style="display:flex;gap:8px;align-items:center">
         <input type="number" id="rfeg-hcp-input" placeholder="Nuevo HCP (ej: 11.4)" step="0.1" min="0" max="54" class="field-input" style="margin-top:0">
         <button onclick="guardarHCPManual()" style="padding:12px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">Guardar</button>
       </div>
