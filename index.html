@@ -5120,7 +5120,7 @@ REGLAS:
 // ════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', function() {
+function initApp() {
   loadCustomPlan();
   loadData();
   loadRFEGState();
@@ -5128,12 +5128,76 @@ document.addEventListener('DOMContentLoaded', function() {
   renderHome();
   renderHCPCard();
   switchDay(1);
-  setTimeout(() => {
-    const firstBlock = document.querySelector('.block-header');
+  setTimeout(function() {
+    var firstBlock = document.querySelector('.block-header');
     if (firstBlock) firstBlock.click();
   }, 100);
-  checkOnboarding();
-});</script>
+  setTimeout(checkOnboarding, 50);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
+// ═══════ API KEY MODAL ═══════
+var _apiKeyCallback = null;
+
+function showApiKeyModal(callback) {
+  _apiKeyCallback = callback || null;
+  var input = document.getElementById('apikey-input');
+  if (input) input.value = APP_CONFIG.apiKey || '';
+  document.getElementById('modal-apikey').classList.add('open');
+}
+
+function closeApiKeyModal() {
+  document.getElementById('modal-apikey').classList.remove('open');
+}
+
+function saveApiKey() {
+  var val = document.getElementById('apikey-input').value.trim();
+  if (!val.startsWith('sk-ant-')) {
+    showToast('⚠️ La key debe empezar por sk-ant-');
+    return;
+  }
+  APP_CONFIG.apiKey = val;
+  localStorage.setItem('golf_api_key', val);
+  closeApiKeyModal();
+  showToast('✅ API key guardada');
+  if (_apiKeyCallback) { _apiKeyCallback(); _apiKeyCallback = null; }
+}
+
+function clearApiKey() {
+  APP_CONFIG.apiKey = '';
+  localStorage.removeItem('golf_api_key');
+  document.getElementById('apikey-input').value = '';
+  showToast('🗑️ Key borrada');
+}
+
+function checkApiKeyBanner() {
+  if (!APP_CONFIG.apiKey) {
+    var msgs = document.getElementById('coach-messages');
+    if (msgs && document.getElementById('screen-coach').classList.contains('active')) {
+      var existing = document.getElementById('apikey-banner');
+      if (!existing) {
+        var banner = document.createElement('div');
+        banner.id = 'apikey-banner';
+        banner.style.cssText = 'background:rgba(224,120,48,.1);border:1px solid rgba(224,120,48,.3);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--greenl);cursor:pointer;text-align:center;margin-bottom:4px';
+        banner.innerHTML = '⚙️ Configura tu API key para activar el Coach IA →';
+        banner.onclick = function() { showApiKeyModal(); };
+        msgs.insertBefore(banner, msgs.firstChild);
+      }
+    }
+  }
+}
+
+// Modal-apikey click outside
+document.addEventListener('click', function(e) {
+  var overlay = document.getElementById('modal-apikey');
+  if (e.target === overlay) closeApiKeyModal();
+});
+</script>
 <!-- API KEY MODAL -->
 <div class="modal-overlay" id="modal-apikey">
   <div class="modal">
@@ -5165,63 +5229,5 @@ document.addEventListener('DOMContentLoaded', function() {
     </button>
   </div>
 </div>
-
-<script>
-// ═══════ API KEY MODAL ═══════
-let _apiKeyCallback = null;
-
-function showApiKeyModal(callback) {
-  _apiKeyCallback = callback || null;
-  const input = document.getElementById('apikey-input');
-  if (input) input.value = APP_CONFIG.apiKey || '';
-  document.getElementById('modal-apikey').classList.add('open');
-}
-
-function closeApiKeyModal() {
-  document.getElementById('modal-apikey').classList.remove('open');
-}
-
-function saveApiKey() {
-  const val = document.getElementById('apikey-input').value.trim();
-  if (!val.startsWith('sk-ant-')) {
-    showToast('⚠️ La key debe empezar por sk-ant-');
-    return;
-  }
-  APP_CONFIG.apiKey = val;
-  localStorage.setItem('golf_api_key', val);
-  closeApiKeyModal();
-  showToast('✅ API key guardada');
-  if (_apiKeyCallback) { _apiKeyCallback(); _apiKeyCallback = null; }
-}
-
-function clearApiKey() {
-  APP_CONFIG.apiKey = '';
-  localStorage.removeItem('golf_api_key');
-  document.getElementById('apikey-input').value = '';
-  showToast('🗑️ Key borrada');
-}
-
-document.getElementById('modal-apikey').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal-apikey')) closeApiKeyModal();
-});
-
-// Mostrar botón de config key en coach si no hay key
-function checkApiKeyBanner() {
-  if (!APP_CONFIG.apiKey) {
-    const msgs = document.getElementById('coach-messages');
-    if (msgs && document.getElementById('screen-coach').classList.contains('active')) {
-      const existing = document.getElementById('apikey-banner');
-      if (!existing) {
-        const banner = document.createElement('div');
-        banner.id = 'apikey-banner';
-        banner.style.cssText = 'background:rgba(224,120,48,.1);border:1px solid rgba(224,120,48,.3);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--greenl);cursor:pointer;text-align:center;margin-bottom:4px';
-        banner.innerHTML = '⚙️ Configura tu API key para activar el Coach IA →';
-        banner.onclick = () => showApiKeyModal();
-        msgs.insertBefore(banner, msgs.firstChild);
-      }
-    }
-  }
-}
-</script>
 </body>
 </html>
