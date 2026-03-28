@@ -779,7 +779,7 @@
 
   /* ── PROGRESS BAR ── */
   .progress-wrap {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: sticky; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--bg); padding: 14px 20px 10px;
     border-bottom: 1px solid var(--border);
   }
@@ -803,6 +803,9 @@
     min-height: 100dvh;
     display: flex; flex-direction: column; justify-content: flex-start;
   }
+  #registro-overlay.hidden .step-wrap,
+  #registro-overlay.hidden .progress-wrap,
+  #registro-overlay.hidden .gen-screen { display:none !important; }
   .step { display: none; }
   .step.active { display: flex; flex-direction: column; gap: 0; animation: fadeIn .25s ease; }
   @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
@@ -927,12 +930,12 @@
 
   /* ── REGISTRO OVERLAY ── */
   #registro-overlay { display:block; }
-  #registro-overlay.hidden { display:none; }
+  #registro-overlay.hidden { display:none !important; visibility:hidden !important; }
 </style>
 <body>
 
 <!-- ══════════════════ REGISTRO ══════════════════ -->
-<div id="registro-overlay" style="position:fixed;inset:0;z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#1a0f05;">
+<div id="registro-overlay" style="position:fixed;inset:0;z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#1a0f05;isolation:isolate;">
 <!-- PROGRESS -->
 <div class="progress-wrap">
   <div class="progress-header">
@@ -2710,7 +2713,7 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 
 function showToast(msg) {
-  const t = document.getElementById('reg-toast') || document.getElementById('toast');
+  const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
@@ -4173,7 +4176,7 @@ async function callClaude(system, messages, maxTokens) {
   if (!APP_CONFIG.apiKey) throw new Error('NO_KEY');
   const resp = await fetch('https://api.anthropic.com/v1/messages', {
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':APP_CONFIG.apiKey,'anthropic-version':'2023-06-01'},
+    headers:{'Content-Type':'application/json','x-api-key':APP_CONFIG.apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body: JSON.stringify({
       model:'claude-sonnet-4-20250514',
       max_tokens: maxTokens || 1000,
@@ -4193,7 +4196,7 @@ let obStep = 0;
 const OB_STEPS = 6;
 
 function getChips(groupId) {
-  return [...document.querySelectorAll('#' + groupId + ' .ob-chip.on')].map(c => c.textContent.trim());
+  return [...document.querySelectorAll('#' + groupId + ' .chip.on, #' + groupId + ' .ob-chip.on')].map(c => c.textContent.trim());
 }
 function getOne(groupId) { return getChips(groupId)[0] || ''; }
 
@@ -4217,6 +4220,22 @@ function editObjetivo() {
   };
   document.getElementById('modal').classList.add('open');
   setTimeout(function(){document.getElementById('new-obj-input')?.focus();}, 100);
+}
+
+
+function initRegistro() {
+  // Reset registro steps
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  var s0 = document.getElementById('step-0');
+  if (s0) s0.classList.add('active');
+  var gs = document.getElementById('gen-screen');
+  if (gs) gs.classList.remove('active');
+  var sw = document.querySelector('.step-wrap');
+  var pw = document.querySelector('.progress-wrap');
+  if (sw) sw.style.display = '';
+  if (pw) pw.style.display = '';
+  currentStep = 0;
+  initProgress();
 }
 
 function reGeneratePlan() {
@@ -4779,7 +4798,7 @@ Notas: ${p.extra||'ninguna'}`;
 
     const golfRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514', max_tokens: 4000,
         messages: [{ role: 'user', content: golfPrompt }]
@@ -4800,7 +4819,7 @@ Notas: ${p.extra||'ninguna'}`;
 
     const fitRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514', max_tokens: 3000,
         messages: [{ role: 'user', content: fitPrompt }]
@@ -4817,7 +4836,7 @@ Notas: ${p.extra||'ninguna'}`;
 
     const dietRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514', max_tokens: 4000,
         messages: [{ role: 'user', content: dietPrompt }]
