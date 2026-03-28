@@ -754,8 +754,443 @@
   .settings-item-arrow { color:var(--muted);font-size:16px; }
   .settings-danger { color:var(--red) !important; }
 
+
+  :root {
+    --bg:      #1a0f05;
+    --surface: #2a1a08;
+    --surface2:#3a2510;
+    --border:  #5a3a18;
+    --green:   #e07830;
+    --greenl:  #f5a054;
+    --gold:    #f5c842;
+    --orange:  #e0623a;
+    --red:     #d94040;
+    --text:    #fdf0e0;
+    --muted:   #b88a5a;
+    --radius:  14px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100dvh; overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg); padding: 14px 20px 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .progress-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .progress-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); }
+  .progress-step { font-size: 12px; color: var(--muted); }
+  .progress-dots { display: flex; gap: 4px; }
+  .progress-dot {
+    height: 4px; flex: 1; border-radius: 2px;
+    background: var(--surface2); transition: background .3s;
+  }
+  .progress-dot.active { background: var(--green); }
+  .progress-dot.done   { background: var(--greenl); }
+
+  /* ── STEP CONTAINER ── */
+  .step-wrap {
+    padding: 100px 20px 40px;
+    min-height: 100dvh;
+    display: flex; flex-direction: column; justify-content: flex-start;
+  }
+  .step { display: none; }
+  .step.active { display: flex; flex-direction: column; gap: 0; animation: fadeIn .25s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  .step-icon { font-size: 44px; text-align: center; margin-bottom: 14px; }
+  .step-title {
+    font-family: 'DM Serif Display', serif; font-size: 26px;
+    text-align: center; margin-bottom: 8px; line-height: 1.2;
+  }
+  .step-sub {
+    font-size: 14px; color: var(--muted); text-align: center;
+    line-height: 1.65; margin-bottom: 28px;
+  }
+
+  /* ── INPUTS ── */
+  .field { margin-bottom: 16px; }
+  .field-label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: var(--muted); letter-spacing: .7px; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .field-input {
+    width: 100%; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 16px;
+    outline: none; transition: border-color .2s;
+    -moz-appearance: textfield; appearance: textfield;
+  }
+  .field-input:focus { border-color: var(--greenl); }
+  .field-input::placeholder { color: var(--muted); }
+  .field-textarea {
+    width: 100%; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 15px;
+    outline: none; resize: none; line-height: 1.5;
+    transition: border-color .2s;
+  }
+  .field-textarea:focus { border-color: var(--greenl); }
+
+  /* ── CHIPS ── */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    padding: 10px 16px; border-radius: 30px;
+    border: 1.5px solid var(--border); background: var(--surface);
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+    transition: all .15s; -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .chip.on { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* ── BUTTONS ── */
+  .btn-next {
+    width: 100%; padding: 17px; border: none; border-radius: var(--radius);
+    background: var(--green); color: #fff;
+    font-family: 'DM Serif Display', serif; font-size: 18px;
+    cursor: pointer; transition: opacity .2s; margin-top: 28px;
+  }
+  .btn-next:active { opacity: .85; }
+  .btn-back {
+    width: 100%; padding: 13px; border: none; background: none;
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; cursor: pointer; margin-top: 8px;
+  }
+  .btn-skip {
+    width: 100%; padding: 12px; border: none; background: none;
+    color: var(--muted); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; cursor: pointer; margin-top: 4px;
+    text-decoration: underline;
+  }
+
+  /* ── GENERATING SCREEN ── */
+  .gen-screen {
+    display: none; flex-direction: column; align-items: center;
+    justify-content: center; min-height: 100dvh; padding: 40px 20px;
+    text-align: center;
+  }
+  .gen-screen.active { display: flex; }
+  .gen-spinner {
+    width: 64px; height: 64px;
+    border: 3px solid var(--surface2);
+    border-top-color: var(--greenl);
+    border-radius: 50%;
+    animation: spin .9s linear infinite; margin-bottom: 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .gen-title { font-family: 'DM Serif Display', serif; font-size: 24px; margin-bottom: 10px; }
+  .gen-status { font-size: 14px; color: var(--muted); margin-bottom: 32px; min-height: 22px; }
+  .gen-steps { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; }
+  .gen-item {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--surface); border-radius: 12px;
+    padding: 12px 16px; font-size: 13px; color: var(--muted);
+    transition: all .3s;
+  }
+  .gen-item.active { color: var(--text); border: 1px solid var(--border); }
+  .gen-item.done   { color: var(--greenl); background: rgba(245,160,84,.08); }
+  .gen-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--border); flex-shrink: 0; transition: background .3s;
+  }
+  .gen-item.active .gen-dot { background: var(--green); animation: pulse 1s ease infinite; }
+  .gen-item.done .gen-dot   { background: var(--greenl); }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.6)} }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); padding: 11px 22px; border-radius: 30px;
+    font-size: 14px; font-weight: 500; z-index: 999;
+    box-shadow: 0 4px 24px rgba(0,0,0,.5);
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+
+  ::-webkit-scrollbar { width: 0; }
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  /* ── REGISTRO OVERLAY ── */
+  #registro-overlay { display:block; }
+  #registro-overlay.hidden { display:none; }
 </style>
-</head>
+<body>
+
+<!-- ══════════════════ REGISTRO ══════════════════ -->
+<div id="registro-overlay" style="position:fixed;inset:0;z-index:9999;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#1a0f05;">
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-header">
+    <div class="progress-logo">⛳ Golf Tracker</div>
+    <div class="progress-step" id="step-label">Paso 1 de 6</div>
+  </div>
+  <div class="progress-dots" id="progress-dots"></div>
+</div>
+
+<!-- STEPS CONTAINER -->
+<div class="step-wrap">
+
+  <!-- PASO 0: Perfil básico -->
+  <div class="step active" id="step-0">
+    <div class="step-icon">👋</div>
+    <div class="step-title">Bienvenido al campo</div>
+    <div class="step-sub">Voy a prepararte un plan de golf, físico y dieta 100% personalizado. Tardas 5 minutos.</div>
+
+    <div class="field">
+      <label class="field-label">Tu nombre</label>
+      <input class="field-input" id="f-nombre" type="text" placeholder="Ej: Javier" autocomplete="off">
+    </div>
+    <div class="field">
+      <label class="field-label">Tu edad</label>
+      <input class="field-input" id="f-edad" type="number" placeholder="Ej: 35" min="10" max="90">
+    </div>
+    <div class="field">
+      <label class="field-label">Handicap actual (RFEG)</label>
+      <input class="field-input" id="f-hcp" type="number" placeholder="Ej: 18.4" step="0.1" min="0" max="54">
+    </div>
+    <div class="field">
+      <label class="field-label">Objetivo de handicap</label>
+      <input class="field-input" id="f-obj" type="number" placeholder="Ej: 12.0" step="0.1" min="0" max="54">
+    </div>
+
+    <button class="btn-next" onclick="next(0)">Siguiente →</button>
+  </div>
+
+  <!-- PASO 1: Tu golf -->
+  <div class="step" id="step-1">
+    <div class="step-icon">🏌️</div>
+    <div class="step-title">Tu juego actual</div>
+    <div class="step-sub">Sé honesto — cuanto más detalle, mejor el plan.</div>
+
+    <div class="field">
+      <label class="field-label">¿Dónde pierdes más golpes?</label>
+      <div class="chips" id="c-errores">
+        <div class="chip" onclick="tog(this)">🍌 Slice con driver</div>
+        <div class="chip" onclick="tog(this)">↙️ Hook / cierre</div>
+        <div class="chip" onclick="tog(this)">💨 Poca distancia</div>
+        <div class="chip" onclick="tog(this)">🏌️ Hierros inconsistentes</div>
+        <div class="chip" onclick="tog(this)">⛳ Putting distancia</div>
+        <div class="chip" onclick="tog(this)">🎳 Putting corto</div>
+        <div class="chip" onclick="tog(this)">🌿 Chip / juego corto</div>
+        <div class="chip" onclick="tog(this)">🏖️ Bunker</div>
+        <div class="chip" onclick="tog(this)">😰 Nervios / presión</div>
+        <div class="chip" onclick="tog(this)">🗺️ Gestión del campo</div>
+        <div class="chip" onclick="tog(this)">📐 Compresión hierro</div>
+        <div class="chip" onclick="tog(this)">🏹 Wedges / distancia</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">¿Juegas torneos?</label>
+      <div class="chips" id="c-torneos">
+        <div class="chip" onclick="one('c-torneos',this)">Sí, regularmente</div>
+        <div class="chip" onclick="one('c-torneos',this)">Alguno ocasional</div>
+        <div class="chip" onclick="one('c-torneos',this)">Solo amistosas</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">¿Tienes entrenador?</label>
+      <div class="chips" id="c-coach">
+        <div class="chip" onclick="one('c-coach',this)">Sí, regularmente</div>
+        <div class="chip" onclick="one('c-coach',this)">Ocasionalmente</div>
+        <div class="chip" onclick="one('c-coach',this)">No, autoaprendizaje</div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="next(1)">Siguiente →</button>
+    <button class="btn-back" onclick="back(1)">← Atrás</button>
+  </div>
+
+  <!-- PASO 2: Disponibilidad -->
+  <div class="step" id="step-2">
+    <div class="step-icon">📅</div>
+    <div class="step-title">Tu tiempo disponible</div>
+    <div class="step-sub">El plan se adapta a tu agenda real, no a la ideal.</div>
+
+    <div class="field">
+      <label class="field-label">Días de entrenamiento por semana</label>
+      <div class="chips" id="c-dias">
+        <div class="chip" onclick="one('c-dias',this)">2 días</div>
+        <div class="chip" onclick="one('c-dias',this)">3 días</div>
+        <div class="chip" onclick="one('c-dias',this)">4 días</div>
+        <div class="chip" onclick="one('c-dias',this)">5+ días</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Duración media por sesión</label>
+      <div class="chips" id="c-duracion">
+        <div class="chip" onclick="one('c-duracion',this)">45 min</div>
+        <div class="chip" onclick="one('c-duracion',this)">1 hora</div>
+        <div class="chip" onclick="one('c-duracion',this)">1.5 horas</div>
+        <div class="chip" onclick="one('c-duracion',this)">2+ horas</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Instalaciones disponibles</label>
+      <div class="chips" id="c-acceso">
+        <div class="chip" onclick="tog(this)">🏌️ Campo de prácticas</div>
+        <div class="chip" onclick="tog(this)">⛳ Campo completo</div>
+        <div class="chip" onclick="tog(this)">🏋️ Gimnasio</div>
+        <div class="chip" onclick="tog(this)">🏠 Entreno en casa</div>
+        <div class="chip" onclick="tog(this)">🌿 Exterior</div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="next(2)">Siguiente →</button>
+    <button class="btn-back" onclick="back(2)">← Atrás</button>
+  </div>
+
+  <!-- PASO 3: Físico -->
+  <div class="step" id="step-3">
+    <div class="step-icon">💪</div>
+    <div class="step-title">Tu condición física</div>
+    <div class="step-sub">Para diseñar el plan físico correcto sin lesionarte.</div>
+
+    <div class="field">
+      <label class="field-label">Nivel de forma física</label>
+      <div class="chips" id="c-forma">
+        <div class="chip" onclick="one('c-forma',this)">Sedentario</div>
+        <div class="chip" onclick="one('c-forma',this)">Activo ocasional</div>
+        <div class="chip" onclick="one('c-forma',this)">Activo regular</div>
+        <div class="chip" onclick="one('c-forma',this)">Deportista habitual</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">¿Tienes alguna lesión o limitación?</label>
+      <div class="chips" id="c-lesiones">
+        <div class="chip" onclick="tog(this)">🦴 Espalda / lumbar</div>
+        <div class="chip" onclick="tog(this)">💪 Codo / muñeca</div>
+        <div class="chip" onclick="tog(this)">🦵 Rodilla</div>
+        <div class="chip" onclick="tog(this)">🦷 Hombro</div>
+        <div class="chip" onclick="tog(this)">✅ Sin lesiones</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Objetivo físico para el golf</label>
+      <div class="chips" id="c-objfisico">
+        <div class="chip" onclick="tog(this)">🚀 Más velocidad de swing</div>
+        <div class="chip" onclick="tog(this)">🔄 Mejor rotación</div>
+        <div class="chip" onclick="tog(this)">💪 Más fuerza core</div>
+        <div class="chip" onclick="tog(this)">🧘 Movilidad</div>
+        <div class="chip" onclick="tog(this)">⚖️ Equilibrio</div>
+        <div class="chip" onclick="tog(this)">🏃 Resistencia</div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="next(3)">Siguiente →</button>
+    <button class="btn-back" onclick="back(3)">← Atrás</button>
+  </div>
+
+  <!-- PASO 4: Dieta -->
+  <div class="step" id="step-4">
+    <div class="step-icon">🥗</div>
+    <div class="step-title">Tu nutrición</div>
+    <div class="step-sub">La dieta correcta marca la diferencia en el campo.</div>
+
+    <div class="field">
+      <label class="field-label">Peso aproximado (kg)</label>
+      <input class="field-input" id="f-peso" type="number" placeholder="Ej: 78" min="40" max="150">
+    </div>
+    <div class="field">
+      <label class="field-label">Objetivo de peso</label>
+      <div class="chips" id="c-pesoobj">
+        <div class="chip" onclick="one('c-pesoobj',this)">Perder peso</div>
+        <div class="chip" onclick="one('c-pesoobj',this)">Mantener peso</div>
+        <div class="chip" onclick="one('c-pesoobj',this)">Ganar músculo</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Restricciones / alergias</label>
+      <div class="chips" id="c-alergias">
+        <div class="chip" onclick="tog(this)">🚫 Gluten</div>
+        <div class="chip" onclick="tog(this)">🥛 Lácteos</div>
+        <div class="chip" onclick="tog(this)">🥩 Sin carne roja</div>
+        <div class="chip" onclick="tog(this)">🐟 Sin pescado</div>
+        <div class="chip" onclick="tog(this)">🫘 Sin legumbres</div>
+        <div class="chip" onclick="tog(this)">🫀 Sin vísceras</div>
+        <div class="chip" onclick="tog(this)">✅ Sin restricciones</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">¿Cuándo sueles jugar?</label>
+      <div class="chips" id="c-horario">
+        <div class="chip" onclick="one('c-horario',this)">🌅 Mañanas</div>
+        <div class="chip" onclick="one('c-horario',this)">☀️ Mediodía</div>
+        <div class="chip" onclick="one('c-horario',this)">🌆 Tardes</div>
+      </div>
+    </div>
+
+    <button class="btn-next" onclick="next(4)">Siguiente →</button>
+    <button class="btn-back" onclick="back(4)">← Atrás</button>
+  </div>
+
+  <!-- PASO 5: Mentalidad -->
+  <div class="step" id="step-5">
+    <div class="step-icon">🧠</div>
+    <div class="step-title">Tu mentalidad</div>
+    <div class="step-sub">Último paso. Define cómo estructurar tu plan.</div>
+
+    <div class="field">
+      <label class="field-label">¿Cuál es tu prioridad ahora?</label>
+      <div class="chips" id="c-prioridad">
+        <div class="chip" onclick="one('c-prioridad',this)">🎯 Bajar HCP rápido</div>
+        <div class="chip" onclick="one('c-prioridad',this)">🏗️ Mejorar técnica</div>
+        <div class="chip" onclick="one('c-prioridad',this)">🎮 Disfrutar más</div>
+        <div class="chip" onclick="one('c-prioridad',this)">🏆 Competir en torneos</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">¿Cómo prefieres entrenar?</label>
+      <div class="chips" id="c-estilo">
+        <div class="chip" onclick="one('c-estilo',this)">📋 Con estructura y métricas</div>
+        <div class="chip" onclick="one('c-estilo',this)">🎲 Variado y dinámico</div>
+        <div class="chip" onclick="one('c-estilo',this)">🔁 Repetición hasta dominar</div>
+      </div>
+    </div>
+    <div class="field">
+      <label class="field-label">Algo más que deba saber (opcional)</label>
+      <textarea class="field-textarea" id="f-extra" rows="3" placeholder="Campo donde juegas, lesiones antiguas, swing plano..."></textarea>
+    </div>
+
+    <button class="btn-next" onclick="generar()" style="background:linear-gradient(135deg,var(--green),var(--orange))">
+      ⚡ Generar mis planes
+    </button>
+    <button class="btn-back" onclick="back(5)">← Atrás</button>
+    <button class="btn-skip" onclick="saltarIA()">Usar planes genéricos por ahora</button>
+  </div>
+
+</div><!-- /step-wrap -->
+
+<!-- GENERATING -->
+<div class="gen-screen" id="gen-screen">
+  <div class="gen-spinner"></div>
+  <div class="gen-title">Creando tus planes</div>
+  <div class="gen-status" id="gen-status">Analizando tu perfil...</div>
+  <div class="gen-steps">
+    <div class="gen-item active" id="gs-0"><div class="gen-dot"></div>Analizando nivel y errores</div>
+    <div class="gen-item" id="gs-1"><div class="gen-dot"></div>Generando plan de golf</div>
+    <div class="gen-item" id="gs-2"><div class="gen-dot"></div>Creando plan físico</div>
+    <div class="gen-item" id="gs-3"><div class="gen-dot"></div>Diseñando plan de dieta</div>
+    <div class="gen-item" id="gs-4"><div class="gen-dot"></div>Calibrando Coach IA</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
 
 <!-- SETTINGS SCREEN -->
 <div class="screen" id="screen-settings">
@@ -3787,7 +4222,15 @@ function editObjetivo() {
 
 function reGeneratePlan() {
   localStorage.removeItem('onboarding_done');
-  window.location.href = 'registro.html';
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('step-0').classList.add('active');
+  document.getElementById('gen-screen').classList.remove('active');
+  document.querySelector('.step-wrap').style.display = '';
+  document.querySelector('.progress-wrap').style.display = '';
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  initRegistro();
+  var o = document.getElementById('registro-overlay');
+  if (o) o.classList.remove('hidden');
 }
 
 function loadCustomPlan() {
@@ -4142,14 +4585,15 @@ function resetTodo() {
 // INIT
 // ════════════════════════════════════════════════════════
 function initApp() {
-  // Redirect to registro if no profile
+  // Check profile - show registro overlay if needed
   var done    = localStorage.getItem('onboarding_done');
   var profile = JSON.parse(localStorage.getItem('golf_profile') || 'null');
   var hcp     = localStorage.getItem('hcp_manual');
-  if (!done || !profile || !profile.nombre || !hcp) {
-    window.location.href = 'registro.html';
-    return;
+  if (done && profile && profile.nombre && hcp) {
+    var overlay = document.getElementById('registro-overlay');
+    if (overlay) overlay.classList.add('hidden');
   }
+  if (!done || !profile || !profile.nombre || !hcp) { initRegistro(); }
   loadCustomPlan();
   loadData();
   loadRFEGState();
@@ -4167,6 +4611,239 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {
   initApp();
+}
+
+// ══════ REGISTRO JS ══════
+function hideRegistro() {
+  var o = document.getElementById('registro-overlay');
+  if (o) o.classList.add('hidden');
+  loadCustomPlan(); loadData(); loadRFEGState();
+  var _p = loadProfile(); if (_p) applyProfile(_p);
+  renderHome(); renderHCPCard(); switchDay(1);
+}
+
+// ─── CONFIG ───────────────────────────────────────────
+const API_KEY = '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';
+const TOTAL_STEPS = 6;
+let currentStep = 0;
+
+// ─── INIT ─────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // If already registered, go to app
+  const done    = localStorage.getItem('onboarding_done');
+  const profile = JSON.parse(localStorage.getItem('golf_profile') || 'null');
+  const hcp     = localStorage.getItem('hcp_manual');
+  if (done && profile && profile.nombre && hcp) {
+    hideRegistro();
+    return;
+  }
+  initProgress();
+});
+
+function initProgress() {
+  const dots = document.getElementById('progress-dots');
+  dots.innerHTML = Array.from({length: TOTAL_STEPS}, (_, i) =>
+    `<div class="progress-dot ${i===0?'active':'rest'}" id="pd-${i}"></div>`
+  ).join('');
+  updateLabel();
+}
+
+function updateProgress(step) {
+  for (let i = 0; i < TOTAL_STEPS; i++) {
+    const d = document.getElementById('pd-' + i);
+    if (!d) continue;
+    d.className = 'progress-dot ' + (i < step ? 'done' : i === step ? 'active' : '');
+  }
+  updateLabel();
+}
+
+function updateLabel() {
+  const el = document.getElementById('step-label');
+  if (el) el.textContent = 'Paso ' + (currentStep + 1) + ' de ' + TOTAL_STEPS;
+}
+
+// ─── NAVIGATION ───────────────────────────────────────
+function next(step) {
+  if (step === 0) {
+    if (!v('f-nombre')) { toast('⚠️ Introduce tu nombre'); return; }
+    if (!v('f-hcp'))    { toast('⚠️ Introduce tu handicap'); return; }
+  }
+  if (step === 2) {
+    if (!getOne('c-dias')) { toast('⚠️ Selecciona los días disponibles'); return; }
+  }
+  show(step, step + 1);
+}
+
+function back(step) {
+  show(step, step - 1);
+}
+
+function show(from, to) {
+  document.getElementById('step-' + from).classList.remove('active');
+  document.getElementById('step-' + to).classList.add('active');
+  currentStep = to;
+  updateProgress(to);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ─── CHIPS ────────────────────────────────────────────
+function tog(el) { el.classList.toggle('on'); }
+function one(groupId, el) {
+  document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+
+
+// ─── HELPERS ──────────────────────────────────────────
+function v(id) { return document.getElementById(id)?.value.trim(); }
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ─── COLLECT DATA ─────────────────────────────────────
+function collectData() {
+  return {
+    nombre:    v('f-nombre') || '',
+    edad:      v('f-edad') || '—',
+    hcp:       parseFloat(v('f-hcp')) || 0,
+    objetivo:  parseFloat(v('f-obj')) || null,
+    errores:   getChips('c-errores'),
+    torneos:   getOne('c-torneos'),
+    coach:     getOne('c-coach'),
+    dias:      getOne('c-dias') || '3 días',
+    duracion:  getOne('c-duracion') || '1.5 horas',
+    acceso:    getChips('c-acceso'),
+    forma:     getOne('c-forma') || 'Activo ocasional',
+    lesiones:  getChips('c-lesiones'),
+    objFisico: getChips('c-objfisico'),
+    peso:      v('f-peso') || '—',
+    pesoObj:   getOne('c-pesoobj') || 'Mantener peso',
+    alergias:  getChips('c-alergias'),
+    horario:   getOne('c-horario') || 'Tardes',
+    prioridad: getOne('c-prioridad') || 'Bajar HCP rápido',
+    estilo:    getOne('c-estilo') || 'Con estructura y métricas',
+    extra:     v('f-extra') || '',
+  };
+}
+
+// ─── SAVE PROFILE ─────────────────────────────────────
+
+
+// ─── SKIP / GENERIC ───────────────────────────────────
+function saltarIA() {
+  const perfil = collectData();
+  if (!perfil.nombre) { toast('⚠️ Introduce al menos tu nombre en el paso 1'); return; }
+  saveProfile(perfil);
+  localStorage.setItem('onboarding_done', '1');
+  hideRegistro();
+}
+
+// ─── GENERATE WITH AI ─────────────────────────────────
+async function generar() {
+  const perfil = collectData();
+  if (!perfil.nombre) { toast('⚠️ Vuelve al paso 1 e introduce tu nombre'); return; }
+
+  saveProfile(perfil);
+
+  // Show generating screen
+  document.querySelector('.step-wrap').style.display = 'none';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.getElementById('gen-screen').classList.add('active');
+
+  const genItems = ['gs-0','gs-1','gs-2','gs-3','gs-4'];
+  let gi = 0;
+  function advGen() {
+    if (gi > 0) document.getElementById(genItems[gi-1]).className = 'gen-item done';
+    if (gi < genItems.length) { document.getElementById(genItems[gi]).className = 'gen-item active'; gi++; }
+  }
+  advGen();
+  const timer = setInterval(advGen, 2800);
+
+  const p = perfil;
+  const perfilStr = `Nombre: ${p.nombre}, Edad: ${p.edad}, HCP: ${p.hcp}, Objetivo HCP: ${p.objetivo||'no indicado'}
+Errores: ${p.errores.join(', ')||'no indicado'}, Torneos: ${p.torneos}, Entrenador: ${p.coach}
+Días/sem: ${p.dias}, Duración: ${p.duracion}, Instalaciones: ${p.acceso.join(', ')}
+Forma: ${p.forma}, Lesiones: ${p.lesiones.join(', ')}, Objetivos físicos: ${p.objFisico.join(', ')}
+Peso: ${p.peso}kg, Objetivo peso: ${p.pesoObj}, Restricciones: ${p.alergias.join(', ')}
+Horario golf: ${p.horario}, Prioridad: ${p.prioridad}, Estilo: ${p.estilo}
+Notas: ${p.extra||'ninguna'}`;
+
+  try {
+    // ── Golf plan ──
+    document.getElementById('gen-status').textContent = 'Generando plan de golf...';
+    const numDias = p.dias.startsWith('2') ? 2 : p.dias.startsWith('3') ? 3 : 4;
+    const golfPrompt = `Eres un entrenador de golf experto. Genera un plan de entrenamiento personalizado en JSON para:\n${perfilStr}\n\nGenera exactamente ${numDias} días.\n\nResponde SOLO con JSON válido (sin backticks, sin texto extra):\n{"days":{"1":{"title":"Día 1 · [tema]","subtitle":"[dur] · [desc]","color":"#e07830","blocks":[{"id":"d1b1","name":"[nombre]","emoji":"[emoji]","time":"[tiempo]","objetivo":"[max 80 chars]","exercises":[{"id":"d1e1","name":"[nombre]","meta":"[metrica]","target":10,"desc":"[instruccion concreta]"}]}]},"2":{...},"3":{...}}}\n\nColores: día1=#e07830 día2=#e8a63a día3=#e0623a día4=#f5a054. Target entre 3-25. Español. Nivel HCP ${p.hcp}.`;
+
+    const golfRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 4000,
+        messages: [{ role: 'user', content: golfPrompt }]
+      })
+    });
+    const golfData = await golfRes.json();
+    const golfRaw  = golfData.content?.[0]?.text || '';
+    const golfJson = JSON.parse(golfRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
+    if (golfJson.days) {
+      const days = {};
+      Object.keys(golfJson.days).forEach(k => { days[parseInt(k)] = golfJson.days[k]; });
+      localStorage.setItem('golf_custom_plan', JSON.stringify(days));
+    }
+
+    // ── Fitness plan ──
+    document.getElementById('gen-status').textContent = 'Generando plan físico...';
+    const fitPrompt = `Eres un preparador físico experto en golf. Genera plan semanal en JSON para:\n${perfilStr}\n\nResponde SOLO JSON válido:\n{"semana":[{"dia":"Lunes","nombre":"[sesion]","duracion":"[X min]","objetivo":"[obj]","ejercicios":[{"nombre":"[ej]","series":"[X x Y reps]","descanso":"[X seg]","notas":"[como]"}]}],"frecuencia":"[X dias/sem]","nota_general":"[consejo]"}\n\nAdapta a lesiones: ${p.lesiones.join(',')}, objetivos: ${p.objFisico.join(',')}.`;
+
+    const fitRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 3000,
+        messages: [{ role: 'user', content: fitPrompt }]
+      })
+    });
+    const fitData = await fitRes.json();
+    const fitRaw  = fitData.content?.[0]?.text || '';
+    const fitJson = JSON.parse(fitRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
+    localStorage.setItem('golf_custom_fit', JSON.stringify(fitJson));
+
+    // ── Diet plan ──
+    document.getElementById('gen-status').textContent = 'Generando plan de dieta...';
+    const dietPrompt = `Eres nutricionista deportivo experto en golf. Genera plan de dieta semanal en JSON para:\n${perfilStr}\n\nResponde SOLO JSON válido:\n{"kcal_objetivo":2000,"distribucion":{"proteinas":"30%","carbos":"45%","grasas":"25%"},"dias":[{"dia":"Lunes","tipo":"Entreno","comidas":[{"nombre":"Desayuno","plato":"[plato]","ingredientes":"[lista]","kcal":400,"proteinas_g":20,"nota_golf":"[consejo opcional]"}]}],"lista_compra":["[item]"],"consejos_campo":["[consejo]"]}\n\nRespeta restricciones: ${p.alergias.join(', ')}. Horario golf: ${p.horario}. Objetivo: ${p.pesoObj}.`;
+
+    const dietRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 4000,
+        messages: [{ role: 'user', content: dietPrompt }]
+      })
+    });
+    const dietData = await dietRes.json();
+    const dietRaw  = dietData.content?.[0]?.text || '';
+    const dietJson = JSON.parse(dietRaw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim());
+    localStorage.setItem('golf_custom_diet', JSON.stringify(dietJson));
+
+    clearInterval(timer);
+    genItems.forEach(id => { document.getElementById(id).className = 'gen-item done'; });
+    document.getElementById('gen-status').textContent = '¡Planes listos! 🎉';
+    localStorage.setItem('onboarding_done', '1');
+
+    setTimeout(() => { hideRegistro(); }, 1200);
+
+  } catch(err) {
+    clearInterval(timer);
+    console.error(err);
+    // Save what we have and go to app anyway
+    localStorage.setItem('onboarding_done', '1');
+    document.getElementById('gen-status').textContent = 'Perfil guardado. Cargando app...';
+    setTimeout(() => { hideRegistro(); }, 1000);
+  }
 }</script>
 </body>
 </html>
