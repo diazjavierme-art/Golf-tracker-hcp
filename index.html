@@ -900,6 +900,7 @@
         <div class="ob-chip" onclick="one('ob-coach',this)">Ocasionalmente</div>
         <div class="ob-chip" onclick="one('ob-coach',this)">No, autoaprendizaje</div>
       </div>
+      <button class="ob-btn-skip" onclick="obBack(1)" style="margin-top:4px">← Atrás</button>
       <button class="ob-btn" onclick="obNext(1)">Siguiente →</button>
     </div>
 
@@ -930,6 +931,7 @@
         <div class="ob-chip" onclick="tog(this)">🏠 Entreno en casa</div>
         <div class="ob-chip" onclick="tog(this)">🌿 Zona verde exterior</div>
       </div>
+      <button class="ob-btn-skip" onclick="obBack(2)" style="margin-top:4px">← Atrás</button>
       <button class="ob-btn" onclick="obNext(2)">Siguiente →</button>
     </div>
 
@@ -962,6 +964,7 @@
         <div class="ob-chip" onclick="tog(this)">⚖️ Equilibrio y estabilidad</div>
         <div class="ob-chip" onclick="tog(this)">🏃 Resistencia en campo</div>
       </div>
+      <button class="ob-btn-skip" onclick="obBack(3)" style="margin-top:4px">← Atrás</button>
       <button class="ob-btn" onclick="obNext(3)">Siguiente →</button>
     </div>
 
@@ -994,6 +997,7 @@
         <div class="ob-chip" onclick="one('ob-horario',this)">☀️ Mediodía</div>
         <div class="ob-chip" onclick="one('ob-horario',this)">🌆 Tardes</div>
       </div>
+      <button class="ob-btn-skip" onclick="obBack(4)" style="margin-top:4px">← Atrás</button>
       <button class="ob-btn" onclick="obNext(4)">Siguiente →</button>
     </div>
 
@@ -1017,6 +1021,7 @@
       </div>
       <label class="ob-label">Algo más que deba saber (opcional)</label>
       <textarea class="ob-textarea" id="ob-extra" rows="3" placeholder="Campo donde juegas, lesiones antiguas, swing plano, etc..."></textarea>
+      <button class="ob-btn-skip" onclick="obBack(5)" style="margin-top:4px">← Atrás</button>
       <button class="ob-btn" id="ob-btn-generar" onclick="generarTodo()">⚡ Generar mis planes personalizados</button>
       <button class="ob-btn-skip" onclick="skipOb()">Saltar y usar planes genéricos</button>
     </div>
@@ -2647,10 +2652,7 @@ function loadRFEGState() {
     var licEl = document.getElementById('rfeg-licencia-display');
     if (licEl) licEl.textContent = storedLic;
   }
-  // Sync with manual HCP if not set
-  if (!localStorage.getItem('hcp_manual')) {
-      localStorage.setItem('hcp_manual', saved);
-    }
+  // Note: hcp_manual is set only during onboarding/registration
   }
   renderHCPCard();
   // Restore last check timestamp
@@ -4042,7 +4044,7 @@ function showHCPHistory() {
 // CONFIG
 // ════════════════════════════════════════════════════════
 const APP_CONFIG = {
-  apiKey: localStorage.getItem('golf_api_key') || '',
+  apiKey: localStorage.getItem('golf_api_key') || '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',
 };
 
 async function callClaude(system, messages, maxTokens) {
@@ -4094,6 +4096,16 @@ function getChips(groupId) {
 }
 function getOne(groupId) { return getChips(groupId)[0] || ''; }
 
+
+function obBack(step) {
+  document.getElementById('ob-step-' + step).classList.remove('active');
+  var prev = step - 1;
+  document.getElementById('ob-step-' + prev).classList.add('active');
+  obStep = prev;
+  updateOBProgress(prev);
+  document.querySelector('.ob-sheet').scrollTo({top:0, behavior:'smooth'});
+}
+
 function obNext(step) {
   if (step === 0) {
     if (!document.getElementById('ob-nombre').value.trim()) { showToast('⚠️ Introduce tu nombre'); return; }
@@ -4110,12 +4122,6 @@ function obNext(step) {
 }
 
 async function generarTodo() {
-  // Check API key
-  if (!APP_CONFIG.apiKey) {
-    showApiKeyModal(generarTodo);
-    return;
-  }
-
   // Gather all data
   const perfil = {
     nombre:    document.getElementById('ob-nombre').value.trim(),
@@ -4247,8 +4253,16 @@ Restricciones a respetar: ${perfil.alergias.join(', ')}. Horario golf: ${perfil.
     console.error(err);
     if (err.message === 'NO_KEY') {
       document.getElementById('ob-gen').classList.remove('active');
-      document.getElementById('ob-step-5').classList.add('active');
-      showApiKeyModal(generarTodo);
+      document.getElementById('ob-gen-status').textContent = '';
+      // Skip AI generation, save profile and continue with generic plans
+      localStorage.setItem('onboarding_done', '1');
+      setTimeout(function() {
+        document.getElementById('ob-overlay').classList.add('hidden');
+        renderHome();
+        renderHCPCard();
+        switchDay(1);
+        showToast('Perfil guardado · Configura tu API key en Ajustes para planes IA');
+      }, 500);
     } else {
       document.getElementById('ob-gen-status').textContent = 'Error. Usando planes base.';
       setTimeout(() => {
@@ -4679,6 +4693,8 @@ function resetTodo() {
 // INIT
 // ════════════════════════════════════════════════════════
 function initApp() {
+  // Check onboarding FIRST before anything else loads
+  checkOnboarding();
   loadCustomPlan();
   loadData();
   loadRFEGState();
@@ -4690,7 +4706,6 @@ function initApp() {
     var b = document.querySelector('.block-header');
     if (b) b.click();
   }, 100);
-  setTimeout(checkOnboarding, 80);
   updateSettingsApiStatus();
 }
 if (document.readyState === 'loading') {
