@@ -328,39 +328,42 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   </div>
 </div>
 
-<!-- ══════ ENTRENO ══════ -->
-<div class="screen" id="screen-train">
+<!-- ══════ GOLF ══════ -->
+<div class="screen" id="screen-golf">
   <div class="header">
     <div class="header-top">
       <div>
-        <h1 id="train-title">Martes</h1>
-        <p id="train-sub">Putting + Juego Corto</p>
+        <h1 id="train-title">⛳ Golf</h1>
+        <p id="train-sub">Entreno · Rondas · Palos</p>
       </div>
-      <button onclick="saveSession()" style="background:var(--green);color:#fff;border:none;border-radius:30px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Guardar</button>
+      <button id="golf-save-btn" onclick="saveSession()" style="display:none;background:var(--green);color:#fff;border:none;border-radius:30px;padding:8px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Guardar</button>
+      <span class="badge" id="rondas-badge" style="background:var(--gold);color:#0f1a0f;display:none">0 rondas</span>
     </div>
+    <div class="tabs" style="margin-bottom:0">
+      <button class="tab active" id="golf-tab-entreno" onclick="switchGolfTab('entreno',this)">🏌️ Entreno</button>
+      <button class="tab" id="golf-tab-rondas" onclick="switchGolfTab('rondas',this)">⛳ Rondas</button>
+    </div>
+  </div>
+
+  <!-- ENTRENO SUB-HEADER -->
+  <div id="golf-entreno-sub" style="border-bottom:1px solid var(--border);background:var(--bg)">
     <div class="day-tabs">
       <button class="day-tab active" id="dtab-1" onclick="switchDay(1)">Martes · 1h</button>
       <button class="day-tab d2" id="dtab-2" onclick="switchDay(2)">Miércoles · 1.5h</button>
       <button class="day-tab" id="dtab-3" onclick="switchDay(3)" style="border-color:#e0623a">Jueves · 1h</button>
     </div>
   </div>
-  <div class="wrap" id="train-container"></div>
-</div>
 
-<!-- ══════ RONDAS ══════ -->
-<div class="screen" id="screen-rondas">
-  <div class="header">
-    <div class="header-top">
-      <div><h1>⛳ Rondas</h1><p>Estadísticas y distancias de palos</p></div>
-      <span class="badge" id="rondas-badge" style="background:var(--gold);color:#0f1a0f">0 rondas</span>
-    </div>
-    <div class="tabs" style="margin-bottom:0">
+  <!-- RONDAS SUB-TABS -->
+  <div id="golf-rondas-sub" style="display:none;border-bottom:1px solid var(--border);background:var(--bg)">
+    <div class="tabs" style="margin:8px 18px">
       <button class="tab active" onclick="switchRondasTab('registro',this)">📋 Registro</button>
-      <button class="tab" onclick="switchRondasTab('palos',this)">🏌️ Palos</button>
+      <button class="tab" onclick="switchRondasTab('palos',this)">📏 Palos</button>
       <button class="tab" onclick="switchRondasTab('stats',this)">📊 Stats</button>
     </div>
   </div>
-  <div class="wrap" id="rondas-container"></div>
+
+  <div class="wrap" id="golf-container"></div>
 </div>
 
 <!-- ══════ DIETA ══════ -->
@@ -391,84 +394,83 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="wrap" id="fit-container"></div>
 </div>
 
-<!-- ══════ INFORME ══════ -->
-<div class="screen" id="screen-report">
-  <div class="header">
-    <div class="header-top">
-      <div><h1>Informe</h1><p>Para tu entrenador</p></div>
-    </div>
-  </div>
-  <div class="wrap" id="report-container"></div>
-</div>
-
 <!-- ══════ AJUSTES ══════ -->
 <div class="screen" id="screen-ajustes">
   <div class="header">
     <div class="header-top">
-      <div><h1>⚙️ Ajustes</h1><p>Configuración de la app</p></div>
+      <div><h1>⚙️ Ajustes</h1><p>Configuración e informe</p></div>
+    </div>
+    <div class="tabs" style="margin-bottom:0">
+      <button class="tab active" onclick="switchAjustesTab('config',this)">⚙️ Config</button>
+      <button class="tab" onclick="switchAjustesTab('informe',this)">📊 Informe</button>
     </div>
   </div>
-  <div class="wrap">
-    <div class="card" style="padding:16px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Objetivo HCP</div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input type="number" id="obj-input-ajustes" step="0.1" min="0" max="54" placeholder="Ej: 8.0" class="field-input" style="margin-top:0">
-        <button onclick="guardarObjetivoAjustes()" style="padding:12px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">Guardar</button>
-      </div>
-    </div>
-    <div class="card" style="overflow:hidden">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:14px;font-weight:700">📤 Informe al entrenador</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Configura con qué frecuencia enviar tu progreso para ajustar el plan.</div>
-      </div>
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600">Frecuencia de envío</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap" id="freq-chips">
-          <div class="chip" onclick="setFreq('semanal',this)" style="font-size:12px;padding:8px 14px">Semanal</div>
-          <div class="chip" onclick="setFreq('quincenal',this)" style="font-size:12px;padding:8px 14px">Quincenal</div>
-          <div class="chip" onclick="setFreq('mensual',this)" style="font-size:12px;padding:8px 14px">Mensual</div>
-          <div class="chip" onclick="setFreq('manual',this)" style="font-size:12px;padding:8px 14px">Manual</div>
+  <div class="wrap" id="ajustes-container">
+    <!-- Config tab shown by default -->
+    <div id="ajustes-config">
+      <div class="card" style="padding:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Objetivo HCP</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="number" id="obj-input-ajustes" step="0.1" min="0" max="54" placeholder="Ej: 8.0" class="field-input" style="margin-top:0">
+          <button onclick="guardarObjetivoAjustes()" style="padding:12px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">Guardar</button>
         </div>
-        <div id="prox-envio" style="font-size:11px;color:var(--muted);margin-top:10px"></div>
       </div>
-      <div style="padding:14px 16px">
-        <div id="informe-reminder" style="display:none;background:rgba(245,160,84,.08);border:1px solid rgba(245,160,84,.3);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--greenl);line-height:1.5">🔔 Es momento de enviar tu informe al entrenador</div>
-        <button onclick="enviarInformeEntrenador()" style="width:100%;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">📧 Enviar informe ahora</button>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:14px;font-weight:700">📤 Informe al entrenador</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Configura con qué frecuencia enviar tu progreso.</div>
+        </div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px;font-weight:600">Frecuencia de envío</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="freq-chips">
+            <div class="chip" onclick="setFreq('semanal',this)" style="font-size:12px;padding:8px 14px">Semanal</div>
+            <div class="chip" onclick="setFreq('quincenal',this)" style="font-size:12px;padding:8px 14px">Quincenal</div>
+            <div class="chip" onclick="setFreq('mensual',this)" style="font-size:12px;padding:8px 14px">Mensual</div>
+            <div class="chip" onclick="setFreq('manual',this)" style="font-size:12px;padding:8px 14px">Manual</div>
+          </div>
+          <div id="prox-envio" style="font-size:11px;color:var(--muted);margin-top:10px"></div>
+        </div>
+        <div style="padding:14px 16px">
+          <div id="informe-reminder" style="display:none;background:rgba(245,160,84,.08);border:1px solid rgba(245,160,84,.3);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:var(--greenl);line-height:1.5">🔔 Es momento de enviar tu informe al entrenador</div>
+          <button onclick="enviarInformeEntrenador()" style="width:100%;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">📧 Enviar informe ahora</button>
+        </div>
       </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:14px;font-weight:700">💾 Copia de seguridad</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Exporta tus datos para guardarlos o importarlos en otro dispositivo.</div>
+        </div>
+        <div style="padding:14px 16px;display:flex;gap:8px">
+          <button onclick="exportarBackup()" style="flex:1;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">⬆️ Exportar</button>
+          <button onclick="importarBackup()" style="flex:1;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">⬇️ Importar</button>
+        </div>
+        <div style="padding:0 16px 14px">
+          <textarea id="backup-textarea" placeholder="Pega aquí tu código de backup para importar..." rows="3" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;resize:none;outline:none;display:none" onfocus="this.style.borderColor='var(--greenl)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+          <button id="backup-import-btn" onclick="confirmarImport()" style="display:none;width:100%;margin-top:8px;padding:11px;border:none;border-radius:8px;background:var(--green);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Restaurar datos</button>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:14px;font-weight:700">🔄 Resetear sesiones</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra todas las sesiones. El HCP y el objetivo se mantienen.</div>
+        </div>
+        <div style="padding:14px 16px">
+          <button onclick="resetearPlan()" style="width:100%;padding:13px;border:1.5px solid var(--orange);border-radius:10px;background:rgba(224,98,58,.08);color:var(--orange);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Resetear sesiones</button>
+        </div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:14px;font-weight:700">🗑️ Borrar todos los datos</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra absolutamente todo. No se puede deshacer.</div>
+        </div>
+        <div style="padding:14px 16px">
+          <button onclick="borrarTodo()" style="width:100%;padding:13px;border:1.5px solid var(--red);border-radius:10px;background:rgba(217,64,64,.08);color:var(--red);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Borrar todo</button>
+        </div>
+      </div>
+      <div style="text-align:center;font-size:11px;color:var(--muted);padding:8px 0">Golf · Javier · App personal</div>
     </div>
-    <div class="card" style="overflow:hidden">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:14px;font-weight:700">💾 Copia de seguridad</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Exporta tus datos para guardarlos o importarlos en otro dispositivo.</div>
-      </div>
-      <div style="padding:14px 16px;display:flex;gap:8px">
-        <button onclick="exportarBackup()" style="flex:1;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">⬆️ Exportar</button>
-        <button onclick="importarBackup()" style="flex:1;padding:12px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">⬇️ Importar</button>
-      </div>
-      <div style="padding:0 16px 14px">
-        <textarea id="backup-textarea" placeholder="Pega aquí tu código de backup para importar..." rows="3" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;resize:none;outline:none;display:none" onfocus="this.style.borderColor='var(--greenl)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-        <button id="backup-import-btn" onclick="confirmarImport()" style="display:none;width:100%;margin-top:8px;padding:11px;border:none;border-radius:8px;background:var(--green);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Restaurar datos</button>
-      </div>
-    </div>
-    <div class="card" style="overflow:hidden">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:14px;font-weight:700">🔄 Resetear sesiones</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra todas las sesiones. El HCP y el objetivo se mantienen.</div>
-      </div>
-      <div style="padding:14px 16px">
-        <button onclick="resetearPlan()" style="width:100%;padding:13px;border:1.5px solid var(--orange);border-radius:10px;background:rgba(224,98,58,.08);color:var(--orange);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Resetear sesiones</button>
-      </div>
-    </div>
-    <div class="card" style="overflow:hidden">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-        <div style="font-size:14px;font-weight:700">🗑️ Borrar todos los datos</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:4px;line-height:1.5">Borra absolutamente todo. No se puede deshacer.</div>
-      </div>
-      <div style="padding:14px 16px">
-        <button onclick="borrarTodo()" style="width:100%;padding:13px;border:1.5px solid var(--red);border-radius:10px;background:rgba(217,64,64,.08);color:var(--red);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Borrar todo</button>
-      </div>
-    </div>
-    <div style="text-align:center;font-size:11px;color:var(--muted);padding:8px 0">Golf · Javier · App personal</div>
+    <!-- Informe tab (hidden by default) -->
+    <div id="ajustes-informe" style="display:none" id="report-container"></div>
   </div>
 </div>
 
@@ -498,13 +500,9 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Hoy</span>
   </button>
-  <button class="nav-btn" id="nav-train" onclick="navigate('train')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    <span>Entreno</span>
-  </button>
-  <button class="nav-btn" id="nav-rondas" onclick="navigate('rondas')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 1 0 .5-2.48"/></svg>
-    <span>Rondas</span>
+  <button class="nav-btn" id="nav-golf" onclick="navigate('golf')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="19" r="2"/><path d="M12 17V7"/><path d="M12 7l6 4"/></svg>
+    <span>Golf</span>
   </button>
   <button class="nav-btn" id="nav-diet" onclick="navigate('diet')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
@@ -513,10 +511,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <button class="nav-btn" id="nav-fit" onclick="navigate('fit')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11M6.5 17.5h11M2 12h20M7 7.5V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M14 7.5V6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1M7 16.5V18a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1.5M14 16.5V18a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1.5"/></svg>
     <span>Físico</span>
-  </button>
-  <button class="nav-btn" id="nav-report" onclick="navigate('report')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-    <span>Informe</span>
   </button>
   <button class="nav-btn" id="nav-ajustes" onclick="navigate('ajustes')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -967,14 +961,12 @@ function navigate(s) {
   document.getElementById('screen-'+s).classList.add('active');
   document.getElementById('nav-'+s).classList.add('active');
   if (s==='home')    renderHome();
-  if (s==='train')   renderTrain();
-  if (s==='rondas')  { currentRondasTab='registro'; renderRondas('registro'); }
+  if (s==='golf')    { switchGolfTab('entreno', document.getElementById('golf-tab-entreno')); }
   if (s==='diet')    { currentDietTab='semana'; renderDiet('semana'); }
   if (s==='fit')     renderFit();
-  if (s==='report')  renderReport();
-  if (s==='ajustes') renderAjustes();
+  if (s==='ajustes') { switchAjustesTab('config', document.querySelector('#screen-ajustes .tab.active')); }
 }
-function goTrain(d) { navigate('train'); switchDay(d); }
+function goTrain(d) { navigate('golf'); switchDay(d); }
 
 // ══════════════════════════════════════════════════════════
 // HOME
@@ -1193,7 +1185,7 @@ function switchDay(d) {
 function renderTrain() {
   var d = DAYS[currentDay];
   var col = d.color;
-  document.getElementById('train-container').innerHTML = d.blocks.map(function(block){
+  document.getElementById('golf-container').innerHTML = d.blocks.map(function(block){
     var total = block.exercises.length;
     var done = block.exercises.filter(function(e){ return (currentSession[e.id]||{}).done > 0; }).length;
     return '<div class="card" id="block-'+block.id+'">'+
@@ -1691,7 +1683,7 @@ function resetMealDay(di) {
 // INFORME
 // ══════════════════════════════════════════════════════════
 function renderReport() {
-  var c = document.getElementById('report-container');
+  var c = document.getElementById('ajustes-informe');
   var hcp=getHCP(), obj=getObj(), hist=getHist(), total=sessions.length;
   var avg=total?Math.round(sessions.reduce(function(s,x){return s+x.score;},0)/total):0;
   var streak=calcStreak();
@@ -1842,7 +1834,7 @@ function compartirClaudeInforme() {
   else{showToast('Copia el texto del informe y pégalo en Claude');}
 }
 
-function exportarInforme(){navigate('report');}
+function exportarInforme(){ navigate('ajustes'); setTimeout(function(){ switchAjustesTab('informe', document.querySelectorAll('#screen-ajustes .tabs .tab')[1]); },50); }
 
 function emailInforme() {
   var text=generarTextoInforme();
@@ -1885,7 +1877,50 @@ function closeVideo() {
   document.body.style.overflow = '';
 }
 
-var currentRondasTab = 'registro';
+var currentGolfTab = 'entreno';
+
+function switchGolfTab(tab, btn) {
+  currentGolfTab = tab;
+  document.querySelectorAll('#screen-golf .tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  var entrenoSub = document.getElementById('golf-entreno-sub');
+  var rondasSub  = document.getElementById('golf-rondas-sub');
+  var saveBtn    = document.getElementById('golf-save-btn');
+  var badge      = document.getElementById('rondas-badge');
+  if (tab === 'entreno') {
+    entrenoSub.style.display = 'block';
+    rondasSub.style.display  = 'none';
+    saveBtn.style.display    = 'block';
+    badge.style.display      = 'none';
+    renderTrain();
+  } else {
+    entrenoSub.style.display = 'none';
+    rondasSub.style.display  = 'block';
+    saveBtn.style.display    = 'none';
+    badge.style.display      = 'inline-block';
+    currentRondasTab = 'registro';
+    document.querySelectorAll('#golf-rondas-sub .tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+    renderRondas('registro');
+  }
+}
+
+function switchAjustesTab(tab, btn) {
+  document.querySelectorAll('#screen-ajustes .tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  var configEl  = document.getElementById('ajustes-config');
+  var informeEl = document.getElementById('ajustes-informe');
+  if (tab === 'config') {
+    if (btn) btn.classList.add('active');
+    else document.querySelector('#screen-ajustes .tab').classList.add('active');
+    configEl.style.display  = 'block';
+    informeEl.style.display = 'none';
+    renderAjustes();
+  } else {
+    if (btn) btn.classList.add('active');
+    configEl.style.display  = 'none';
+    informeEl.style.display = 'block';
+    renderReport();
+  }
+}
 
 // ── PALOS ──
 function getPalosHist() { try { return JSON.parse(localStorage.getItem('j_palos_hist')||'[]'); } catch(e){ return []; } }
@@ -1902,13 +1937,13 @@ function saveRondas(r) { localStorage.setItem('j_rondas', JSON.stringify(r)); }
 
 function switchRondasTab(tab, btn) {
   currentRondasTab = tab;
-  document.querySelectorAll('#screen-rondas .tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('#golf-rondas-sub .tab').forEach(function(t){ t.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   renderRondas(tab);
 }
 
 function renderRondas(tab) {
-  var c = document.getElementById('rondas-container');
+  var c = document.getElementById('golf-container');
   var rondas = getRondas();
   document.getElementById('rondas-badge').textContent = rondas.length + ' ronda' + (rondas.length !== 1 ? 's' : '');
 
@@ -2147,7 +2182,7 @@ function guardarPalos() {
   var hoy = new Date();
   hist.push({ fecha: hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'}), ts: hoy.toISOString(), palos: nuevos });
   savePalosHist(hist);
-  renderPalos(document.getElementById('rondas-container'));
+  renderPalos(document.getElementById('golf-container'));
   showToast('📏 Distancias actualizadas');
 }
 
