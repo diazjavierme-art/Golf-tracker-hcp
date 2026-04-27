@@ -538,32 +538,32 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 // PLANNING SEMANAL
 // ══════════════════════════════════════════════════════════
 const PLANNING = [
-  { dia: 'Lunes', info: 'Gym', acts: [
+  { dia: 'Lunes', info: 'Golf', acts: [
     { time: '06:00–14:00', label: '💼 Trabajo (desde las 6h)' },
-    { time: '15:30–17:00', label: '🏋️ Gym — Tren Superior + Core Rotacional' }
+    { time: '19:30–21:00', label: '⛳ Ronda de golf' }
   ]},
-  { dia: 'Martes', info: 'Tenis + Golf', acts: [
+  { dia: 'Martes', info: 'Tenis + Gym', acts: [
     { time: '09:00–14:00', label: '💼 Trabajo' },
     { time: '15:00–16:00', label: '🎾 Tenis' },
-    { time: '17:00–18:30', label: '🏌️ Golf — Putting + Chip (corta)' }
+    { time: '17:00–18:00', label: '🏋️ Gym en casa — Tren Superior + Core' }
   ]},
   { dia: 'Miércoles', info: 'PT + Golf', acts: [
-    { time: '06:30–07:30', label: '💪 Entrenador Personal' },
+    { time: '06:30–07:30', label: '💪 Entrenador Personal (funcional)' },
     { time: '09:00–14:00', label: '💼 Trabajo' },
     { time: '15:30–17:30', label: '🏌️ Golf — Driving + Hierros (larga)' }
   ]},
   { dia: 'Jueves', info: 'Gym + Golf', acts: [
     { time: '09:00–14:00', label: '💼 Trabajo' },
-    { time: '15:30–17:00', label: '🏋️ Gym — Tren Inferior + Cadera' },
+    { time: '15:30–17:00', label: '🏋️ Gym en casa — Tren Inferior + Potencia' },
     { time: '17:30–18:30', label: '🏌️ Golf — Putting + Approach' }
   ]},
-  { dia: 'Viernes', info: 'Gym Potencia', acts: [
+  { dia: 'Viernes', info: 'Golf', acts: [
     { time: '09:00–14:00', label: '💼 Trabajo' },
-    { time: '15:30–17:00', label: '🏋️ Gym — Potencia + Movilidad Golf' }
+    { time: '15:30–17:30', label: '🏌️ Golf — Práctica libre' }
   ]},
   { dia: 'Sábado', info: '⛳ Ronda', acts: [
     { time: 'Mañana', label: '⛳ Ronda completa 18 hoyos' },
-    { time: 'Post-ronda', label: '📊 Actualizar HCP en la app' }
+    { time: 'Post-ronda', label: '📊 Actualizar stats en la app' }
   ]},
   { dia: 'Domingo', info: 'Descanso', acts: [
     { time: 'Todo el día', label: '😴 Recuperación activa — estiramientos opcionales' }
@@ -689,57 +689,38 @@ const DAYS = {
 // ══════════════════════════════════════════════════════════
 const FIT_PLAN = [
   {
-    dia: "Lunes · Tren Superior + Core Rotacional",
-    duracion: "15:30–17:00 · 90 min con calentamiento",
-    objetivo: "Fuerza base + estabilidad para el swing",
-    warning: "El Woodchop y el Pallof Press son los más importantes — son transferencia directa al swing.",
+    dia: "Martes · Core Rotacional + Tren Superior",
+    duracion: "17:00–18:00 · Después del tenis · En casa",
+    objetivo: "Potencia rotacional del swing — la cadena que genera distancia",
+    warning: "Vienes del tenis. Calienta 5 min antes. Todos estos ejercicios simulan o transfieren directamente al swing.",
     ejercicios: [
-      { nombre: "🔥 CALENTAMIENTO: Rotaciones torácicas en foam roller", series: "2 × 10 reps cada lado", desc: "Foam roller bajo la espalda media. Abre la rotación torácica — el limitador nº1 en golfistas amateur. Cada rep despacio." },
-      { nombre: "🔥 CALENTAMIENTO: Apertura de cadera 90/90", series: "60 seg por lado", desc: "Siéntate en el suelo en posición 90/90. Inclínate sobre la pierna delantera. Fundamental para rotación pélvica en el backswing." },
-      { nombre: "🔥 CALENTAMIENTO: Círculos de hombro con banda", series: "2 × 15 reps", desc: "Activa el manguito rotador antes de cargar. Círculos lentos y controlados." },
-      { nombre: "Remo con barra", series: "4 × 8 reps", desc: "Base del backswing. Codo pegado al cuerpo, rango completo. El dorsal fortalecido = más amplitud de swing.", yt: "VBhFIZWMKUs" },
-      { nombre: "Press banca inclinado con mancuernas", series: "3 × 10 reps", desc: "Fuerza pectoral superior sin comprometer el hombro. Ángulo 30-45°. Controlado en la bajada." },
-      { nombre: "Jalón al pecho agarre neutro", series: "4 × 10 reps", desc: "Fortalece latísimo → distancia directa en el driver. Agarre neutro protege los hombros.", yt: "AAYBnWuTZiM" },
-      { nombre: "Face pull con cable", series: "3 × 15 reps", desc: "Salud del manguito rotador. Imprescindible para golfistas. Cable a la altura de la cara, codos altos.", yt: "X-xCQ1gh-kA" },
-      { nombre: "Pallof Press con cable", series: "3 × 12 reps por lado", desc: "ANTI-ROTACIÓN de core. Mantén la posición sin rotar. La potencia del swing viene de resistir y después explotar la rotación.", yt: "SY5lRzBPtM4" },
-      { nombre: "Woodchop cable alto → bajo", series: "4 × 10 reps por lado", desc: "EL ejercicio más específico para el swing. El cable en alto, baja en diagonal cruzando el cuerpo. Simula exactamente el downswing.", yt: "Gwcf4TOj1hc" },
-      { nombre: "🧘 VUELTA A LA CALMA: Estiramiento lat + pectoral", series: "30 seg por lado", desc: "Estiramiento pectoral en marco de puerta + lat con barra. Mantiene movilidad ganada." }
+      { nombre: "🔥 CALENTAMIENTO: Rotación torácica en suelo", series: "2 × 10 reps/lado", desc: "Tumbado de lado, rodillas dobladas 90°. Abre el brazo superior hacia atrás rotando la columna. El limitador nº1 del swing es la movilidad torácica — este ejercicio la abre directamente." },
+      { nombre: "🔥 CALENTAMIENTO: Swing en espejo con palo lento", series: "3 × 10 swings completos", desc: "Frente a un espejo. Swing completo al 30% de velocidad. Fíjate en la posición de cadera en el impacto. Sin bola, máxima conciencia corporal.", yt: "4kp_JKDevhg" },
+      { nombre: "Woodchop con goma elástica alto → bajo", series: "4 × 10 reps/lado", desc: "Ancla la goma en alto (pomo de puerta). Tira en diagonal hacia abajo cruzando el cuerpo. ES el downswing con resistencia — el ejercicio más específico para distancia con el driver.", yt: "Gwcf4TOj1hc" },
+      { nombre: "Pallof Press con goma elástica", series: "3 × 12 reps/lado", desc: "Ancla la goma lateral a la altura del pecho. Extiende brazos al frente y aguanta sin rotar 2 seg. Anti-rotación de core — transfiere potencia sin perder estabilidad en el impacto.", yt: "paOG670vr9c" },
+      { nombre: "Remo con goma elástica (1 mano)", series: "4 × 12 reps/lado", desc: "Ancla la goma en bajo. Remo unilateral con codo pegado al cuerpo. Dorsal fortalecido = más amplitud de backswing y más control en el follow-through.", yt: "P4H2XSKJcF4" },
+      { nombre: "Dead Bug", series: "3 × 8 reps/lado", desc: "Tumbado boca arriba, rodillas a 90°. Extiende brazo y pierna opuestos lentamente manteniendo la zona lumbar pegada al suelo. Estabiliza el core desde dentro — esencial para mantener la postura durante los 18 hoyos.", yt: "g_BYB0R-4Ws" },
+      { nombre: "Flexiones con pausa (2 seg abajo)", series: "3 × 10 reps", desc: "Flexiones estándar con 2 seg de pausa en la posición baja. Pectoral y tríceps para mantener el triángulo de los brazos en el swing. Si es fácil, eleva los pies." },
+      { nombre: "Plancha con rotación de cadera", series: "3 × 8 reps/lado", desc: "En posición de plancha baja, rota la cadera hacia un lado tocando casi el suelo. Fortalece oblicuos y core rotacional — los músculos que generan potencia en el swing.", yt: "H1o9DeFmzCk" },
+      { nombre: "🧘 VUELTA A LA CALMA: Rotación torácica de pie con palo", series: "2 × 20 reps", desc: "Palo en los hombros. Rota solo la parte alta de la espalda con rodillas dobladas. Simula el backswing. Mantiene la movilidad ganada en el entrenamiento." }
     ]
   },
   {
-    dia: "Jueves · Tren Inferior + Cadera + Core",
-    duracion: "15:30–17:00 · La cadera es el motor del swing",
-    objetivo: "Potencia de piernas y cadera — más metros con el driver",
-    warning: "El Hip Thrust y la Rotación de Cadera con Cable son los ejercicios que más metros añaden al driver. No los saltes.",
+    dia: "Jueves · Tren Inferior + Potencia de Cadera",
+    duracion: "15:30–17:00 · En casa",
+    objetivo: "Potencia de cadera y piernas — el motor real del driver",
+    warning: "El Hip Thrust y la Rotación de cadera con goma son los ejercicios que más metros añaden. El glúteo es el motor del swing — si dispara tarde, pierdes 20-30m.",
     ejercicios: [
-      { nombre: "🔥 CALENTAMIENTO: Hip hinge en pared", series: "2 × 15 reps", desc: "De pie a 30cm de la pared. Empuja las caderas hacia atrás hasta tocarla. Aprende el patrón de peso muerto sin carga." },
-      { nombre: "🔥 CALENTAMIENTO: Monster walks con banda", series: "2 × 15 pasos por lado", desc: "Banda en las rodillas. Pasos laterales con rodillas hacia fuera. Activa el glúteo medio — estabilizador del swing." },
-      { nombre: "🔥 CALENTAMIENTO: Puente de glúteo con pausa", series: "2 × 15 reps", desc: "Tumbado, pies en el suelo. Sube las caderas y aguanta 2 segundos arriba. Activa glúteo mayor antes de cargar." },
-      { nombre: "Peso muerto rumano", series: "4 × 8 reps", desc: "Potencia + isquiotibiales. Espalda recta, caderas atrás, rodillas ligeramente flexionadas. Baja hasta sentir el estiramiento.", yt: "TdGndL9bSmo" },
-      { nombre: "Sentadilla goblet con mancuerna", series: "3 × 12 reps", desc: "Mancuerna al pecho, pies a anchura de cadera. Mejora la movilidad de cadera y tobillo necesaria para el backswing." },
-      { nombre: "Hip Thrust en banco", series: "4 × 10 reps", desc: "EL ejercicio que más metros añade. Hombros en el banco, barra en las caderas. Aprieta glúteo arriba y aguanta 1 segundo. El glúteo dispara el downswing.", yt: "LWj9YiMWJk0" },
-      { nombre: "Zancada lateral con mancuerna", series: "3 × 10 reps por lado", desc: "Estabilidad lateral del swing. Paso lateral amplio, rodilla de apoyo detrás del pie. Fortalece los abductores." },
-      { nombre: "Rotación cadera de pie con cable", series: "3 × 12 reps por lado", desc: "Cable a la altura de la cadera. Rota solo la pelvis sin mover los hombros. Transfer DIRECTO al clearance de cadera en el downswing." },
-      { nombre: "Plancha lateral con elevación de cadera", series: "3 × 30 seg por lado", desc: "Posición de plancha lateral. Baja y sube la cadera sin perder la alineación. Core lateral = swing estable." },
-      { nombre: "🧘 VUELTA A LA CALMA: Figura 4 + flexor de cadera", series: "45 seg por posición", desc: "Figura 4 (piriforme) + zancada estática para flexor de cadera. Mantiene la movilidad de cadera trabajada." }
-    ]
-  },
-  {
-    dia: "Viernes · Potencia Explosiva + Movilidad Golf",
-    duracion: "15:30–17:00 · La sesión más específica para ganar metros",
-    objetivo: "Explosividad + transfer directo al swing del sábado",
-    warning: "La rutina de movilidad final (últimos 10 min) también la puedes hacer el sábado antes de la ronda.",
-    ejercicios: [
-      { nombre: "🔥 CALENTAMIENTO: Rotación torácica de pie con palo", series: "3 × 20 reps", desc: "Palo en los hombros, rodillas dobladas. Rota solo la parte alta. Simula el swing sin carga. 20 reps cada lado." },
-      { nombre: "🔥 CALENTAMIENTO: Dislocaciones de hombro con palo", series: "2 × 15 reps", desc: "Palo con agarre amplio. Pásalo por encima de la cabeza hacia atrás y vuelta. Abre la movilidad de hombro para el backswing." },
-      { nombre: "🔥 CALENTAMIENTO: Swing con 2 palos a cámara lenta", series: "2 × 10 swings", desc: "Con dos palos juntos. Swing completo al 30% de velocidad. Siente la posición de caderas en el impacto. Sin bola." },
-      { nombre: "Medicine Ball Slam Rotacional", series: "4 × 8 reps por lado", desc: "EL ejercicio de potencia pura para golf. Con pelota, gira y lanza contra la pared diagonal. Imita la secuencia cadera-tronco-brazo del downswing.", yt: "zH6GLmlBj7M" },
-      { nombre: "Cable rotación baja → alta (simula downswing)", series: "4 × 10 reps por lado", desc: "Cable en posición baja. Jala en diagonal hacia arriba cruzando el cuerpo. Este movimiento ES el downswing con resistencia.", yt: "Gwcf4TOj1hc" },
-      { nombre: "Cable rotación alta → baja (simula follow-through)", series: "3 × 10 reps por lado", desc: "Cable en alto. Jala en diagonal hacia abajo. Trabaja el follow-through y la desaceleración controlada." },
-      { nombre: "Sentadilla con salto", series: "3 × 6 reps", desc: "Sentadilla hasta paralela, explota hacia arriba. Potencia de piernas = más velocidad en el impacto. Descansa 60 seg entre series." },
-      { nombre: "Single-leg deadlift con mancuerna", series: "3 × 8 reps por lado", desc: "Equilibrio en el swing. De pie en una pierna, baja la mancuerna hacia el suelo con espalda recta. Trabaja el equilibrio y la cadena posterior." },
-      { nombre: "Farmer carry 20m", series: "4 series", desc: "Mancuernas pesadas, camina 20m. Grip + core estabilizador. El agarre fuerte mejora el control del palo en el impacto." },
-      { nombre: "🧘 MOVILIDAD PRE-RONDA: Foam roller torácico + 90/90 + lat + swing lento", series: "10 min completos", desc: "Foam roller 60 seg · 90/90 cadera 45 seg/lado · Estiramiento lat con cable 30 seg/lado · 10 swings completos lentos con palo. Usa esto también el sábado antes de salir al campo." }
+      { nombre: "🔥 CALENTAMIENTO: Comba 3 min", series: "3 min continuos", desc: "Saltos básicos con comba. Activa la cadena inferior completa y el sistema cardiovascular antes de los ejercicios de fuerza." },
+      { nombre: "🔥 CALENTAMIENTO: Rotación de cadera 90/90 en suelo", series: "2 × 45 seg/lado", desc: "Siéntate en el suelo en posición 90/90. Inclínate sobre la pierna delantera. Movilidad de cadera clave para el backswing — sin ella el swing compensa con la lumbar y se pierde distancia." },
+      { nombre: "🔥 CALENTAMIENTO: Monster walks con goma", series: "2 × 15 pasos/lado", desc: "Goma en rodillas o tobillos. Pasos laterales con rodillas hacia fuera. Activa el glúteo medio — el estabilizador lateral del swing que evita los balanceos de cadera." },
+      { nombre: "Hip Thrust en el suelo (mancuernas en caderas)", series: "4 × 15 reps", desc: "Hombros en el sofá, mancuernas sobre las caderas. Sube explosivo apretando glúteo y baja lento. EL ejercicio que más metros añade. El glúteo dispara la rotación en el downswing.", yt: "LWj9YiMWJk0" },
+      { nombre: "Sentadilla búlgara con mancuernas 5kg", series: "4 × 8 reps/lado", desc: "Pie trasero en una silla, mancuernas en las manos. Baja lentamente hasta 90°. Potencia asimétrica de piernas — el swing carga más la pierna trasera en el backswing y la delantera en el impacto.", yt: "TdGndL9bSmo" },
+      { nombre: "Peso muerto rumano con mancuernas", series: "3 × 12 reps", desc: "De pie con mancuernas. Baja manteniendo espalda recta y rodillas casi extendidas. Isquiotibiales y cadena posterior — transfieren la fuerza del suelo hacia arriba en el downswing.", yt: "TdGndL9bSmo" },
+      { nombre: "Rotación de cadera con goma de pie", series: "3 × 12 reps/lado", desc: "Ancla la goma lateral a la altura de la cadera. Rota solo la pelvis hacia el lado contrario sin mover los hombros. Transfer DIRECTO al clearance de cadera en el downswing — la acción que abre el espacio para el palo.", yt: "paOG670vr9c" },
+      { nombre: "Zancada lateral con goma elástica", series: "3 × 10 reps/lado", desc: "Goma anclada lateral. Paso amplio hacia el lado contra la resistencia. Estabilidad lateral del swing — evita el movimiento de cabeza y mantiene el centro de gravedad estable." },
+      { nombre: "Saltos de comba explosivos", series: "4 × 30 seg trabajo / 30 seg descanso", desc: "Saltos rápidos a pies juntos, máxima velocidad. Potencia explosiva de piernas = más velocidad de cabeza en el impacto. Descansa completamente entre series." },
+      { nombre: "🧘 VUELTA A LA CALMA: Figura 4 + flexor cadera + 90/90", series: "45 seg/posición", desc: "Figura 4 en suelo (piriforme) + zancada estática larga (flexor cadera) + 90/90 final. Los 3 estiramientos clave post-entreno de piernas para mantener la movilidad de cadera." }
     ]
   }
 ];
@@ -1269,28 +1250,31 @@ function saveSession() {
   var total = d.blocks.reduce(function(s,b){ return s+b.exercises.reduce(function(s2,e){ return s2+e.target; },0); },0);
   var done  = d.blocks.reduce(function(s,b){ return s+b.exercises.reduce(function(s2,e){ return s2+(currentSession[e.id]||{done:0}).done; },0); },0);
   var score = Math.min(100, Math.round((done/total)*100));
-  sessions.push({ date: new Date().toISOString().slice(0,10), day: currentDay, data: JSON.parse(JSON.stringify(currentSession)), score: score });
-  saveAll();
-  localStorage.removeItem('draft_d'+currentDay);
-  currentSession = {};
-  renderTrain();
-  var emoji = score>=85?'🔥':score>=65?'✅':'📈';
-  var msg = score>=85?'Sesión brutal':score>=65?'Bien hecho':'A seguir';
-  var prev = sessions.slice(0,-1).filter(function(s){ return s.day===currentDay; });
-  var extra = '';
-  if (prev.length>0) { var diff=score-prev[prev.length-1].score; extra = diff>0?' · +'+diff+'% vs anterior':diff<0?' · '+diff+'% vs anterior':''; }
-  showToast(emoji+' '+score+'% completado'+extra);
-  renderHome();
-  if (currentDay===2) {
-    setTimeout(function(){
-      document.getElementById('modal-title').textContent = '🏌️ ¿Jugaste ronda hoy?';
-      document.getElementById('modal-body').textContent = 'Si completaste una ronda oficial, recuerda actualizar tu HCP desde la sección de Hoy.';
-      document.getElementById('modal-confirm').textContent = 'Actualizar HCP';
-      document.getElementById('modal-confirm').style.background = 'var(--green)';
-      document.getElementById('modal-confirm').onclick = function(){ closeModal(); navigate('home'); };
-      document.getElementById('modal').classList.add('open');
-    }, 1500);
-  }
+  var hoy = new Date().toISOString().slice(0,10);
+
+  // Ask for date before saving
+  document.getElementById('modal-title').textContent = '📅 ¿Cuándo hiciste esta sesión?';
+  document.getElementById('modal-body').innerHTML =
+    '<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Por defecto hoy. Cámbialo si la hiciste otro día.</div>'+
+    '<input id="session-date-input" type="date" value="'+hoy+'" class="field-input" style="margin-top:0">';
+  document.getElementById('modal-confirm').textContent = 'Guardar sesión';
+  document.getElementById('modal-confirm').style.background = 'var(--green)';
+  document.getElementById('modal-confirm').onclick = function() {
+    var dateVal = document.getElementById('session-date-input').value || hoy;
+    sessions.push({ date: dateVal, day: currentDay, data: JSON.parse(JSON.stringify(currentSession)), score: score });
+    saveAll();
+    localStorage.removeItem('draft_d'+currentDay);
+    currentSession = {};
+    closeModal();
+    renderTrain();
+    var emoji = score>=85?'🔥':score>=65?'✅':'📈';
+    var prev2 = sessions.slice(0,-1).filter(function(s){ return s.day===currentDay; });
+    var extra = '';
+    if (prev2.length>0) { var diff=score-prev2[prev2.length-1].score; extra = diff>0?' · +'+diff+'% vs anterior':diff<0?' · '+diff+'% vs anterior':''; }
+    showToast(emoji+' '+score+'% completado'+extra);
+    renderHome();
+  };
+  document.getElementById('modal').classList.add('open');
 }
 
 // ══════════════════════════════════════════════════════════
@@ -1950,15 +1934,17 @@ function renderRondas(tab) {
   if (tab === 'palos') { renderPalos(c); return; }
   if (tab === 'stats') { renderRondasStats(c, rondas); return; }
 
-  // REGISTRO
-  var avgGolpes = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.golpes; },0)/rondas.length) : null;
-  var avgGIR    = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.gir; },0)/rondas.length) : null;
-  var avgPutts  = rondas.length ? (rondas.reduce(function(s,r){ return s+r.putts; },0)/rondas.length).toFixed(1) : null;
-  var avgFIR    = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.fir; },0)/rondas.length) : null;
+  // KPIs solo rondas de 18 hoyos para comparar bien
+  var rondas18 = rondas.filter(function(r){ return !r.hoyos || r.hoyos === 18; });
+  var avgGolpes = rondas18.length ? Math.round(rondas18.reduce(function(s,r){ return s+r.golpes; },0)/rondas18.length) : null;
+  var avgGIR    = rondas18.length ? Math.round(rondas18.reduce(function(s,r){ return s+r.gir; },0)/rondas18.length) : null;
+  var avgPutts  = rondas18.length ? (rondas18.reduce(function(s,r){ return s+r.putts; },0)/rondas18.length).toFixed(1) : null;
+  var avgFIR    = rondas18.length ? Math.round(rondas18.reduce(function(s,r){ return s+r.fir; },0)/rondas18.length) : null;
+  var hoy18 = new Date().toISOString().slice(0,10);
 
   c.innerHTML =
     // KPIs
-    (rondas.length >= 2 ? '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">'+
+    (rondas18.length >= 2 ? '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">'+
       [
         {label:'Golpes', val:avgGolpes, icon:'⛳', good: function(v){ return v < 85; }, fmt: function(v){ return v; }},
         {label:'GIR %',  val:avgGIR,    icon:'🎯', good: function(v){ return v >= 40; }, fmt: function(v){ return v+'%'; }},
@@ -1969,22 +1955,35 @@ function renderRondas(tab) {
         return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center">'+
           '<div style="font-size:16px">'+k.icon+'</div>'+
           '<div style="font-family:\'DM Serif Display\',serif;font-size:18px;color:'+col+';margin-top:2px">'+(k.val !== null ? k.fmt(k.val) : '—')+'</div>'+
-          '<div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:1px">'+k.label+'</div>'+
+          '<div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:1px">'+k.label+' (18h)</div>'+
         '</div>';
       }).join('')+
     '</div>' : '') +
 
     // FORM NUEVA RONDA
     '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px">'+
-      '<div style="font-size:13px;font-weight:700;margin-bottom:14px">➕ Registrar ronda</div>'+
+      '<div style="font-size:13px;font-weight:700;margin-bottom:12px">➕ Registrar ronda</div>'+
+
+      // Tipo de ronda
+      '<div style="display:flex;gap:8px;margin-bottom:12px">'+
+        '<button id="btn-18h" onclick="setTipoRonda(18)" style="flex:1;padding:10px;border:2px solid var(--green);border-radius:10px;background:rgba(224,120,48,.15);color:var(--greenl);font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:700;cursor:pointer">⛳ 18 hoyos</button>'+
+        '<button id="btn-9h"  onclick="setTipoRonda(9)"  style="flex:1;padding:10px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">🏌️ 9 hoyos</button>'+
+      '</div>'+
+
+      // Fecha
+      '<div style="margin-bottom:10px">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Fecha de la ronda</div>'+
+        '<input type="date" id="r-fecha" value="'+hoy18+'" class="field-input" style="margin-top:0">'+
+      '</div>'+
+
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
         '<div>'+
           '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Golpes totales</div>'+
-          '<input type="number" id="r-golpes" placeholder="Ej: 86" min="54" max="150" class="field-input" style="margin-top:0">'+
+          '<input type="number" id="r-golpes" placeholder="Ej: 86" min="27" max="150" class="field-input" style="margin-top:0">'+
         '</div>'+
         '<div>'+
           '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Putts totales</div>'+
-          '<input type="number" id="r-putts" placeholder="Ej: 32" min="18" max="60" class="field-input" style="margin-top:0">'+
+          '<input type="number" id="r-putts" placeholder="Ej: 32" min="9" max="60" class="field-input" style="margin-top:0">'+
         '</div>'+
         '<div>'+
           '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">GIR (greens) %</div>'+
@@ -1994,8 +1993,12 @@ function renderRondas(tab) {
           '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Fairways % (FIR)</div>'+
           '<input type="number" id="r-fir" placeholder="Ej: 57" min="0" max="100" class="field-input" style="margin-top:0">'+
         '</div>'+
+        '<div style="grid-column:1/-1">'+
+          '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Handicap con el que jugaste</div>'+
+          '<input type="number" id="r-hcp" placeholder="Ej: 12" step="0.1" min="0" max="54" class="field-input" style="margin-top:0">'+
+        '</div>'+
       '</div>'+
-      '<textarea id="r-notas" placeholder="Notas de la ronda (campo, condiciones, sensaciones...)" rows="2" style="width:100%;margin-top:8px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;resize:none;outline:none" onfocus="this.style.borderColor=\'var(--greenl)\'" onblur="this.style.borderColor=\'var(--border)\'"></textarea>'+
+      '<textarea id="r-notas" placeholder="Notas (campo, condiciones, sensaciones...)" rows="2" style="width:100%;margin-top:8px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;resize:none;outline:none" onfocus="this.style.borderColor=\'var(--greenl)\'" onblur="this.style.borderColor=\'var(--border)\'"></textarea>'+
       '<button onclick="guardarRonda()" style="width:100%;margin-top:10px;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Guardar ronda</button>'+
     '</div>'+
 
@@ -2005,16 +2008,32 @@ function renderRondas(tab) {
       (rondas.length === 0 ?
         '<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">Sin rondas registradas aún</div>' :
         rondas.slice().reverse().map(function(r){
+          var hoyos = r.hoyos || 18;
+          var par   = hoyos === 18 ? 72 : 36;
+          var hcpJuego = r.hcpJuego || null;
+          var golCol = r.golpes < (hoyos===18?85:43) ? 'var(--greenl)' : r.golpes < (hoyos===18?90:46) ? 'var(--gold)' : 'var(--orange)';
           var girCol = r.gir >= 40 ? 'var(--greenl)' : r.gir >= 25 ? 'var(--gold)' : 'var(--orange)';
-          var golCol = r.golpes < 85 ? 'var(--greenl)' : r.golpes < 90 ? 'var(--gold)' : 'var(--orange)';
+          // Bajos/sobre respecto al HCP de juego
+          var bajosStr = '';
+          if (hcpJuego !== null) {
+            var parConHcp = par + hcpJuego;
+            var diff = r.golpes - parConHcp;
+            bajosStr = diff <= 0
+              ? '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(76,158,76,.15);color:var(--greenl);border:1px solid rgba(76,158,76,.3);font-weight:700">'+(diff===0?'Par':''+diff)+' (HCP '+hcpJuego+')</span>'
+              : '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(224,98,58,.1);color:var(--orange);border:1px solid rgba(224,98,58,.3);font-weight:700">+'+diff+' (HCP '+hcpJuego+')</span>';
+          }
           return '<div style="padding:12px 16px;border-bottom:1px solid var(--border)">'+
             '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'+
-              '<div style="font-size:11px;color:var(--muted)">'+r.fecha+'</div>'+
-              '<div style="font-family:\'DM Serif Display\',serif;font-size:22px;color:'+golCol+'">'+r.golpes+'</div>'+
+              '<div>'+
+                '<div style="font-size:11px;color:var(--muted)">'+r.fecha+'</div>'+
+                '<div style="font-size:10px;color:var(--muted);margin-top:1px">'+hoyos+' hoyos</div>'+
+              '</div>'+
+              '<div style="font-family:\'DM Serif Display\',serif;font-size:26px;color:'+golCol+'">'+r.golpes+'</div>'+
               '<button onclick="borrarRonda(\''+r.id+'\')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button>'+
             '</div>'+
-            '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
-              '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(76,158,76,.1);color:'+girCol+';border:1px solid '+girCol+'44">🎯 GIR '+r.gir+'%</span>'+
+            '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+              (bajosStr ? bajosStr : '')+
+              '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(76,158,76,.08);color:'+girCol+';border:1px solid '+girCol+'44">🎯 GIR '+r.gir+'%</span>'+
               '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">🏌️ '+r.putts+' putts</span>'+
               '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">📐 FIR '+r.fir+'%</span>'+
             '</div>'+
@@ -2025,23 +2044,58 @@ function renderRondas(tab) {
     '</div>';
 }
 
+var currentHoyos = 18;
+
+function setTipoRonda(n) {
+  currentHoyos = n;
+  var btn18 = document.getElementById('btn-18h');
+  var btn9  = document.getElementById('btn-9h');
+  if (!btn18 || !btn9) return;
+  if (n === 18) {
+    btn18.style.border = '2px solid var(--green)'; btn18.style.background = 'rgba(224,120,48,.15)'; btn18.style.color = 'var(--greenl)';
+    btn9.style.border  = '1px solid var(--border)'; btn9.style.background  = 'var(--surface2)'; btn9.style.color  = 'var(--muted)';
+  } else {
+    btn9.style.border  = '2px solid var(--green)'; btn9.style.background  = 'rgba(224,120,48,.15)'; btn9.style.color = 'var(--greenl)';
+    btn18.style.border = '1px solid var(--border)'; btn18.style.background = 'var(--surface2)'; btn18.style.color = 'var(--muted)';
+  }
+}
+
 function guardarRonda() {
-  var golpes = parseInt(document.getElementById('r-golpes').value);
-  var putts  = parseInt(document.getElementById('r-putts').value);
-  var gir    = parseInt(document.getElementById('r-gir').value);
-  var fir    = parseInt(document.getElementById('r-fir').value);
-  var notas  = document.getElementById('r-notas').value.trim();
-  if (isNaN(golpes)||golpes<54||golpes>150) { showToast('⚠️ Golpes no válido'); return; }
-  if (isNaN(putts)||putts<18||putts>60)    { showToast('⚠️ Putts no válido'); return; }
-  if (isNaN(gir)||gir<0||gir>100)          { showToast('⚠️ GIR no válido (0-100)'); return; }
-  if (isNaN(fir)||fir<0||fir>100)          { showToast('⚠️ FIR no válido (0-100)'); return; }
+  var golpes  = parseInt(document.getElementById('r-golpes').value);
+  var putts   = parseInt(document.getElementById('r-putts').value);
+  var gir     = parseInt(document.getElementById('r-gir').value);
+  var fir     = parseInt(document.getElementById('r-fir').value);
+  var hcp     = parseFloat(document.getElementById('r-hcp').value);
+  var notas   = document.getElementById('r-notas').value.trim();
+  var fechaVal= document.getElementById('r-fecha').value;
+  var hoyos   = currentHoyos;
+  var minGolpes = hoyos === 18 ? 54 : 27;
+  var maxGolpes = hoyos === 18 ? 150 : 80;
+  var minPutts  = hoyos === 18 ? 18 : 9;
+  if (isNaN(golpes)||golpes<minGolpes||golpes>maxGolpes) { showToast('⚠️ Golpes no válido'); return; }
+  if (isNaN(putts)||putts<minPutts||putts>60)            { showToast('⚠️ Putts no válido'); return; }
+  if (isNaN(gir)||gir<0||gir>100)                        { showToast('⚠️ GIR no válido (0-100)'); return; }
+  if (isNaN(fir)||fir<0||fir>100)                        { showToast('⚠️ FIR no válido (0-100)'); return; }
+  var fechaObj = fechaVal ? new Date(fechaVal) : new Date();
+  var fechaStr = fechaObj.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'});
   var rondas = getRondas();
-  var hoy = new Date();
-  rondas.push({ id:Date.now().toString(), fecha:hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'}), ts:hoy.toISOString(), golpes:golpes, putts:putts, gir:gir, fir:fir, notas:notas });
+  rondas.push({
+    id: Date.now().toString(),
+    fecha: fechaStr,
+    ts: fechaObj.toISOString(),
+    hoyos: hoyos,
+    golpes: golpes,
+    putts: putts,
+    gir: gir,
+    fir: fir,
+    hcpJuego: isNaN(hcp) ? null : hcp,
+    notas: notas
+  });
   saveRondas(rondas);
-  ['r-golpes','r-putts','r-gir','r-fir','r-notas'].forEach(function(id){ document.getElementById(id).value=''; });
+  ['r-golpes','r-putts','r-gir','r-fir','r-hcp','r-notas'].forEach(function(id){ document.getElementById(id).value=''; });
+  currentHoyos = 18;
   renderRondas('registro');
-  showToast('⛳ Ronda '+golpes+' golpes guardada');
+  showToast('⛳ Ronda '+golpes+' golpes ('+hoyos+'h) guardada');
 }
 
 function borrarRonda(id) {
