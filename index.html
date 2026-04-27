@@ -456,6 +456,26 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   </div>
 </div>
 
+<!-- VIDEO MODAL -->
+<div id="video-modal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.95);flex-direction:column;align-items:center;justify-content:center">
+  <div style="width:100%;max-width:480px;padding:0 16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div id="video-modal-title" style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--text)"></div>
+      <button onclick="closeVideo()" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
+    </div>
+    <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#000">
+      <iframe id="video-iframe"
+        style="position:absolute;inset:0;width:100%;height:100%;border:none"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <a id="video-yt-link" href="#" target="_blank" style="font-size:12px;color:var(--muted);text-decoration:none">¿No carga? Abrir en YouTube →</a>
+    </div>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav id="nav">
   <button class="nav-btn active" id="nav-home" onclick="navigate('home')">
@@ -648,12 +668,12 @@ const FIT_PLAN = [
       { nombre: "🔥 CALENTAMIENTO: Rotaciones torácicas en foam roller", series: "2 × 10 reps cada lado", desc: "Foam roller bajo la espalda media. Abre la rotación torácica — el limitador nº1 en golfistas amateur. Cada rep despacio." },
       { nombre: "🔥 CALENTAMIENTO: Apertura de cadera 90/90", series: "60 seg por lado", desc: "Siéntate en el suelo en posición 90/90. Inclínate sobre la pierna delantera. Fundamental para rotación pélvica en el backswing." },
       { nombre: "🔥 CALENTAMIENTO: Círculos de hombro con banda", series: "2 × 15 reps", desc: "Activa el manguito rotador antes de cargar. Círculos lentos y controlados." },
-      { nombre: "Remo con barra", series: "4 × 8 reps", desc: "Base del backswing. Codo pegado al cuerpo, rango completo. El dorsal fortalecido = más amplitud de swing.", yt: "https://www.youtube.com/shorts/UwEXMnNGSYs" },
+      { nombre: "Remo con barra", series: "4 × 8 reps", desc: "Base del backswing. Codo pegado al cuerpo, rango completo. El dorsal fortalecido = más amplitud de swing.", yt: "Gwcf4TOj1hc" },
       { nombre: "Press banca inclinado con mancuernas", series: "3 × 10 reps", desc: "Fuerza pectoral superior sin comprometer el hombro. Ángulo 30-45°. Controlado en la bajada." },
-      { nombre: "Jalón al pecho agarre neutro", series: "4 × 10 reps", desc: "Fortalece latísimo → distancia directa en el driver. Agarre neutro protege los hombros.", yt: "https://www.youtube.com/shorts/Iv8P2JRXVJM" },
+      { nombre: "Jalón al pecho agarre neutro", series: "4 × 10 reps", desc: "Fortalece latísimo → distancia directa en el driver. Agarre neutro protege los hombros." },
       { nombre: "Face pull con cable", series: "3 × 15 reps", desc: "Salud del manguito rotador. Imprescindible para golfistas. Cable a la altura de la cara, codos altos." },
-      { nombre: "Pallof Press con cable", series: "3 × 12 reps por lado", desc: "ANTI-ROTACIÓN de core. Mantén la posición sin rotar. La potencia del swing viene de resistir y después explotar la rotación.", yt: "https://www.youtube.com/watch?v=SY5lRzBPtM4" },
-      { nombre: "Woodchop cable alto → bajo", series: "4 × 10 reps por lado", desc: "EL ejercicio más específico para el swing. El cable en alto, baja en diagonal cruzando el cuerpo. Simula exactamente el downswing.", yt: "https://www.youtube.com/watch?v=Gwcf4TOj1hc" },
+      { nombre: "Pallof Press con cable", series: "3 × 12 reps por lado", desc: "ANTI-ROTACIÓN de core. Mantén la posición sin rotar. La potencia del swing viene de resistir y después explotar la rotación.", yt: "SY5lRzBPtM4" },
+      { nombre: "Woodchop cable alto → bajo", series: "4 × 10 reps por lado", desc: "EL ejercicio más específico para el swing. El cable en alto, baja en diagonal cruzando el cuerpo. Simula exactamente el downswing.", yt: "Gwcf4TOj1hc" },
       { nombre: "🧘 VUELTA A LA CALMA: Estiramiento lat + pectoral", series: "30 seg por lado", desc: "Estiramiento pectoral en marco de puerta + lat con barra. Mantiene movilidad ganada." }
     ]
   },
@@ -666,11 +686,11 @@ const FIT_PLAN = [
       { nombre: "🔥 CALENTAMIENTO: Hip hinge en pared", series: "2 × 15 reps", desc: "De pie a 30cm de la pared. Empuja las caderas hacia atrás hasta tocarla. Aprende el patrón de peso muerto sin carga." },
       { nombre: "🔥 CALENTAMIENTO: Monster walks con banda", series: "2 × 15 pasos por lado", desc: "Banda en las rodillas. Pasos laterales con rodillas hacia fuera. Activa el glúteo medio — estabilizador del swing." },
       { nombre: "🔥 CALENTAMIENTO: Puente de glúteo con pausa", series: "2 × 15 reps", desc: "Tumbado, pies en el suelo. Sube las caderas y aguanta 2 segundos arriba. Activa glúteo mayor antes de cargar." },
-      { nombre: "Peso muerto rumano", series: "4 × 8 reps", desc: "Potencia + isquiotibiales. Espalda recta, caderas atrás, rodillas ligeramente flexionadas. Baja hasta sentir el estiramiento.", yt: "https://www.youtube.com/shorts/8qNrTuZ0rXM" },
-      { nombre: "Sentadilla goblet con mancuerna", series: "3 × 12 reps", desc: "Mancuerna al pecho, pies a anchura de cadera. Mejora la movilidad de cadera y tobillo necesaria para el backswing.", yt: "https://www.youtube.com/shorts/V_BRoSCBxnY" },
-      { nombre: "Hip Thrust en banco", series: "4 × 10 reps", desc: "EL ejercicio que más metros añade. Hombros en el banco, barra en las caderas. Aprieta glúteo arriba y aguanta 1 segundo. El glúteo dispara el downswing.", yt: "https://www.youtube.com/watch?v=LWj9YiMWJk0" },
+      { nombre: "Peso muerto rumano", series: "4 × 8 reps", desc: "Potencia + isquiotibiales. Espalda recta, caderas atrás, rodillas ligeramente flexionadas. Baja hasta sentir el estiramiento.", yt: "TdGndL9bSmo" },
+      { nombre: "Sentadilla goblet con mancuerna", series: "3 × 12 reps", desc: "Mancuerna al pecho, pies a anchura de cadera. Mejora la movilidad de cadera y tobillo necesaria para el backswing." },
+      { nombre: "Hip Thrust en banco", series: "4 × 10 reps", desc: "EL ejercicio que más metros añade. Hombros en el banco, barra en las caderas. Aprieta glúteo arriba y aguanta 1 segundo. El glúteo dispara el downswing.", yt: "LWj9YiMWJk0" },
       { nombre: "Zancada lateral con mancuerna", series: "3 × 10 reps por lado", desc: "Estabilidad lateral del swing. Paso lateral amplio, rodilla de apoyo detrás del pie. Fortalece los abductores." },
-      { nombre: "Rotación cadera de pie con cable", series: "3 × 12 reps por lado", desc: "Cable a la altura de la cadera. Rota solo la pelvis sin mover los hombros. Transfer DIRECTO al clearance de cadera en el downswing.", yt: "https://www.youtube.com/shorts/qF1xh_5u6mg" },
+      { nombre: "Rotación cadera de pie con cable", series: "3 × 12 reps por lado", desc: "Cable a la altura de la cadera. Rota solo la pelvis sin mover los hombros. Transfer DIRECTO al clearance de cadera en el downswing." },
       { nombre: "Plancha lateral con elevación de cadera", series: "3 × 30 seg por lado", desc: "Posición de plancha lateral. Baja y sube la cadera sin perder la alineación. Core lateral = swing estable." },
       { nombre: "🧘 VUELTA A LA CALMA: Figura 4 + flexor de cadera", series: "45 seg por posición", desc: "Figura 4 (piriforme) + zancada estática para flexor de cadera. Mantiene la movilidad de cadera trabajada." }
     ]
@@ -684,10 +704,10 @@ const FIT_PLAN = [
       { nombre: "🔥 CALENTAMIENTO: Rotación torácica de pie con palo", series: "3 × 20 reps", desc: "Palo en los hombros, rodillas dobladas. Rota solo la parte alta. Simula el swing sin carga. 20 reps cada lado." },
       { nombre: "🔥 CALENTAMIENTO: Dislocaciones de hombro con palo", series: "2 × 15 reps", desc: "Palo con agarre amplio. Pásalo por encima de la cabeza hacia atrás y vuelta. Abre la movilidad de hombro para el backswing." },
       { nombre: "🔥 CALENTAMIENTO: Swing con 2 palos a cámara lenta", series: "2 × 10 swings", desc: "Con dos palos juntos. Swing completo al 30% de velocidad. Siente la posición de caderas en el impacto. Sin bola." },
-      { nombre: "Medicine Ball Slam Rotacional", series: "4 × 8 reps por lado", desc: "EL ejercicio de potencia pura para golf. Con pelota, gira y lanza contra la pared diagonal. Imita la secuencia cadera-tronco-brazo del downswing.", yt: "https://www.youtube.com/shorts/0Yyb6F5XsLo" },
-      { nombre: "Cable rotación baja → alta (simula downswing)", series: "4 × 10 reps por lado", desc: "Cable en posición baja. Jala en diagonal hacia arriba cruzando el cuerpo. Este movimiento ES el downswing con resistencia.", yt: "https://www.youtube.com/watch?v=Gwcf4TOj1hc" },
+      { nombre: "Medicine Ball Slam Rotacional", series: "4 × 8 reps por lado", desc: "EL ejercicio de potencia pura para golf. Con pelota, gira y lanza contra la pared diagonal. Imita la secuencia cadera-tronco-brazo del downswing.", yt: "zH6GLmlBj7M" },
+      { nombre: "Cable rotación baja → alta (simula downswing)", series: "4 × 10 reps por lado", desc: "Cable en posición baja. Jala en diagonal hacia arriba cruzando el cuerpo. Este movimiento ES el downswing con resistencia.", yt: "Gwcf4TOj1hc" },
       { nombre: "Cable rotación alta → baja (simula follow-through)", series: "3 × 10 reps por lado", desc: "Cable en alto. Jala en diagonal hacia abajo. Trabaja el follow-through y la desaceleración controlada." },
-      { nombre: "Sentadilla con salto", series: "3 × 6 reps", desc: "Sentadilla hasta paralela, explota hacia arriba. Potencia de piernas = más velocidad en el impacto. Descansa 60 seg entre series.", yt: "https://www.youtube.com/shorts/5qDRMEBJFe8" },
+      { nombre: "Sentadilla con salto", series: "3 × 6 reps", desc: "Sentadilla hasta paralela, explota hacia arriba. Potencia de piernas = más velocidad en el impacto. Descansa 60 seg entre series." },
       { nombre: "Single-leg deadlift con mancuerna", series: "3 × 8 reps por lado", desc: "Equilibrio en el swing. De pie en una pierna, baja la mancuerna hacia el suelo con espalda recta. Trabaja el equilibrio y la cadena posterior." },
       { nombre: "Farmer carry 20m", series: "4 series", desc: "Mancuernas pesadas, camina 20m. Grip + core estabilizador. El agarre fuerte mejora el control del palo en el impacto." },
       { nombre: "🧘 MOVILIDAD PRE-RONDA: Foam roller torácico + 90/90 + lat + swing lento", series: "10 min completos", desc: "Foam roller 60 seg · 90/90 cadera 45 seg/lado · Estiramiento lat con cable 30 seg/lado · 10 swings completos lentos con palo. Usa esto también el sábado antes de salir al campo." }
@@ -1522,7 +1542,7 @@ function renderFit() {
                 '<div class="fit-ex-name" style="text-decoration:'+(ck?'line-through':'none')+';color:'+(ck?'var(--muted)':labelColor)+'">'+ex.nombre+'</div>'+
                 '<div class="fit-ex-sets">'+ex.series+'</div>'+
                 '<div class="fit-ex-desc">'+ex.desc+'</div>'+
-                (ex.yt ? '<a href="'+ex.yt+'" target="_blank" onclick="event.stopPropagation()" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:6px 12px;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.3);border-radius:20px;color:#ff6b6b;font-size:11px;font-weight:600;text-decoration:none;letter-spacing:.3px">▶ Ver en YouTube</a>' : '')+
+                (ex.yt ? '<button onclick="event.stopPropagation();openVideo(\''+ex.yt+'\',\''+ex.nombre+'\')" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:6px 12px;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.3);border-radius:20px;color:#ff6b6b;font-size:11px;font-weight:600;cursor:pointer;font-family:\'DM Sans\',sans-serif">▶ Ver demo</button>' : '')+
               '</div>'+
             '</div>'+
           '</div>';
@@ -1768,6 +1788,26 @@ function copiarListaCompra() {
   });
   if(navigator.clipboard){navigator.clipboard.writeText(text).then(function(){showToast('✅ Lista copiada');});}
   else{showToast('No se pudo copiar');}
+}
+
+function openVideo(ytId, title) {
+  var modal = document.getElementById('video-modal');
+  var iframe = document.getElementById('video-iframe');
+  var titleEl = document.getElementById('video-modal-title');
+  var link = document.getElementById('video-yt-link');
+  iframe.src = 'https://www.youtube.com/embed/'+ytId+'?autoplay=1&rel=0&modestbranding=1';
+  titleEl.textContent = title;
+  link.href = 'https://www.youtube.com/watch?v='+ytId;
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideo() {
+  var modal = document.getElementById('video-modal');
+  var iframe = document.getElementById('video-iframe');
+  iframe.src = '';
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
 }
 
 function guardarCompra() {
