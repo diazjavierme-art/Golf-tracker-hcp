@@ -347,6 +347,22 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="wrap" id="train-container"></div>
 </div>
 
+<!-- ══════ RONDAS ══════ -->
+<div class="screen" id="screen-rondas">
+  <div class="header">
+    <div class="header-top">
+      <div><h1>⛳ Rondas</h1><p>Estadísticas y distancias de palos</p></div>
+      <span class="badge" id="rondas-badge" style="background:var(--gold);color:#0f1a0f">0 rondas</span>
+    </div>
+    <div class="tabs" style="margin-bottom:0">
+      <button class="tab active" onclick="switchRondasTab('registro',this)">📋 Registro</button>
+      <button class="tab" onclick="switchRondasTab('palos',this)">🏌️ Palos</button>
+      <button class="tab" onclick="switchRondasTab('stats',this)">📊 Stats</button>
+    </div>
+  </div>
+  <div class="wrap" id="rondas-container"></div>
+</div>
+
 <!-- ══════ DIETA ══════ -->
 <div class="screen" id="screen-diet">
   <div class="header">
@@ -486,6 +502,10 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
     <span>Entreno</span>
   </button>
+  <button class="nav-btn" id="nav-rondas" onclick="navigate('rondas')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 1 0 .5-2.48"/></svg>
+    <span>Rondas</span>
+  </button>
   <button class="nav-btn" id="nav-diet" onclick="navigate('diet')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
     <span>Dieta</span>
@@ -557,8 +577,23 @@ const PLANNING = [
 ];
 
 // ══════════════════════════════════════════════════════════
-// SESIONES DE GOLF
+// DISTANCIAS DE PALOS
 // ══════════════════════════════════════════════════════════
+const PALOS_INIT = [
+  { palo: 'Driver',    metros: 200 },
+  { palo: 'Madera 3',  metros: 180 },
+  { palo: 'Hibrido 3', metros: 165 },
+  { palo: 'Hibrido 4', metros: 155 },
+  { palo: 'Hierro 5',  metros: 145 },
+  { palo: 'Hierro 6',  metros: 135 },
+  { palo: 'Hierro 7',  metros: 125 },
+  { palo: 'Hierro 8',  metros: 115 },
+  { palo: 'Hierro 9',  metros: 105 },
+  { palo: 'Pitching',  metros: 95  },
+  { palo: '48gr',      metros: 85  },
+  { palo: '52gr',      metros: 75  },
+  { palo: '56gr',      metros: 65  }
+];
 const DAYS = {
   1: {
     title: "Martes · Putting + Juego Corto",
@@ -668,10 +703,10 @@ const FIT_PLAN = [
       { nombre: "🔥 CALENTAMIENTO: Rotaciones torácicas en foam roller", series: "2 × 10 reps cada lado", desc: "Foam roller bajo la espalda media. Abre la rotación torácica — el limitador nº1 en golfistas amateur. Cada rep despacio." },
       { nombre: "🔥 CALENTAMIENTO: Apertura de cadera 90/90", series: "60 seg por lado", desc: "Siéntate en el suelo en posición 90/90. Inclínate sobre la pierna delantera. Fundamental para rotación pélvica en el backswing." },
       { nombre: "🔥 CALENTAMIENTO: Círculos de hombro con banda", series: "2 × 15 reps", desc: "Activa el manguito rotador antes de cargar. Círculos lentos y controlados." },
-      { nombre: "Remo con barra", series: "4 × 8 reps", desc: "Base del backswing. Codo pegado al cuerpo, rango completo. El dorsal fortalecido = más amplitud de swing.", yt: "Gwcf4TOj1hc" },
+      { nombre: "Remo con barra", series: "4 × 8 reps", desc: "Base del backswing. Codo pegado al cuerpo, rango completo. El dorsal fortalecido = más amplitud de swing.", yt: "VBhFIZWMKUs" },
       { nombre: "Press banca inclinado con mancuernas", series: "3 × 10 reps", desc: "Fuerza pectoral superior sin comprometer el hombro. Ángulo 30-45°. Controlado en la bajada." },
-      { nombre: "Jalón al pecho agarre neutro", series: "4 × 10 reps", desc: "Fortalece latísimo → distancia directa en el driver. Agarre neutro protege los hombros." },
-      { nombre: "Face pull con cable", series: "3 × 15 reps", desc: "Salud del manguito rotador. Imprescindible para golfistas. Cable a la altura de la cara, codos altos." },
+      { nombre: "Jalón al pecho agarre neutro", series: "4 × 10 reps", desc: "Fortalece latísimo → distancia directa en el driver. Agarre neutro protege los hombros.", yt: "AAYBnWuTZiM" },
+      { nombre: "Face pull con cable", series: "3 × 15 reps", desc: "Salud del manguito rotador. Imprescindible para golfistas. Cable a la altura de la cara, codos altos.", yt: "X-xCQ1gh-kA" },
       { nombre: "Pallof Press con cable", series: "3 × 12 reps por lado", desc: "ANTI-ROTACIÓN de core. Mantén la posición sin rotar. La potencia del swing viene de resistir y después explotar la rotación.", yt: "SY5lRzBPtM4" },
       { nombre: "Woodchop cable alto → bajo", series: "4 × 10 reps por lado", desc: "EL ejercicio más específico para el swing. El cable en alto, baja en diagonal cruzando el cuerpo. Simula exactamente el downswing.", yt: "Gwcf4TOj1hc" },
       { nombre: "🧘 VUELTA A LA CALMA: Estiramiento lat + pectoral", series: "30 seg por lado", desc: "Estiramiento pectoral en marco de puerta + lat con barra. Mantiene movilidad ganada." }
@@ -721,14 +756,16 @@ const FIT_PLAN = [
 const DIETA = {
   semana: [
     {
-      dia: "Lunes · Gym Tren Superior", tipo: "Ayuno hasta 12:30 · ~1.900 kcal", kcal: 1900,
+      dia: "Lunes · Gym Tren Superior", tipo: "Rompe ayuno a las 8:00 · ~1.900 kcal", kcal: 1900,
       comidas: [
-        { tipo: "12:30 — Comida principal", nombre: "Arroz integral + pollo a la plancha + ensalada", desc: "150g arroz integral cocido · 200g pechuga de pollo · tomate + pepino + AOVE y limón.", kcal: 620, p: 52, c: 58, g: 14,
-          tip: "Día de gym de tren superior — carbohidratos y proteína en la primera comida para recuperar el trabajo muscular." },
-        { tipo: "17:00 — Merienda pre-gym", nombre: "2 huevos revueltos + naranja", desc: "2 huevos revueltos con AOVE · 1 naranja. Energía para el entrenamiento.", kcal: 280, p: 14, c: 22, g: 14, tip: null },
+        { tipo: "08:00 — Romper ayuno", nombre: "Yogur griego con arándanos y dátiles", desc: "1 yogur griego natural entero · puñado de arándanos frescos · 3-4 dátiles Medjool. Sin azúcar añadido.", kcal: 280, p: 10, c: 38, g: 8,
+          tip: "El yogur griego fermenta la lactosa — suele tolerarse bien. Los dátiles dan energía rápida y los arándanos son antioxidantes clave para la recuperación." },
+        { tipo: "13:00 — Comida (tupper)", nombre: "Arroz + pollo + tomate cherry + naranja", desc: "150g arroz cocido · 150g pechuga de pollo a la plancha · tomate cherry al natural · 1 naranja de postre.", kcal: 520, p: 45, c: 52, g: 8,
+          tip: "El pollo completa el plato — sin él apenas hay proteína. Prepáralo la noche anterior en filetes finos, viaja perfecto en tupper sin necesidad de recalentar." },
+        { tipo: "17:00 — Merienda pre-gym", nombre: "2 huevos duros + plátano", desc: "2 huevos duros · 1 plátano. Proteína + carbohidrato de rápida absorción antes del entrenamiento.", kcal: 280, p: 14, c: 28, g: 10, tip: null },
         { tipo: "20:30 — Cena post-gym", nombre: "Salmón al horno + patata cocida + brócoli", desc: "200g salmón · 150g patata con piel · 150g brócoli al vapor. Omega-3 para recuperación muscular.", kcal: 580, p: 44, c: 40, g: 20,
           tip: "El salmón post-gym reduce la inflamación. Come dentro de las 2h después del entrenamiento." },
-        { tipo: "22:00 — Snack opcional (cierra ventana)", nombre: "Puñado de nueces (30g) o atún con pepino", desc: "30g nueces crudas o 1 lata de atún con rodajas de pepino. Cierra la ventana con proteína.", kcal: 180, p: 10, c: 4, g: 14, tip: null }
+        { tipo: "22:00 — Snack cierre ventana", nombre: "Puñado de nueces (30g) o atún con pepino", desc: "30g nueces crudas o 1 lata de atún con rodajas de pepino. Cierra con proteína y grasas saludables.", kcal: 180, p: 10, c: 4, g: 14, tip: null }
       ]
     },
     {
@@ -880,10 +917,23 @@ const DIETA = {
       ]
     },
     {
+      categoria: "🥛 Lácteos",
+      items: [
+        { nombre: "Yogur griego natural entero", gramos: "2-3 uds", nota: "Lunes desayuno · fermentado = tolerable" }
+      ]
+    },
+    {
+      categoria: "🫐 Frutas especiales",
+      items: [
+        { nombre: "Arándanos frescos", gramos: "1 bandeja", nota: "Lunes desayuno con yogur" },
+        { nombre: "Dátiles Medjool", gramos: "200g", nota: "Lunes desayuno · 3-4 uds" }
+      ]
+    },
+    {
       categoria: "💊 Suplementos (recomendados)",
       items: [
-        { nombre: "Creatina monohidrato", gramos: "5g/día", nota: "El suplemento con más evidencia para potencia y distancia en el swing" },
-        { nombre: "Proteína vegetal (guisante o arroz)", gramos: "1 bote", nota: "Post-entreno martes entre tenis y golf" },
+        { nombre: "Creatina monohidrato", gramos: "5g/dia", nota: "El suplemento con mas evidencia para potencia y distancia en el swing" },
+        { nombre: "Proteina vegetal (guisante o arroz)", gramos: "1 bote", nota: "Post-entreno martes entre tenis y golf" },
         { nombre: "Magnesio", gramos: "1 bote", nota: "Recuperación muscular + calidad del sueño" },
         { nombre: "Vitamina D3", gramos: "1 bote", nota: "Aunque Sevilla tiene sol, suele faltar en sangre" }
       ]
@@ -918,6 +968,7 @@ function navigate(s) {
   document.getElementById('nav-'+s).classList.add('active');
   if (s==='home')    renderHome();
   if (s==='train')   renderTrain();
+  if (s==='rondas')  { currentRondasTab='registro'; renderRondas('registro'); }
   if (s==='diet')    { currentDietTab='semana'; renderDiet('semana'); }
   if (s==='fit')     renderFit();
   if (s==='report')  renderReport();
@@ -941,10 +992,15 @@ function renderHome() {
 function renderPlanningGrid() {
   var grid = document.getElementById('plan-week-grid');
   if (!grid) return;
-  var today = new Date().getDay(); // 0=dom,1=lun...
+  var today = new Date().getDay();
   var dayNames = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   var todayName = dayNames[today];
-  grid.innerHTML = PLANNING.map(function(p){
+  var todayPlan = PLANNING.find(function(p){ return p.dia === todayName; });
+  var showAll = localStorage.getItem('plan_expand') === '1';
+
+  var toShow = showAll ? PLANNING : (todayPlan ? [todayPlan] : PLANNING);
+
+  grid.innerHTML = toShow.map(function(p){
     var isToday = p.dia === todayName;
     return '<div class="plan-row-item" style="'+(isToday?'border-color:var(--gold);':'')+'">'+
       '<div class="plan-day-col">'+
@@ -960,7 +1016,16 @@ function renderPlanningGrid() {
         }).join('')+
       '</div>'+
     '</div>';
-  }).join('');
+  }).join('')+
+  '<button onclick="togglePlanExpand()" style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-family:\'DM Sans\',sans-serif;font-size:12px;cursor:pointer;margin-top:4px">'+
+    (showAll ? '▲ Ver solo hoy' : '▼ Ver semana completa')+
+  '</button>';
+}
+
+function togglePlanExpand() {
+  var cur = localStorage.getItem('plan_expand') === '1';
+  localStorage.setItem('plan_expand', cur ? '0' : '1');
+  renderPlanningGrid();
 }
 
 function renderHCPCard() {
@@ -1736,12 +1801,22 @@ function generarTextoInforme() {
   var pesoInicial=pesoHist.length?pesoHist[0].kg:'—';
   var pesoObj=localStorage.getItem('j_peso_obj')||'71';
   var pesoEvol=pesoHist.length>=2?pesoInicial+' → '+pesoActual+' kg':pesoActual+' kg';
+  var rondas=getRondas();
+  var palosActual=getPalosActual();
+  var ultimaRonda=rondas.length?rondas[rondas.length-1]:null;
+  var avgGolpes=rondas.length?Math.round(rondas.reduce(function(s,r){return s+r.golpes;},0)/rondas.length):null;
+  var avgGIR=rondas.length?Math.round(rondas.reduce(function(s,r){return s+r.gir;},0)/rondas.length):null;
+  var avgPutts=rondas.length?(rondas.reduce(function(s,r){return s+r.putts;},0)/rondas.length).toFixed(1):null;
+  var avgFIR=rondas.length?Math.round(rondas.reduce(function(s,r){return s+r.fir;},0)/rondas.length):null;
   return '⛳ *Informe Golf - Javier*\n\n'+
     '📊 *HCP:* '+hcp.toFixed(1)+' (objetivo: '+obj.toFixed(1)+')\n'+
     '📈 *Evolución HCP:* '+hcpEvol+'\n'+
     '⚖️ *Peso:* '+pesoActual+' kg (objetivo: '+pesoObj+' kg · evolución: '+pesoEvol+')\n'+
     '🏋️ *Sesiones:* '+total+' · Media '+avg+'%\n'+
-    '🔥 *Racha:* '+calcStreak()+' días\n\n'+
+    '🔥 *Racha:* '+calcStreak()+' días\n'+
+    (rondas.length ? '⛳ *Rondas ('+rondas.length+'):* Media '+avgGolpes+' golpes · GIR '+avgGIR+'% · '+avgPutts+' putts · FIR '+avgFIR+'%\n' : '')+
+    (ultimaRonda ? '📋 *Última ronda:* '+ultimaRonda.golpes+' golpes · GIR '+ultimaRonda.gir+'% · '+ultimaRonda.putts+' putts · FIR '+ultimaRonda.fir+'%\n' : '')+
+    '📏 *Distancias:* Driver '+palosActual[0].metros+'m · H3 '+palosActual[2].metros+'m · H7 '+palosActual[6].metros+'m · PW '+palosActual[9].metros+'m\n\n'+
     '📅 *Últimas sesiones:*\n'+
     sessions.slice(-5).reverse().map(function(s){
       var d=new Date(s.date).toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit'});
@@ -1808,6 +1883,272 @@ function closeVideo() {
   iframe.src = '';
   modal.style.display = 'none';
   document.body.style.overflow = '';
+}
+
+var currentRondasTab = 'registro';
+
+// ── PALOS ──
+function getPalosHist() { try { return JSON.parse(localStorage.getItem('j_palos_hist')||'[]'); } catch(e){ return []; } }
+function savePalosHist(h) { localStorage.setItem('j_palos_hist', JSON.stringify(h)); }
+function getPalosActual() {
+  var hist = getPalosHist();
+  if (hist.length === 0) return PALOS_INIT.map(function(p){ return {palo:p.palo, metros:p.metros}; });
+  return hist[hist.length-1].palos;
+}
+
+// ── RONDAS ──
+function getRondas() { try { return JSON.parse(localStorage.getItem('j_rondas')||'[]'); } catch(e){ return []; } }
+function saveRondas(r) { localStorage.setItem('j_rondas', JSON.stringify(r)); }
+
+function switchRondasTab(tab, btn) {
+  currentRondasTab = tab;
+  document.querySelectorAll('#screen-rondas .tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderRondas(tab);
+}
+
+function renderRondas(tab) {
+  var c = document.getElementById('rondas-container');
+  var rondas = getRondas();
+  document.getElementById('rondas-badge').textContent = rondas.length + ' ronda' + (rondas.length !== 1 ? 's' : '');
+
+  if (tab === 'palos') { renderPalos(c); return; }
+  if (tab === 'stats') { renderRondasStats(c, rondas); return; }
+
+  // REGISTRO
+  var avgGolpes = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.golpes; },0)/rondas.length) : null;
+  var avgGIR    = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.gir; },0)/rondas.length) : null;
+  var avgPutts  = rondas.length ? (rondas.reduce(function(s,r){ return s+r.putts; },0)/rondas.length).toFixed(1) : null;
+  var avgFIR    = rondas.length ? Math.round(rondas.reduce(function(s,r){ return s+r.fir; },0)/rondas.length) : null;
+
+  c.innerHTML =
+    // KPIs
+    (rondas.length >= 2 ? '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px">'+
+      [
+        {label:'Golpes', val:avgGolpes, icon:'⛳', good: function(v){ return v < 85; }, fmt: function(v){ return v; }},
+        {label:'GIR %',  val:avgGIR,    icon:'🎯', good: function(v){ return v >= 40; }, fmt: function(v){ return v+'%'; }},
+        {label:'Putts',  val:avgPutts,  icon:'🏌️', good: function(v){ return v < 33; }, fmt: function(v){ return v; }},
+        {label:'FIR %',  val:avgFIR,    icon:'📐', good: function(v){ return v >= 50; }, fmt: function(v){ return v+'%'; }}
+      ].map(function(k){
+        var col = k.val !== null ? (k.good(k.val) ? 'var(--greenl)' : 'var(--orange)') : 'var(--muted)';
+        return '<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center">'+
+          '<div style="font-size:16px">'+k.icon+'</div>'+
+          '<div style="font-family:\'DM Serif Display\',serif;font-size:18px;color:'+col+';margin-top:2px">'+(k.val !== null ? k.fmt(k.val) : '—')+'</div>'+
+          '<div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-top:1px">'+k.label+'</div>'+
+        '</div>';
+      }).join('')+
+    '</div>' : '') +
+
+    // FORM NUEVA RONDA
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px">'+
+      '<div style="font-size:13px;font-weight:700;margin-bottom:14px">➕ Registrar ronda</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+        '<div>'+
+          '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Golpes totales</div>'+
+          '<input type="number" id="r-golpes" placeholder="Ej: 86" min="54" max="150" class="field-input" style="margin-top:0">'+
+        '</div>'+
+        '<div>'+
+          '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Putts totales</div>'+
+          '<input type="number" id="r-putts" placeholder="Ej: 32" min="18" max="60" class="field-input" style="margin-top:0">'+
+        '</div>'+
+        '<div>'+
+          '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">GIR (greens) %</div>'+
+          '<input type="number" id="r-gir" placeholder="Ej: 33" min="0" max="100" class="field-input" style="margin-top:0">'+
+        '</div>'+
+        '<div>'+
+          '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Fairways % (FIR)</div>'+
+          '<input type="number" id="r-fir" placeholder="Ej: 57" min="0" max="100" class="field-input" style="margin-top:0">'+
+        '</div>'+
+      '</div>'+
+      '<textarea id="r-notas" placeholder="Notas de la ronda (campo, condiciones, sensaciones...)" rows="2" style="width:100%;margin-top:8px;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;resize:none;outline:none" onfocus="this.style.borderColor=\'var(--greenl)\'" onblur="this.style.borderColor=\'var(--border)\'"></textarea>'+
+      '<button onclick="guardarRonda()" style="width:100%;margin-top:10px;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Guardar ronda</button>'+
+    '</div>'+
+
+    // HISTORIAL
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700">Historial ('+rondas.length+')</div>'+
+      (rondas.length === 0 ?
+        '<div style="padding:24px;text-align:center;color:var(--muted);font-size:13px">Sin rondas registradas aún</div>' :
+        rondas.slice().reverse().map(function(r){
+          var girCol = r.gir >= 40 ? 'var(--greenl)' : r.gir >= 25 ? 'var(--gold)' : 'var(--orange)';
+          var golCol = r.golpes < 85 ? 'var(--greenl)' : r.golpes < 90 ? 'var(--gold)' : 'var(--orange)';
+          return '<div style="padding:12px 16px;border-bottom:1px solid var(--border)">'+
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'+
+              '<div style="font-size:11px;color:var(--muted)">'+r.fecha+'</div>'+
+              '<div style="font-family:\'DM Serif Display\',serif;font-size:22px;color:'+golCol+'">'+r.golpes+'</div>'+
+              '<button onclick="borrarRonda(\''+r.id+'\')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button>'+
+            '</div>'+
+            '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+              '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(76,158,76,.1);color:'+girCol+';border:1px solid '+girCol+'44">🎯 GIR '+r.gir+'%</span>'+
+              '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">🏌️ '+r.putts+' putts</span>'+
+              '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)">📐 FIR '+r.fir+'%</span>'+
+            '</div>'+
+            (r.notas ? '<div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic">'+r.notas+'</div>' : '')+
+          '</div>';
+        }).join('')
+      )+
+    '</div>';
+}
+
+function guardarRonda() {
+  var golpes = parseInt(document.getElementById('r-golpes').value);
+  var putts  = parseInt(document.getElementById('r-putts').value);
+  var gir    = parseInt(document.getElementById('r-gir').value);
+  var fir    = parseInt(document.getElementById('r-fir').value);
+  var notas  = document.getElementById('r-notas').value.trim();
+  if (isNaN(golpes)||golpes<54||golpes>150) { showToast('⚠️ Golpes no válido'); return; }
+  if (isNaN(putts)||putts<18||putts>60)    { showToast('⚠️ Putts no válido'); return; }
+  if (isNaN(gir)||gir<0||gir>100)          { showToast('⚠️ GIR no válido (0-100)'); return; }
+  if (isNaN(fir)||fir<0||fir>100)          { showToast('⚠️ FIR no válido (0-100)'); return; }
+  var rondas = getRondas();
+  var hoy = new Date();
+  rondas.push({ id:Date.now().toString(), fecha:hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'}), ts:hoy.toISOString(), golpes:golpes, putts:putts, gir:gir, fir:fir, notas:notas });
+  saveRondas(rondas);
+  ['r-golpes','r-putts','r-gir','r-fir','r-notas'].forEach(function(id){ document.getElementById(id).value=''; });
+  renderRondas('registro');
+  showToast('⛳ Ronda '+golpes+' golpes guardada');
+}
+
+function borrarRonda(id) {
+  var rondas = getRondas().filter(function(r){ return r.id !== id; });
+  saveRondas(rondas);
+  renderRondas('registro');
+}
+
+function renderRondasStats(c, rondas) {
+  if (rondas.length < 2) {
+    c.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted);font-size:13px">Necesitas al menos 2 rondas para ver estadísticas de evolución</div>';
+    return;
+  }
+  var last = rondas[rondas.length-1];
+  var prev = rondas[rondas.length-2];
+  function trend(cur, old, lowerBetter) {
+    var diff = cur - old;
+    var better = lowerBetter ? diff < 0 : diff > 0;
+    var col = better ? 'var(--greenl)' : diff === 0 ? 'var(--muted)' : 'var(--orange)';
+    var sign = diff > 0 ? '+' : '';
+    return '<span style="color:'+col+';font-size:12px;font-weight:600">'+sign+diff+'</span>';
+  }
+
+  // SVG chart golpes
+  var last10 = rondas.slice(-10);
+  var vals = last10.map(function(r){ return r.golpes; });
+  var minV = Math.min.apply(null,vals)-2, maxV = Math.max.apply(null,vals)+2, range = maxV-minV||1;
+  var w=280, h=60;
+  var pts = last10.map(function(r,i){
+    var x=(i/(last10.length-1||1))*(w-20)+10;
+    var y=h-((r.golpes-minV)/range)*(h-10)-5;
+    return x+','+y;
+  });
+  var chart = '<svg viewBox="0 0 '+w+' '+h+'" style="width:100%;display:block">'+
+    '<line x1="0" y1="'+(h-((85-minV)/range)*(h-10)-5)+'" x2="'+w+'" y2="'+(h-((85-minV)/range)*(h-10)-5)+'" stroke="rgba(245,200,66,.4)" stroke-width="1" stroke-dasharray="4,3"/>'+
+    '<polyline points="'+pts.join(' ')+'" fill="none" stroke="var(--greenl)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'+
+    last10.map(function(r,i){
+      var x=(i/(last10.length-1||1))*(w-20)+10;
+      var y=h-((r.golpes-minV)/range)*(h-10)-5;
+      var isLast=i===last10.length-1;
+      return '<circle cx="'+x+'" cy="'+y+'" r="'+(isLast?4:2.5)+'" fill="'+(isLast?'var(--greenl)':'var(--surface2)')+'" stroke="var(--greenl)" stroke-width="1.5"/>'+
+        (isLast?'<text x="'+(x+6)+'" y="'+(y-4)+'" font-size="9" fill="var(--greenl)" font-family="DM Sans">'+r.golpes+'</text>':'');
+    }).join('')+
+  '</svg>';
+
+  c.innerHTML =
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px">'+
+      '<div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Evolución golpes · última vs anterior</div>'+
+      chart+
+      '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px;padding:0 10px">'+
+        '<span>'+last10[0].fecha+'</span><span style="color:rgba(245,200,66,.7)">— Obj 80</span><span>'+last10[last10.length-1].fecha+'</span>'+
+      '</div>'+
+    '</div>'+
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700">Última ronda vs anterior</div>'+
+      [
+        {label:'Golpes totales', cur:last.golpes, old:prev.golpes, lowerBetter:true, icon:'⛳'},
+        {label:'GIR %',          cur:last.gir,    old:prev.gir,    lowerBetter:false, icon:'🎯'},
+        {label:'Putts',          cur:last.putts,  old:prev.putts,  lowerBetter:true,  icon:'🏌️'},
+        {label:'FIR %',          cur:last.fir,    old:prev.fir,    lowerBetter:false, icon:'📐'}
+      ].map(function(m){
+        return '<div style="padding:11px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">'+
+          '<span style="font-size:16px">'+m.icon+'</span>'+
+          '<span style="font-size:13px;flex:1;color:var(--muted)">'+m.label+'</span>'+
+          '<span style="font-size:15px;font-weight:700">'+m.cur+'</span>'+
+          trend(m.cur, m.old, m.lowerBetter)+
+        '</div>';
+      }).join('')+
+    '</div>'+
+    '<div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:var(--radius);padding:14px 16px;font-size:13px;line-height:1.7">'+
+      '<div style="font-weight:700;color:var(--gold);margin-bottom:6px">🎯 Tu área de mejora prioritaria</div>'+
+      '<div style="color:var(--text)">GIR actual: <strong style="color:'+(last.gir>=40?'var(--greenl)':last.gir>=25?'var(--gold)':'var(--orange)')+'">'+last.gir+'%</strong> · '+
+        (last.gir < 25 ? 'Foco total en approach y hierros medios.' : last.gir < 40 ? 'Mejorando — sigue con los approaches de 80-100m.' : '¡Buen nivel! Mantén el trabajo de hierros.')+
+      '</div>'+
+      '<div style="color:var(--muted);font-size:12px;margin-top:4px">Objetivo GIR para sub-80: ~44% (8 greens por ronda)</div>'+
+    '</div>';
+}
+
+function renderPalos(c) {
+  var hist = getPalosHist();
+  var actual = getPalosActual();
+  var lastFecha = hist.length ? hist[hist.length-1].fecha : 'Inicial';
+  var needsUpdate = !hist.length || (function(){
+    var last = new Date(hist[hist.length-1].ts||Date.now());
+    var diffDays = (Date.now()-last.getTime())/86400000;
+    return diffDays >= 14;
+  })();
+
+  c.innerHTML =
+    // ALERTA CADA 2 SEMANAS
+    (needsUpdate ? '<div style="background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.3);border-radius:var(--radius);padding:12px 16px;margin-bottom:12px;display:flex;gap:10px;align-items:center">'+
+      '<span style="font-size:20px">📏</span>'+
+      '<div><div style="font-size:13px;font-weight:700;color:var(--gold)">Toca actualizar distancias</div>'+
+      '<div style="font-size:12px;color:var(--muted);margin-top:2px">Han pasado +14 días desde el último registro</div></div>'+
+    '</div>' : '') +
+
+    // TABLA ACTUAL
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">'+
+        '<div style="font-size:13px;font-weight:700">Distancias actuales</div>'+
+        '<div style="font-size:11px;color:var(--muted)">Ref: '+lastFecha+'</div>'+
+      '</div>'+
+      actual.map(function(p, i){
+        var prev = hist.length >= 2 ? hist[hist.length-2].palos[i] : null;
+        var diff = prev ? p.metros - prev.metros : null;
+        var diffCol = diff !== null ? (diff > 0 ? 'var(--greenl)' : diff < 0 ? 'var(--orange)' : 'var(--muted)') : 'transparent';
+        var diffStr = diff !== null ? (diff > 0 ? '+'+diff : diff.toString())+'m' : '';
+        return '<div style="padding:10px 16px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px">'+
+          '<div style="font-size:13px;font-weight:600">'+p.palo+'</div>'+
+          '<div style="font-size:13px;color:var(--greenl);font-weight:700">'+p.metros+'m</div>'+
+          (diffStr ? '<div style="font-size:11px;font-weight:700;color:'+diffCol+'">'+diffStr+'</div>' : '<div></div>')+
+        '</div>';
+      }).join('')+
+    '</div>'+
+
+    // FORM ACTUALIZAR
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px">'+
+      '<div style="font-size:13px;font-weight:700;margin-bottom:12px">📏 Actualizar distancias</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px" id="palos-inputs">'+
+        actual.map(function(p, i){
+          return '<div>'+
+            '<div style="font-size:11px;color:var(--muted);margin-bottom:3px">'+p.palo+'</div>'+
+            '<input type="number" id="palo-'+i+'" value="'+p.metros+'" min="30" max="350" class="field-input" style="margin-top:0;font-size:13px">'+
+          '</div>';
+        }).join('')+
+      '</div>'+
+      '<button onclick="guardarPalos()" style="width:100%;margin-top:12px;padding:13px;border:none;border-radius:10px;background:var(--green);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Guardar nuevo registro</button>'+
+    '</div>';
+}
+
+function guardarPalos() {
+  var actual = getPalosActual();
+  var nuevos = actual.map(function(p, i){
+    var val = parseInt(document.getElementById('palo-'+i).value);
+    return { palo: p.palo, metros: isNaN(val) ? p.metros : val };
+  });
+  var hist = getPalosHist();
+  var hoy = new Date();
+  hist.push({ fecha: hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'}), ts: hoy.toISOString(), palos: nuevos });
+  savePalosHist(hist);
+  renderPalos(document.getElementById('rondas-container'));
+  showToast('📏 Distancias actualizadas');
 }
 
 function guardarCompra() {
@@ -1999,13 +2340,19 @@ if(document.readyState==='loading'){
 
 function init(){
   loadAll();
-  // Peso inicial si no hay historial
+  // Peso inicial
   if (!localStorage.getItem('j_peso_hist') || JSON.parse(localStorage.getItem('j_peso_hist')||'[]').length === 0) {
     var hoy = new Date();
     var fecha = hoy.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'});
     localStorage.setItem('j_peso_hist', JSON.stringify([{id:'init', kg:74, fecha:fecha, ts:hoy.toISOString()}]));
   }
   if (!localStorage.getItem('j_peso_obj')) localStorage.setItem('j_peso_obj','71');
+  // Palos iniciales
+  if (!localStorage.getItem('j_palos_hist')) {
+    var hoy2 = new Date();
+    var fecha2 = hoy2.toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'});
+    savePalosHist([{ fecha:fecha2, ts:hoy2.toISOString(), palos:PALOS_INIT.map(function(p){ return {palo:p.palo,metros:p.metros}; }) }]);
+  }
   renderHome();
   switchDay(1);
 }
