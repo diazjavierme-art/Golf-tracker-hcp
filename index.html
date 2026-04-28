@@ -388,8 +388,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 <div class="screen" id="screen-fit">
   <div class="header">
     <div class="header-top">
-      <div><h1>Plan Físico</h1><p>3 días · Potencia swing + movilidad + distancia</p></div>
-      <span class="badge" style="background:var(--green)">3 días/sem</span>
+      <div><h1>Plan Físico</h1><p>Martes + Jueves · 42 min · Golf + Quema grasa</p></div>
+      <span class="badge" style="background:var(--green)">~42 min</span>
     </div>
   </div>
   <div class="wrap" id="fit-container"></div>
@@ -695,107 +695,126 @@ const DAYS = {
 // ══════════════════════════════════════════════════════════
 const FIT_PLAN = [
   {
-    dia: "Martes · Potencia Rotacional + Tren Superior",
-    duracion: "17:00–17:45 · Después del tenis · En casa",
-    objetivo: "Rotación explosiva + fuerza tren superior → más metros con el driver",
-    warning: "Descansa máximo 30 seg entre series. Nivel avanzado — la fatiga es parte del estímulo.",
+    dia: "Martes · Fuerza + Potencia Rotacional",
+    duracion: "30 min rutina + 12 min finisher · Total ~42 min",
+    objetivo: "Fuerza explosiva + rotación → más metros con el driver",
+    warning: "Sigue el video para la rutina principal. El finisher de grasa lo haces justo al terminar sin descanso.",
     ejercicios: [
       {
-        nombre: "🔥 CALENTAMIENTO (5 min)",
-        series: "Sin descanso",
-        desc: "1) Rotación torácica en suelo 10 reps/lado · 2) Dislocaciones con palo 15 reps · 3) Swing lento al 30% con palo 10 reps/lado · 4) Comba 60 seg básica"
+        nombre: "▶️ RUTINA PRINCIPAL — Sigue el video (30 min)",
+        series: "Ver video completo",
+        desc: "Pon el video en pantalla y sigue la rutina guiada. No necesitas mirar el móvil durante los 30 minutos.",
+        yt: "Q_N8SyZTQRM"
       },
       {
-        nombre: "A1 · Woodchop explosivo con goma (alto→bajo)",
-        series: "4 × 10 reps/lado · Descanso 20 seg",
-        desc: "Ancla la goma en alto. Movimiento diagonal explosivo hacia abajo cruzando el cuerpo. FASE CONCÉNTRICA MÁXIMA VELOCIDAD — baja el freno en la vuelta. Simula exactamente el downswing bajo resistencia. El ejercicio más importante del plan.",
-        yt: "Gwcf4TOj1hc"
+        nombre: "━━ BLOQUE 1 · Fuerza + Estabilidad",
+        series: "3 series · Descanso 60 seg entre series",
+        desc: ""
       },
       {
-        nombre: "A2 · Pallof Press isométrico con goma",
-        series: "3 × 20 seg aguante/lado · Descanso 15 seg",
-        desc: "Ancla la goma lateral. Extiende brazos y aguanta sin rotar. A nivel avanzado añade micro-pulsos hacia fuera. Anti-rotación de core — la potencia del swing viene de resistir y después explotar.",
-        yt: "paOG670vr9c"
+        nombre: "Sentadilla rotacional con mancuernas",
+        series: "20 reps (10 por lado)",
+        desc: "Mancuerna al pecho. Sentadilla completa y al subir rota el tronco hacia el lado de la mancuerna. Trabaja la secuencia cadera-tronco del downswing."
       },
       {
-        nombre: "B1 · Remo unilateral con goma + rotación",
-        series: "4 × 12 reps/lado · Descanso 20 seg",
-        desc: "Ancla la goma baja. Remo a una mano con rotación de tronco al final — igual que el backswing. Codo pegado, dorsal activo todo el recorrido. Fortalece la cadena del backswing completa.",
-        yt: "P4H2XSKJcF4"
+        nombre: "Plancha lateral",
+        series: "40 seg por lado",
+        desc: "Cuerpo recto como tabla, cadera arriba sin hundirla. Estabilidad lateral del swing — evita el slide de cadera que roba metros al driver."
       },
       {
-        nombre: "B2 · Flexiones con rotación (archer push-up)",
-        series: "3 × 8 reps/lado · Descanso 20 seg",
-        desc: "Flexión con rotación — baja en flexión y sube girando un brazo hacia el techo. Trabaja pectoral + oblicuos + estabilidad de hombro en un solo movimiento. Específico para el follow-through."
+        nombre: "━━ BLOQUE 2 · Potencia de Piernas",
+        series: "3 series · Descanso 60 seg entre series",
+        desc: ""
       },
       {
-        nombre: "C1 · Dead Bug con goma",
-        series: "3 × 10 reps/lado · Descanso 15 seg",
-        desc: "Tumbado. Goma anclada en los pies. Extiende brazo y pierna opuestos lentamente con lumbar pegada al suelo. Versión avanzada del dead bug — estabilización profunda del core durante 18 hoyos.",
-        yt: "g_BYB0R-4Ws"
+        nombre: "Sentadilla búlgara con mancuernas cruzadas",
+        series: "20 reps (10 por lado)",
+        desc: "Pie trasero en silla, mancuernas cruzadas al pecho. La posición cruzada añade rotación torácica al trabajo de pierna. Baja lento 3 seg, explota arriba."
       },
       {
-        nombre: "C2 · Plancha lateral con rotación de cadera",
-        series: "3 × 10 reps/lado · Descanso 15 seg",
-        desc: "En plancha lateral, baja y sube la cadera con máximo rango. Oblicuos + cuadrado lumbar + estabilidad lateral. Los músculos que separan a los golfistas que pegan a 200m de los que pegan a 250m.",
-        yt: "H1o9DeFmzCk"
+        nombre: "Sentadilla búlgara pliométrica",
+        series: "10 reps (5 por lado)",
+        desc: "Igual que la anterior pero al subir añades un pequeño salto explosivo. Sin mancuernas. Potencia máxima de piernas = más velocidad de cabeza en el impacto."
       },
       {
-        nombre: "🔥 FINISHER METABÓLICO (5 min — sin descanso)",
-        series: "3 rounds",
-        desc: "20 seg comba máxima velocidad → 10 woodchops/lado con goma → 10 flexiones → descanso 30 seg. 3 rounds. Quema grasa post-entrenamiento manteniendo el patrón rotacional activo."
+        nombre: "━━ BLOQUE 3 · Rotación Explosiva + Core",
+        series: "3 series por tiempo",
+        desc: ""
+      },
+      {
+        nombre: "Balanceos rotacionales con mancuerna",
+        series: "10 reps (5 por lado)",
+        desc: "Con 1 mancuerna. Swing completo simulado con resistencia — cadera, tronco y brazos en secuencia. El ejercicio más específico para ganar metros que puedes hacer en casa."
+      },
+      {
+        nombre: "Abdominales",
+        series: "10 reps",
+        desc: "Clásicos o en V. Mantén la zona lumbar pegada al suelo en todo momento."
+      },
+      {
+        nombre: "Rotaciones con salto en Pallof",
+        series: "10 reps (5 por lado)",
+        desc: "Goma anclada lateral. Press Pallof estándar + al extender los brazos añades un pequeño salto. Explosividad + anti-rotación en el mismo ejercicio.",
+        yt: "1ydZCxKgW3M"
+      },
+      {
+        nombre: "🔥 FINISHER QUEMAR GRASA (12 min)",
+        series: "4 rounds · Sin descanso entre ejercicios · 30 seg descanso entre rounds",
+        desc: "Comba 30 seg máxima velocidad → Sentadillas con salto × 10 → Burpee sin salto × 10 → Descanso 30 seg. Justo al terminar el video sin descanso — el glucógeno está agotado y el cuerpo tira de grasa."
       }
     ]
   },
   {
-    dia: "Jueves · Potencia de Cadera + Tren Inferior",
-    duracion: "15:30–16:15 · En casa",
-    objetivo: "Glúteo + cadena posterior → motor real del driver + reducción grasa corporal",
-    warning: "El Hip Thrust y la Rotación de cadera son los que más metros añaden. El finisher metabólico con comba es obligatorio — es donde se quema la grasa.",
+    dia: "Jueves · Movilidad + Swing Específico",
+    duracion: "20 min rutina + 12 min finisher · Total ~32 min",
+    objetivo: "Movilidad de cadera + patrón completo del swing con resistencia",
+    warning: "Este video cubre lo que falta al martes: movilidad, equilibrio unilateral y patrón real del swing. Hazlo completo antes del finisher.",
     ejercicios: [
       {
-        nombre: "🔥 CALENTAMIENTO (5 min)",
-        series: "Sin descanso",
-        desc: "1) 90/90 cadera en suelo 45 seg/lado · 2) Monster walks con goma 20 pasos/lado · 3) Puente de glúteo con pausa 15 reps · 4) Comba 60 seg básica"
+        nombre: "▶️ RUTINA PRINCIPAL — Sigue el video (20 min)",
+        series: "Ver video completo",
+        desc: "Pon el video en pantalla y sigue la rutina guiada. 20 minutos específicos para el swing de golf.",
+        yt: "IkuEgEib-Dg"
       },
       {
-        nombre: "A1 · Hip Thrust en suelo con mancuernas",
-        series: "4 × 15 reps · Descanso 20 seg",
-        desc: "Hombros en sofá, mancuernas (ambas) sobre las caderas. Sube EXPLOSIVO apretando glúteo al máximo, baja lento 3 seg. Añade pausa isométrica 2 seg arriba. EL ejercicio que más metros añade al driver — el glúteo dispara la rotación en el downswing.",
-        yt: "LWj9YiMWJk0"
+        nombre: "━━ EJERCICIOS DEL VIDEO",
+        series: "Sigue las indicaciones del video",
+        desc: ""
       },
       {
-        nombre: "A2 · Sentadilla búlgara con mancuernas",
-        series: "4 × 10 reps/lado · Descanso 20 seg",
-        desc: "Pie trasero en silla, mancuernas en manos. Baja controlado 3 seg, explota arriba. A nivel avanzado añade un salto pequeño al subir. Potencia asimétrica — el swing carga diferente cada pierna.",
-        yt: "TdGndL9bSmo"
+        nombre: "Swing rotacional con goma (abajo → arriba)",
+        series: "Por indicación del video",
+        desc: "Goma anclada abajo. Jala en diagonal hacia arriba simulando el backswing completo. Cadera, tronco y brazos en secuencia. Activa la cadena completa del swing con resistencia."
       },
       {
-        nombre: "B1 · Peso muerto rumano con mancuernas + pausa",
-        series: "3 × 12 reps · Descanso 20 seg",
-        desc: "Mancuernas en manos. Baja con espalda recta, rodillas casi extendidas. Aguanta 2 seg en el punto de máximo estiramiento. Isquiotibiales + glúteo + cadena posterior — transfieren fuerza desde el suelo al driver.",
-        yt: "TdGndL9bSmo"
+        nombre: "Estocada con rotación y goma",
+        series: "Por indicación del video",
+        desc: "Rodilla en el suelo, goma anclada lateral, rota el tronco hacia el lado contrario. Cubre movilidad de cadera + rotación torácica simultáneamente — los dos limitadores nº1 del swing amateur."
       },
       {
-        nombre: "B2 · Rotación de cadera con goma (de pie)",
-        series: "4 × 12 reps/lado · Descanso 15 seg",
-        desc: "Goma anclada lateral a la altura de la cadera. Rota SOLO la pelvis hacia el lado contrario sin mover hombros. Máxima velocidad en la rotación, control en la vuelta. Transfer directo al clearance de cadera en el downswing.",
-        yt: "paOG670vr9c"
+        nombre: "Woodchop con goma (arriba → abajo)",
+        series: "Por indicación del video",
+        desc: "Goma anclada abajo. Jala de abajo hacia arriba. Con el ejercicio anterior forman el ciclo completo del swing — backswing y downswing con resistencia."
       },
       {
-        nombre: "C1 · Zancada lateral con goma",
-        series: "3 × 12 reps/lado · Descanso 15 seg",
-        desc: "Goma anclada lateral. Paso amplio hacia el lado contra resistencia, rodilla de apoyo en línea con el pie. Abductores + estabilidad lateral del swing. Evita el balanceo de cadera que roba metros."
+        nombre: "Equilibrio en una pierna con rotación",
+        series: "Por indicación del video",
+        desc: "De pie en una sola pierna, rota el tronco. Entrena la transferencia de peso del backswing al impacto — en el swing el 100% del peso va a la pierna delantera en el momento del impacto."
       },
       {
-        nombre: "C2 · Single-leg deadlift con mancuerna",
-        series: "3 × 10 reps/lado · Descanso 15 seg",
-        desc: "De pie en una pierna, baja la mancuerna hacia el suelo con espalda recta y pierna libre atrás. Equilibrio + cadena posterior unilateral. El swing requiere transferir el peso de una pierna a otra — este ejercicio lo entrena directamente."
+        nombre: "Salto lateral explosivo con rotación",
+        series: "Por indicación del video",
+        desc: "Salta de un pie al otro rotando el tronco en el aire. Simula la transferencia de peso explosiva del downswing. Potencia lateral específica para golf."
       },
       {
-        nombre: "🔥 FINISHER METABÓLICO (7 min — quema grasa)",
-        series: "AMRAP 7 minutos",
-        desc: "Comba 30 seg máxima velocidad → 15 hip thrusts explosivos sin peso → 10 sentadillas con salto → 10 mountain climbers/lado. Sin descanso entre ejercicios, 30 seg entre rounds. Máximo rounds en 7 min. Esto es lo que reduce el índice de grasa."
+        nombre: "Plancha con elevación de pierna + Rotación horizontal con goma",
+        series: "Por indicación del video",
+        desc: "Combinación final: plancha con pierna elevada (core + glúteo) seguida de rotación horizontal con goma a altura media (plano del swing). El par más completo del video — core estabilizador + rotación explosiva."
+      },
+      {
+        nombre: "🔥 FINISHER QUEMAR GRASA (12 min)",
+        series: "4 rounds · Sin descanso entre ejercicios · 30 seg descanso entre rounds",
+        desc: "Comba 30 seg máxima velocidad → Sentadillas con salto × 10 → Burpee sin salto × 10 → Descanso 30 seg. Justo al terminar el video sin descanso — el glucógeno está agotado y el cuerpo tira de grasa."
       }
     ]
   }
@@ -1713,6 +1732,8 @@ async function analizarComida() {
     var clean = raw.replace(/```json|```/g,'').trim();
     var parsed = JSON.parse(clean);
 
+    window._lastParsed = parsed;
+    window._lastTipo = tipo;
     result.innerHTML =
       '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--greenl)">✅ Análisis completado</div>'+
       '<div style="font-size:14px;margin-bottom:8px">'+parsed.descripcion+'</div>'+
@@ -1722,7 +1743,7 @@ async function analizarComida() {
         '<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--surface);color:var(--gold)">C '+parsed.c+'g</span>'+
         '<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--surface);color:#6a9ece">G '+parsed.g+'g</span>'+
       '</div>'+
-      '<button onclick="guardarComidaAnalizada('+JSON.stringify(parsed)+',\''+tipo+'\')" style="width:100%;padding:11px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Añadir al registro del día</button>';
+      '<button onclick="guardarComidaAnalizada(window._lastParsed, window._lastTipo)" style="width:100%;padding:11px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Añadir al registro del día</button>';
   } catch(e) {
     result.innerHTML = '<div style="color:var(--orange);font-size:13px">❌ Error al analizar. Inténtalo de nuevo.</div>';
   }
