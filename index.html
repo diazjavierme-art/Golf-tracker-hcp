@@ -374,7 +374,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       <span class="badge" style="background:var(--gold);color:#0f1a0f">~1.900 kcal</span>
     </div>
     <div class="tabs" style="margin-bottom:0">
-      <button class="tab active" onclick="switchDietTab('semana',this)">📅 Semana</button>
+      <button class="tab active" onclick="switchDietTab('semana',this)">📅 Plan</button>
+      <button class="tab" onclick="switchDietTab('midieta',this)">🍽️ Mi dieta</button>
       <button class="tab" onclick="switchDietTab('peso',this)">⚖️ Peso</button>
       <button class="tab" onclick="switchDietTab('campo',this)">⛳ Campo</button>
       <button class="tab" onclick="switchDietTab('compra',this)">🛒 Compra</button>
@@ -689,38 +690,108 @@ const DAYS = {
 // ══════════════════════════════════════════════════════════
 const FIT_PLAN = [
   {
-    dia: "Martes · Core Rotacional + Tren Superior",
-    duracion: "17:00–18:00 · Después del tenis · En casa",
-    objetivo: "Potencia rotacional del swing — la cadena que genera distancia",
-    warning: "Vienes del tenis. Calienta 5 min antes. Todos estos ejercicios simulan o transfieren directamente al swing.",
+    dia: "Martes · Potencia Rotacional + Tren Superior",
+    duracion: "17:00–17:45 · Después del tenis · En casa",
+    objetivo: "Rotación explosiva + fuerza tren superior → más metros con el driver",
+    warning: "Descansa máximo 30 seg entre series. Nivel avanzado — la fatiga es parte del estímulo.",
     ejercicios: [
-      { nombre: "🔥 CALENTAMIENTO: Rotación torácica en suelo", series: "2 × 10 reps/lado", desc: "Tumbado de lado, rodillas dobladas 90°. Abre el brazo superior hacia atrás rotando la columna. El limitador nº1 del swing es la movilidad torácica — este ejercicio la abre directamente." },
-      { nombre: "🔥 CALENTAMIENTO: Swing en espejo con palo lento", series: "3 × 10 swings completos", desc: "Frente a un espejo. Swing completo al 30% de velocidad. Fíjate en la posición de cadera en el impacto. Sin bola, máxima conciencia corporal.", yt: "4kp_JKDevhg" },
-      { nombre: "Woodchop con goma elástica alto → bajo", series: "4 × 10 reps/lado", desc: "Ancla la goma en alto (pomo de puerta). Tira en diagonal hacia abajo cruzando el cuerpo. ES el downswing con resistencia — el ejercicio más específico para distancia con el driver.", yt: "Gwcf4TOj1hc" },
-      { nombre: "Pallof Press con goma elástica", series: "3 × 12 reps/lado", desc: "Ancla la goma lateral a la altura del pecho. Extiende brazos al frente y aguanta sin rotar 2 seg. Anti-rotación de core — transfiere potencia sin perder estabilidad en el impacto.", yt: "paOG670vr9c" },
-      { nombre: "Remo con goma elástica (1 mano)", series: "4 × 12 reps/lado", desc: "Ancla la goma en bajo. Remo unilateral con codo pegado al cuerpo. Dorsal fortalecido = más amplitud de backswing y más control en el follow-through.", yt: "P4H2XSKJcF4" },
-      { nombre: "Dead Bug", series: "3 × 8 reps/lado", desc: "Tumbado boca arriba, rodillas a 90°. Extiende brazo y pierna opuestos lentamente manteniendo la zona lumbar pegada al suelo. Estabiliza el core desde dentro — esencial para mantener la postura durante los 18 hoyos.", yt: "g_BYB0R-4Ws" },
-      { nombre: "Flexiones con pausa (2 seg abajo)", series: "3 × 10 reps", desc: "Flexiones estándar con 2 seg de pausa en la posición baja. Pectoral y tríceps para mantener el triángulo de los brazos en el swing. Si es fácil, eleva los pies." },
-      { nombre: "Plancha con rotación de cadera", series: "3 × 8 reps/lado", desc: "En posición de plancha baja, rota la cadera hacia un lado tocando casi el suelo. Fortalece oblicuos y core rotacional — los músculos que generan potencia en el swing.", yt: "H1o9DeFmzCk" },
-      { nombre: "🧘 VUELTA A LA CALMA: Rotación torácica de pie con palo", series: "2 × 20 reps", desc: "Palo en los hombros. Rota solo la parte alta de la espalda con rodillas dobladas. Simula el backswing. Mantiene la movilidad ganada en el entrenamiento." }
+      {
+        nombre: "🔥 CALENTAMIENTO (5 min)",
+        series: "Sin descanso",
+        desc: "1) Rotación torácica en suelo 10 reps/lado · 2) Dislocaciones con palo 15 reps · 3) Swing lento al 30% con palo 10 reps/lado · 4) Comba 60 seg básica"
+      },
+      {
+        nombre: "A1 · Woodchop explosivo con goma (alto→bajo)",
+        series: "4 × 10 reps/lado · Descanso 20 seg",
+        desc: "Ancla la goma en alto. Movimiento diagonal explosivo hacia abajo cruzando el cuerpo. FASE CONCÉNTRICA MÁXIMA VELOCIDAD — baja el freno en la vuelta. Simula exactamente el downswing bajo resistencia. El ejercicio más importante del plan.",
+        yt: "Gwcf4TOj1hc"
+      },
+      {
+        nombre: "A2 · Pallof Press isométrico con goma",
+        series: "3 × 20 seg aguante/lado · Descanso 15 seg",
+        desc: "Ancla la goma lateral. Extiende brazos y aguanta sin rotar. A nivel avanzado añade micro-pulsos hacia fuera. Anti-rotación de core — la potencia del swing viene de resistir y después explotar.",
+        yt: "paOG670vr9c"
+      },
+      {
+        nombre: "B1 · Remo unilateral con goma + rotación",
+        series: "4 × 12 reps/lado · Descanso 20 seg",
+        desc: "Ancla la goma baja. Remo a una mano con rotación de tronco al final — igual que el backswing. Codo pegado, dorsal activo todo el recorrido. Fortalece la cadena del backswing completa.",
+        yt: "P4H2XSKJcF4"
+      },
+      {
+        nombre: "B2 · Flexiones con rotación (archer push-up)",
+        series: "3 × 8 reps/lado · Descanso 20 seg",
+        desc: "Flexión con rotación — baja en flexión y sube girando un brazo hacia el techo. Trabaja pectoral + oblicuos + estabilidad de hombro en un solo movimiento. Específico para el follow-through."
+      },
+      {
+        nombre: "C1 · Dead Bug con goma",
+        series: "3 × 10 reps/lado · Descanso 15 seg",
+        desc: "Tumbado. Goma anclada en los pies. Extiende brazo y pierna opuestos lentamente con lumbar pegada al suelo. Versión avanzada del dead bug — estabilización profunda del core durante 18 hoyos.",
+        yt: "g_BYB0R-4Ws"
+      },
+      {
+        nombre: "C2 · Plancha lateral con rotación de cadera",
+        series: "3 × 10 reps/lado · Descanso 15 seg",
+        desc: "En plancha lateral, baja y sube la cadera con máximo rango. Oblicuos + cuadrado lumbar + estabilidad lateral. Los músculos que separan a los golfistas que pegan a 200m de los que pegan a 250m.",
+        yt: "H1o9DeFmzCk"
+      },
+      {
+        nombre: "🔥 FINISHER METABÓLICO (5 min — sin descanso)",
+        series: "3 rounds",
+        desc: "20 seg comba máxima velocidad → 10 woodchops/lado con goma → 10 flexiones → descanso 30 seg. 3 rounds. Quema grasa post-entrenamiento manteniendo el patrón rotacional activo."
+      }
     ]
   },
   {
-    dia: "Jueves · Tren Inferior + Potencia de Cadera",
-    duracion: "15:30–17:00 · En casa",
-    objetivo: "Potencia de cadera y piernas — el motor real del driver",
-    warning: "El Hip Thrust y la Rotación de cadera con goma son los ejercicios que más metros añaden. El glúteo es el motor del swing — si dispara tarde, pierdes 20-30m.",
+    dia: "Jueves · Potencia de Cadera + Tren Inferior",
+    duracion: "15:30–16:15 · En casa",
+    objetivo: "Glúteo + cadena posterior → motor real del driver + reducción grasa corporal",
+    warning: "El Hip Thrust y la Rotación de cadera son los que más metros añaden. El finisher metabólico con comba es obligatorio — es donde se quema la grasa.",
     ejercicios: [
-      { nombre: "🔥 CALENTAMIENTO: Comba 3 min", series: "3 min continuos", desc: "Saltos básicos con comba. Activa la cadena inferior completa y el sistema cardiovascular antes de los ejercicios de fuerza." },
-      { nombre: "🔥 CALENTAMIENTO: Rotación de cadera 90/90 en suelo", series: "2 × 45 seg/lado", desc: "Siéntate en el suelo en posición 90/90. Inclínate sobre la pierna delantera. Movilidad de cadera clave para el backswing — sin ella el swing compensa con la lumbar y se pierde distancia." },
-      { nombre: "🔥 CALENTAMIENTO: Monster walks con goma", series: "2 × 15 pasos/lado", desc: "Goma en rodillas o tobillos. Pasos laterales con rodillas hacia fuera. Activa el glúteo medio — el estabilizador lateral del swing que evita los balanceos de cadera." },
-      { nombre: "Hip Thrust en el suelo (mancuernas en caderas)", series: "4 × 15 reps", desc: "Hombros en el sofá, mancuernas sobre las caderas. Sube explosivo apretando glúteo y baja lento. EL ejercicio que más metros añade. El glúteo dispara la rotación en el downswing.", yt: "LWj9YiMWJk0" },
-      { nombre: "Sentadilla búlgara con mancuernas 5kg", series: "4 × 8 reps/lado", desc: "Pie trasero en una silla, mancuernas en las manos. Baja lentamente hasta 90°. Potencia asimétrica de piernas — el swing carga más la pierna trasera en el backswing y la delantera en el impacto.", yt: "TdGndL9bSmo" },
-      { nombre: "Peso muerto rumano con mancuernas", series: "3 × 12 reps", desc: "De pie con mancuernas. Baja manteniendo espalda recta y rodillas casi extendidas. Isquiotibiales y cadena posterior — transfieren la fuerza del suelo hacia arriba en el downswing.", yt: "TdGndL9bSmo" },
-      { nombre: "Rotación de cadera con goma de pie", series: "3 × 12 reps/lado", desc: "Ancla la goma lateral a la altura de la cadera. Rota solo la pelvis hacia el lado contrario sin mover los hombros. Transfer DIRECTO al clearance de cadera en el downswing — la acción que abre el espacio para el palo.", yt: "paOG670vr9c" },
-      { nombre: "Zancada lateral con goma elástica", series: "3 × 10 reps/lado", desc: "Goma anclada lateral. Paso amplio hacia el lado contra la resistencia. Estabilidad lateral del swing — evita el movimiento de cabeza y mantiene el centro de gravedad estable." },
-      { nombre: "Saltos de comba explosivos", series: "4 × 30 seg trabajo / 30 seg descanso", desc: "Saltos rápidos a pies juntos, máxima velocidad. Potencia explosiva de piernas = más velocidad de cabeza en el impacto. Descansa completamente entre series." },
-      { nombre: "🧘 VUELTA A LA CALMA: Figura 4 + flexor cadera + 90/90", series: "45 seg/posición", desc: "Figura 4 en suelo (piriforme) + zancada estática larga (flexor cadera) + 90/90 final. Los 3 estiramientos clave post-entreno de piernas para mantener la movilidad de cadera." }
+      {
+        nombre: "🔥 CALENTAMIENTO (5 min)",
+        series: "Sin descanso",
+        desc: "1) 90/90 cadera en suelo 45 seg/lado · 2) Monster walks con goma 20 pasos/lado · 3) Puente de glúteo con pausa 15 reps · 4) Comba 60 seg básica"
+      },
+      {
+        nombre: "A1 · Hip Thrust en suelo con mancuernas",
+        series: "4 × 15 reps · Descanso 20 seg",
+        desc: "Hombros en sofá, mancuernas (ambas) sobre las caderas. Sube EXPLOSIVO apretando glúteo al máximo, baja lento 3 seg. Añade pausa isométrica 2 seg arriba. EL ejercicio que más metros añade al driver — el glúteo dispara la rotación en el downswing.",
+        yt: "LWj9YiMWJk0"
+      },
+      {
+        nombre: "A2 · Sentadilla búlgara con mancuernas",
+        series: "4 × 10 reps/lado · Descanso 20 seg",
+        desc: "Pie trasero en silla, mancuernas en manos. Baja controlado 3 seg, explota arriba. A nivel avanzado añade un salto pequeño al subir. Potencia asimétrica — el swing carga diferente cada pierna.",
+        yt: "TdGndL9bSmo"
+      },
+      {
+        nombre: "B1 · Peso muerto rumano con mancuernas + pausa",
+        series: "3 × 12 reps · Descanso 20 seg",
+        desc: "Mancuernas en manos. Baja con espalda recta, rodillas casi extendidas. Aguanta 2 seg en el punto de máximo estiramiento. Isquiotibiales + glúteo + cadena posterior — transfieren fuerza desde el suelo al driver.",
+        yt: "TdGndL9bSmo"
+      },
+      {
+        nombre: "B2 · Rotación de cadera con goma (de pie)",
+        series: "4 × 12 reps/lado · Descanso 15 seg",
+        desc: "Goma anclada lateral a la altura de la cadera. Rota SOLO la pelvis hacia el lado contrario sin mover hombros. Máxima velocidad en la rotación, control en la vuelta. Transfer directo al clearance de cadera en el downswing.",
+        yt: "paOG670vr9c"
+      },
+      {
+        nombre: "C1 · Zancada lateral con goma",
+        series: "3 × 12 reps/lado · Descanso 15 seg",
+        desc: "Goma anclada lateral. Paso amplio hacia el lado contra resistencia, rodilla de apoyo en línea con el pie. Abductores + estabilidad lateral del swing. Evita el balanceo de cadera que roba metros."
+      },
+      {
+        nombre: "C2 · Single-leg deadlift con mancuerna",
+        series: "3 × 10 reps/lado · Descanso 15 seg",
+        desc: "De pie en una pierna, baja la mancuerna hacia el suelo con espalda recta y pierna libre atrás. Equilibrio + cadena posterior unilateral. El swing requiere transferir el peso de una pierna a otra — este ejercicio lo entrena directamente."
+      },
+      {
+        nombre: "🔥 FINISHER METABÓLICO (7 min — quema grasa)",
+        series: "AMRAP 7 minutos",
+        desc: "Comba 30 seg máxima velocidad → 15 hip thrusts explosivos sin peso → 10 sentadillas con salto → 10 mountain climbers/lado. Sin descanso entre ejercicios, 30 seg entre rounds. Máximo rounds en 7 min. Esto es lo que reduce el índice de grasa."
+      }
     ]
   }
 ];
@@ -1454,9 +1525,203 @@ function borrarPeso(id) {
   renderPeso();
 }
 
+function getMiDietaRegistros() { try { return JSON.parse(localStorage.getItem('j_midieta')||'{}'); } catch(e){ return {}; } }
+function saveMiDietaRegistros(d) { localStorage.setItem('j_midieta', JSON.stringify(d)); }
+
+function renderMiDieta() {
+  var c = document.getElementById('diet-container');
+  var hoy = new Date().toISOString().slice(0,10);
+  var todayLabel = new Date().toLocaleDateString('es-ES',{weekday:'long',day:'2-digit',month:'2-digit'});
+  var registros = getMiDietaRegistros();
+  var hoyData = registros[hoy] || { comidas: [] };
+  var totalKcal = hoyData.comidas.reduce(function(s,r){ return s+r.kcal; },0);
+  var totalP = hoyData.comidas.reduce(function(s,r){ return s+(r.p||0); },0);
+  var totalC = hoyData.comidas.reduce(function(s,r){ return s+(r.c||0); },0);
+  var totalG = hoyData.comidas.reduce(function(s,r){ return s+(r.g||0); },0);
+  var objetivo = 1900;
+  var pct = Math.min(100, Math.round((totalKcal/objetivo)*100));
+  var barCol = pct > 110 ? 'var(--red)' : pct > 90 ? 'var(--greenl)' : pct > 60 ? 'var(--gold)' : 'var(--orange)';
+  var feedback = pct > 110 ? '⚠️ Has superado tu objetivo calórico' :
+                 pct > 90  ? '✅ Estás en tu objetivo — perfecto' :
+                 pct > 60  ? '📊 Bien encaminado, sigue comiendo' :
+                 totalKcal > 0 ? '🔴 Muy pocas calorías — come más proteína' : '';
+
+  c.innerHTML =
+    // HERO DÍA
+    '<div style="background:linear-gradient(145deg,var(--surface),#1a0f05);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px">'+
+      '<div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">'+todayLabel+'</div>'+
+      '<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px">'+
+        '<div>'+
+          '<div style="font-family:\'DM Serif Display\',serif;font-size:48px;line-height:1;color:'+(totalKcal>0?'var(--text)':'var(--muted)')+'">'+totalKcal+'</div>'+
+          '<div style="font-size:12px;color:var(--muted);margin-top:2px">kcal de '+objetivo+' objetivo</div>'+
+        '</div>'+
+        '<div style="text-align:right;display:flex;flex-direction:column;gap:4px">'+
+          '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(76,158,76,.1);color:var(--greenl);border:1px solid rgba(76,158,76,.2)">P '+totalP+'g</span>'+
+          '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(212,160,23,.1);color:var(--gold);border:1px solid rgba(212,160,23,.2)">C '+totalC+'g</span>'+
+          '<span style="font-size:11px;padding:3px 8px;border-radius:20px;background:rgba(74,122,174,.1);color:#6a9ece;border:1px solid rgba(74,122,174,.2)">G '+totalG+'g</span>'+
+        '</div>'+
+      '</div>'+
+      '<div style="height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:6px">'+
+        '<div style="height:100%;width:'+pct+'%;background:'+barCol+';border-radius:4px;transition:width .5s"></div>'+
+      '</div>'+
+      (feedback ? '<div style="font-size:12px;color:'+barCol+';font-weight:600">'+feedback+'</div>' : '')+
+    '</div>'+
+
+    // REGISTRAR COMIDA
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px">'+
+      '<div style="font-size:13px;font-weight:700;margin-bottom:10px">➕ Registrar lo que he comido</div>'+
+      '<textarea id="comida-input" rows="3" placeholder="Escribe lo que has comido, por ejemplo:\n• Pollo con arroz y ensalada\n• 200g pechuga + 150g arroz + tomate cherry" style="width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;resize:none;outline:none;line-height:1.5" onfocus="this.style.borderColor=\'var(--greenl)\'" onblur="this.style.borderColor=\'var(--border)\'"></textarea>'+
+      '<div style="display:flex;gap:8px;margin-top:8px">'+
+        '<select id="comida-tipo" style="flex:1;background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;outline:none">'+
+          '<option value="08:00 Desayuno">☀️ Desayuno (8:00)</option>'+
+          '<option value="12:30 Comida">🍽️ Comida (12:30)</option>'+
+          '<option value="17:00 Merienda">🕔 Merienda (17:00)</option>'+
+          '<option value="20:30 Cena">🌙 Cena (20:30)</option>'+
+          '<option value="22:00 Snack">🌛 Snack (22:00)</option>'+
+          '<option value="Otro">📍 Otro</option>'+
+        '</select>'+
+        '<button onclick="analizarComida()" id="btn-analizar" style="padding:10px 16px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">🤖 Calcular</button>'+
+      '</div>'+
+      '<div id="analisis-result" style="display:none;margin-top:10px;padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)"></div>'+
+    '</div>'+
+
+    // HISTORIAL HOY
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">'+
+        '<div style="font-size:13px;font-weight:700">Lo que he comido hoy</div>'+
+        (hoyData.comidas.length > 0 ?
+          '<button onclick="borrarDiaComidas(\''+hoy+'\')" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer">Borrar día</button>' : '')+
+      '</div>'+
+      (hoyData.comidas.length === 0 ?
+        '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">Aún no has registrado nada hoy</div>' :
+        hoyData.comidas.map(function(r, i){
+          return '<div style="padding:11px 16px;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">'+
+            '<div style="flex:1">'+
+              '<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">'+r.tipo+'</div>'+
+              '<div style="font-size:13px;font-weight:600;margin-bottom:4px">'+r.descripcion+'</div>'+
+              '<div style="display:flex;gap:6px;flex-wrap:wrap">'+
+                '<span style="font-size:11px;padding:2px 7px;border-radius:20px;background:var(--surface2);color:var(--greenl);font-weight:700">'+r.kcal+' kcal</span>'+
+                '<span style="font-size:11px;padding:2px 7px;border-radius:20px;background:var(--surface2);color:var(--muted)">P '+r.p+'g</span>'+
+                '<span style="font-size:11px;padding:2px 7px;border-radius:20px;background:var(--surface2);color:var(--muted)">C '+r.c+'g</span>'+
+                '<span style="font-size:11px;padding:2px 7px;border-radius:20px;background:var(--surface2);color:var(--muted)">G '+r.g+'g</span>'+
+              '</div>'+
+            '</div>'+
+            '<button onclick="borrarComida(\''+hoy+'\','+i+')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;flex-shrink:0">×</button>'+
+          '</div>';
+        }).join('')
+      )+
+    '</div>'+
+
+    // HISTORIAL ÚLTIMOS DÍAS
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700">Últimos días</div>'+
+      (Object.keys(registros).length === 0 ?
+        '<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">Sin registros anteriores</div>' :
+        Object.keys(registros).sort().reverse().slice(0,7).map(function(fecha){
+          var d = registros[fecha];
+          var kcalDia = d.comidas.reduce(function(s,r){ return s+r.kcal; }, 0);
+          var col = kcalDia > 2100 ? 'var(--orange)' : kcalDia > 1600 ? 'var(--greenl)' : 'var(--gold)';
+          var fLabel = new Date(fecha+'T12:00:00').toLocaleDateString('es-ES',{weekday:'short',day:'2-digit',month:'2-digit'});
+          return '<div style="padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">'+
+            '<div style="font-size:11px;color:var(--muted);min-width:70px">'+fLabel+'</div>'+
+            '<div style="flex:1;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden">'+
+              '<div style="height:100%;width:'+Math.min(100,Math.round((kcalDia/objetivo)*100))+'%;background:'+col+';border-radius:2px"></div>'+
+            '</div>'+
+            '<div style="font-size:13px;font-weight:700;color:'+col+';min-width:55px;text-align:right">'+kcalDia+' kcal</div>'+
+          '</div>';
+        }).join('')
+      )+
+    '</div>';
+}
+
+async function analizarComida() {
+  var texto = document.getElementById('comida-input').value.trim();
+  var tipo = document.getElementById('comida-tipo').value;
+  if (!texto) { showToast('⚠️ Escribe lo que has comido'); return; }
+
+  var btn = document.getElementById('btn-analizar');
+  var result = document.getElementById('analisis-result');
+  btn.textContent = '⏳ Analizando...';
+  btn.disabled = true;
+  result.style.display = 'block';
+  result.innerHTML = '<div style="color:var(--muted);font-size:13px">Claude está calculando las calorías...</div>';
+
+  try {
+    var response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 300,
+        messages: [{
+          role: 'user',
+          content: 'Analiza esta comida y devuelve SOLO un JSON sin texto extra, sin markdown, sin explicaciones:\n\n"' + texto + '"\n\nFormato exacto requerido:\n{"kcal":NUMBER,"p":NUMBER,"c":NUMBER,"g":NUMBER,"descripcion":"STRING corta máximo 60 chars"}\n\nSi hay varias opciones usa el valor medio realista. Proteínas en gramos, carbohidratos en gramos, grasas en gramos.'
+        }]
+      })
+    });
+    var data = await response.json();
+    var raw = data.content && data.content[0] && data.content[0].text || '';
+    var clean = raw.replace(/```json|```/g,'').trim();
+    var parsed = JSON.parse(clean);
+
+    result.innerHTML =
+      '<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--greenl)">✅ Análisis completado</div>'+
+      '<div style="font-size:14px;margin-bottom:8px">'+parsed.descripcion+'</div>'+
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'+
+        '<span style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:20px;background:rgba(245,160,84,.15);color:var(--greenl);border:1px solid rgba(245,160,84,.3)">'+parsed.kcal+' kcal</span>'+
+        '<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--surface);color:var(--greenl)">P '+parsed.p+'g</span>'+
+        '<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--surface);color:var(--gold)">C '+parsed.c+'g</span>'+
+        '<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--surface);color:#6a9ece">G '+parsed.g+'g</span>'+
+      '</div>'+
+      '<button onclick="guardarComidaAnalizada('+JSON.stringify(parsed)+',\''+tipo+'\')" style="width:100%;padding:11px;background:var(--green);border:none;border-radius:8px;color:#fff;font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">Añadir al registro del día</button>';
+  } catch(e) {
+    result.innerHTML = '<div style="color:var(--orange);font-size:13px">❌ Error al analizar. Inténtalo de nuevo.</div>';
+  }
+  btn.textContent = '🤖 Calcular';
+  btn.disabled = false;
+}
+
+function guardarComidaAnalizada(parsed, tipo) {
+  var texto = document.getElementById('comida-input').value.trim();
+  var hoy = new Date().toISOString().slice(0,10);
+  var registros = getMiDietaRegistros();
+  if (!registros[hoy]) registros[hoy] = { comidas: [] };
+  registros[hoy].comidas.push({
+    tipo: tipo,
+    descripcion: parsed.descripcion || texto.substring(0,60),
+    kcal: parsed.kcal || 0,
+    p: parsed.p || 0,
+    c: parsed.c || 0,
+    g: parsed.g || 0,
+    ts: new Date().toISOString()
+  });
+  saveMiDietaRegistros(registros);
+  document.getElementById('comida-input').value = '';
+  document.getElementById('analisis-result').style.display = 'none';
+  renderMiDieta();
+  showToast('✅ '+parsed.kcal+' kcal añadidas al día');
+}
+
+function borrarComida(fecha, idx) {
+  var registros = getMiDietaRegistros();
+  if (registros[fecha]) {
+    registros[fecha].comidas.splice(idx, 1);
+    saveMiDietaRegistros(registros);
+    renderMiDieta();
+  }
+}
+
+function borrarDiaComidas(fecha) {
+  var registros = getMiDietaRegistros();
+  delete registros[fecha];
+  saveMiDietaRegistros(registros);
+  renderMiDieta();
+}
+
 function renderDiet(tab) {
   var c = document.getElementById('diet-container');
   if (tab === 'peso') { renderPeso(); return; }
+  if (tab === 'midieta') { renderMiDieta(); return; }
   if (tab === 'campo') {
     c.innerHTML = DIETA.campo.map(function(item){
       return '<div class="card" style="padding:16px">'+
