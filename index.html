@@ -357,6 +357,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div style="background:var(--surface);border-bottom:1px solid var(--border);display:flex">
       <button class="htab active" id="golf-tab-entreno" onclick="switchGolfTab('entreno',this)">🏌️ Entreno</button>
       <button class="htab" id="golf-tab-rondas" onclick="switchGolfTab('rondas',this)">⛳ Rondas</button>
+      <button class="htab" id="golf-tab-apuestas" onclick="switchGolfTab('apuestas',this)">💰 Apuestas</button>
     </div>
   </div>
 
@@ -2373,7 +2374,7 @@ function switchGolfTab(tab, btn) {
     saveBtn.style.display    = 'block';
     badge.style.display      = 'none';
     renderTrain();
-  } else {
+  } else if (tab === 'rondas') {
     entrenoSub.style.display = 'none';
     rondasSub.style.display  = 'block';
     saveBtn.style.display    = 'none';
@@ -2381,6 +2382,12 @@ function switchGolfTab(tab, btn) {
     currentRondasTab = 'registro';
     document.querySelectorAll('#golf-rondas-sub .tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
     renderRondas('registro');
+  } else {
+    entrenoSub.style.display = 'none';
+    rondasSub.style.display  = 'none';
+    saveBtn.style.display    = 'none';
+    badge.style.display      = 'none';
+    renderApuestas();
   }
 }
 
@@ -2418,6 +2425,297 @@ function switchRondasTab(tab, btn) {
   document.querySelectorAll('#golf-rondas-sub .tab').forEach(function(t){ t.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   renderRondas(tab);
+}
+
+// ══════════════════════════════════════════════════════════
+// APUESTAS
+// ══════════════════════════════════════════════════════════
+function getApuestas() { try { return JSON.parse(localStorage.getItem('j_apuestas')||'[]'); } catch(e){ return []; } }
+function saveApuestas(a) { localStorage.setItem('j_apuestas', JSON.stringify(a)); }
+
+var apuestaJugadores = []; // [{nombre, cantidad, pagado}]
+
+function renderApuestas() {
+  var c = document.getElementById('golf-container');
+  var apuestas = getApuestas();
+  var hoy = new Date().toISOString().slice(0,10);
+
+  // Calcular saldos por jugador
+  var saldos = {};
+  apuestas.forEach(function(a) {
+    a.jugadores.forEach(function(j) {
+      if (!saldos[j.nombre]) saldos[j.nombre] = { total: 0, rondas: 0, pendiente: 0, ganadas: 0, perdidas: 0 };
+      saldos[j.nombre].total += j.cantidad;
+      saldos[j.nombre].rondas++;
+      if (!j.pagado) saldos[j.nombre].pendiente += j.cantidad;
+      if (j.cantidad > 0) saldos[j.nombre].ganadas++;
+      else if (j.cantidad < 0) saldos[j.nombre].perdidas++;
+    });
+  });
+
+  var totalGanado = 0, totalPerdido = 0;
+  apuestas.forEach(function(a) {
+    a.jugadores.forEach(function(j) {
+      if (j.cantidad > 0) totalGanado += j.cantidad;
+      else totalPerdido += j.cantidad;
+    });
+  });
+  var neto = totalGanado + totalPerdido;
+
+  // Pendientes de cobrar/pagar
+  var pendientes = Object.keys(saldos).filter(function(n){ return saldos[n].pendiente !== 0; });
+
+  c.innerHTML =
+    // HERO BALANCE
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04);margin-bottom:12px">'+
+      '<div style="padding:16px 18px;border-bottom:1px solid var(--border)">'+
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Balance total</div>'+
+        '<div style="font-family:\'DM Serif Display\',serif;font-size:52px;line-height:1;color:'+(neto>=0?'var(--success)':'var(--red)')+'">'+
+          (neto>=0?'+':'')+neto+'€'+
+        '</div>'+
+        '<div style="display:flex;gap:16px;margin-top:8px">'+
+          '<span style="font-size:12px;color:var(--success);font-weight:600">▲ +'+totalGanado+'€ ganado</span>'+
+          '<span style="font-size:12px;color:var(--red);font-weight:600">▼ '+totalPerdido+'€ perdido</span>'+
+        '</div>'+
+      '</div>'+
+
+      // PENDIENTES
+      (pendientes.length > 0 ?
+        '<div style="padding:12px 18px;border-bottom:1px solid var(--border)">'+
+          '<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Pendiente de cobrar/pagar</div>'+
+          pendientes.map(function(nombre){
+            var p = saldos[nombre].pendiente;
+            var col = p > 0 ? 'var(--success)' : 'var(--red)';
+            var txt = p > 0 ? 'Te debe '+p+'€' : 'Le debes '+Math.abs(p)+'€';
+            return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)">'+
+              '<div style="font-size:14px;font-weight:600;color:var(--text)">'+nombre+'</div>'+
+              '<span style="font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;background:'+(p>0?'rgba(45,138,78,.1)':'rgba(217,64,64,.1)')+';color:'+col+'">'+txt+'</span>'+
+            '</div>';
+          }).join('')+
+        '</div>' : '')+
+
+      // SALDO POR JUGADOR — clasificación
+      (Object.keys(saldos).length > 0 ?
+        '<div style="padding:12px 18px">'+
+          '<div style="font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Clasificación</div>'+
+          Object.keys(saldos).sort(function(a,b){ return saldos[b].total - saldos[a].total; }).map(function(nombre, idx){
+            var s = saldos[nombre];
+            var col = s.total > 0 ? 'var(--success)' : s.total < 0 ? 'var(--red)' : 'var(--muted)';
+            var pct = s.rondas > 0 ? Math.round((s.ganadas/s.rondas)*100) : 0;
+            var medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : (idx+1)+'º';
+            return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer" onclick="verJugador(\''+nombre+'\')">'+
+              '<div style="font-size:18px;min-width:28px;text-align:center">'+medal+'</div>'+
+              '<div style="flex:1">'+
+                '<div style="font-size:14px;font-weight:700;color:var(--text)">'+nombre+'</div>'+
+                '<div style="display:flex;align-items:center;gap:6px;margin-top:3px">'+
+                  '<span style="font-size:11px;color:var(--success);font-weight:600">'+s.ganadas+'G</span>'+
+                  '<span style="font-size:10px;color:var(--muted)">·</span>'+
+                  '<span style="font-size:11px;color:var(--red);font-weight:600">'+s.perdidas+'P</span>'+
+                  '<span style="font-size:10px;color:var(--muted)">·</span>'+
+                  '<span style="font-size:11px;color:var(--muted)">'+s.rondas+' rondas</span>'+
+                  '<div style="flex:1;height:3px;background:var(--surface2);border-radius:2px;overflow:hidden;max-width:60px;margin-left:4px">'+
+                    '<div style="height:100%;width:'+pct+'%;background:var(--success);border-radius:2px"></div>'+
+                  '</div>'+
+                  '<span style="font-size:10px;color:var(--muted)">'+pct+'%</span>'+
+                '</div>'+
+              '</div>'+
+              '<div style="text-align:right">'+
+                '<div style="font-size:16px;font-weight:800;color:'+col+'">'+(s.total>=0?'+':'')+s.total+'€</div>'+
+                (s.pendiente!==0?'<div style="font-size:10px;color:var(--orange);margin-top:1px">'+Math.abs(s.pendiente)+'€ pte</div>':'')+
+              '</div>'+
+            '</div>';
+          }).join('')+
+        '</div>' : '')+
+    '</div>'+
+
+    // REGISTRAR APUESTA
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.04)">'+
+      '<div style="font-size:13px;font-weight:700;margin-bottom:12px">➕ Registrar apuesta</div>'+
+      '<div style="margin-bottom:10px">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Fecha</div>'+
+        '<input type="date" id="ap-fecha" value="'+hoy+'" class="field-input" style="margin-top:0">'+
+      '</div>'+
+      '<div style="margin-bottom:10px">'+
+        '<div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px">Notas (opcional)</div>'+
+        '<input type="text" id="ap-notas" placeholder="Ej: Zaudin, medalla" class="field-input" style="margin-top:0">'+
+      '</div>'+
+      '<div style="font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px">Jugadores</div>'+
+      '<div id="ap-jugadores-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px"></div>'+
+      '<div style="display:flex;gap:8px;margin-bottom:12px">'+
+        '<div style="flex:1;position:relative">'+
+          '<input type="text" id="ap-nuevo-nombre" placeholder="Nombre jugador" list="ap-nombres-list" class="field-input" style="margin-top:0;width:100%">'+
+          '<datalist id="ap-nombres-list"></datalist>'+
+        '</div>'+
+        '<button onclick="apAñadirJugador()" style="padding:12px 14px;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">+ Añadir</button>'+
+      '</div>'+
+      '<button onclick="guardarApuesta()" style="width:100%;padding:13px;border:none;border-radius:10px;background:var(--accent);color:#fff;font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:600;cursor:pointer">Guardar apuesta</button>'+
+    '</div>'+
+
+    // HISTORIAL
+    '<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)">'+
+      '<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:700">Historial ('+apuestas.length+')</div>'+
+      (apuestas.length === 0 ?
+        '<div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">Sin apuestas registradas</div>' :
+        apuestas.slice().reverse().map(function(a){
+          var total = a.jugadores.reduce(function(s,j){ return s+j.cantidad; }, 0);
+          var col = total >= 0 ? 'var(--success)' : 'var(--red)';
+          var fecha = new Date(a.fecha+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'});
+          return '<div style="padding:12px 16px;border-bottom:1px solid var(--border)">'+
+            '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">'+
+              '<div>'+
+                '<div style="font-size:11px;color:var(--muted)">'+fecha+'</div>'+
+                (a.notas?'<div style="font-size:12px;color:var(--muted);font-style:italic">'+a.notas+'</div>':'')+
+              '</div>'+
+              '<div style="display:flex;align-items:center;gap:8px">'+
+                '<div style="font-family:\'DM Serif Display\',serif;font-size:22px;color:'+col+'">'+(total>=0?'+':'')+total+'€</div>'+
+                '<button onclick="borrarApuesta(\''+a.id+'\')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button>'+
+              '</div>'+
+            '</div>'+
+            '<div style="display:flex;flex-direction:column;gap:4px">'+
+              a.jugadores.map(function(j){
+                var jcol = j.cantidad >= 0 ? 'var(--success)' : 'var(--red)';
+                return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--surface2);border-radius:8px">'+
+                  '<span style="font-size:13px;font-weight:600;color:var(--text)">'+j.nombre+'</span>'+
+                  '<div style="display:flex;align-items:center;gap:8px">'+
+                    '<span style="font-size:13px;font-weight:700;color:'+jcol+'">'+(j.cantidad>=0?'+':'')+j.cantidad+'€</span>'+
+                    '<button onclick="togglePagado(\''+a.id+'\',\''+j.nombre+'\')" style="font-size:11px;padding:3px 8px;border-radius:20px;border:1px solid '+(j.pagado?'var(--success)':'var(--border)')+';background:'+(j.pagado?'rgba(45,138,78,.1)':'var(--surface)')+';color:'+(j.pagado?'var(--success)':'var(--muted)')+';cursor:pointer;font-weight:600">'+(j.pagado?'✅ Pagado':'⏳ Pendiente')+'</button>'+
+                  '</div>'+
+                '</div>';
+              }).join('')+
+            '</div>'+
+          '</div>';
+        }).join('')
+      )+
+    '</div>';
+
+  renderApJugadoresList();
+}
+
+function renderApJugadoresList() {
+  var el = document.getElementById('ap-jugadores-list');
+  if (!el) return;
+
+  // Populate autocomplete with known players
+  var apuestas = getApuestas();
+  var nombres = {};
+  apuestas.forEach(function(a){ a.jugadores.forEach(function(j){ nombres[j.nombre] = true; }); });
+  var datalist = document.getElementById('ap-nombres-list');
+  if (datalist) datalist.innerHTML = Object.keys(nombres).map(function(n){ return '<option value="'+n+'">'; }).join('');
+  if (apuestaJugadores.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--muted);text-align:center;padding:8px">Añade jugadores arriba</div>';
+    return;
+  }
+  el.innerHTML = apuestaJugadores.map(function(j, i){
+    return '<div style="display:flex;align-items:center;gap:8px;background:var(--surface2);border-radius:10px;padding:10px 12px">'+
+      '<div style="flex:1;font-size:14px;font-weight:600;color:var(--text)">'+j.nombre+'</div>'+
+      '<div style="display:flex;align-items:center;gap:6px">'+
+        '<span style="font-size:12px;color:var(--muted)">€</span>'+
+        '<input type="number" value="'+j.cantidad+'" onchange="apCantidad('+i+',this.value)" placeholder="0" style="width:70px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:6px 8px;color:var(--text);font-family:\'DM Sans\',sans-serif;font-size:14px;font-weight:700;text-align:center;outline:none">'+
+        '<button onclick="apTogglePagado('+i+')" style="font-size:11px;padding:4px 8px;border-radius:20px;border:1px solid '+(j.pagado?'var(--success)':'var(--border)')+';background:'+(j.pagado?'rgba(45,138,78,.1)':'var(--surface)')+';color:'+(j.pagado?'var(--success)':'var(--muted)')+';cursor:pointer;font-weight:600;white-space:nowrap">'+(j.pagado?'✅':'⏳')+'</button>'+
+        '<button onclick="apEliminar('+i+')" style="background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function apAñadirJugador() {
+  var input = document.getElementById('ap-nuevo-nombre');
+  var nombre = input.value.trim();
+  if (!nombre) { showToast('⚠️ Escribe el nombre'); return; }
+  apuestaJugadores.push({ nombre: nombre, cantidad: 0, pagado: false });
+  input.value = '';
+  renderApJugadoresList();
+}
+
+function apCantidad(i, val) {
+  apuestaJugadores[i].cantidad = parseFloat(val) || 0;
+}
+
+function apTogglePagado(i) {
+  apuestaJugadores[i].pagado = !apuestaJugadores[i].pagado;
+  renderApJugadoresList();
+}
+
+function apEliminar(i) {
+  apuestaJugadores.splice(i, 1);
+  renderApJugadoresList();
+}
+
+function guardarApuesta() {
+  if (apuestaJugadores.length === 0) { showToast('⚠️ Añade al menos un jugador'); return; }
+  var fecha = document.getElementById('ap-fecha').value;
+  var notas = document.getElementById('ap-notas').value.trim();
+  var total = apuestaJugadores.reduce(function(s,j){ return s+j.cantidad; }, 0);
+  var apuestas = getApuestas();
+  apuestas.push({
+    id: Date.now().toString(),
+    fecha: fecha,
+    notas: notas,
+    jugadores: JSON.parse(JSON.stringify(apuestaJugadores))
+  });
+  saveApuestas(apuestas);
+  apuestaJugadores = [];
+  document.getElementById('ap-notas').value = '';
+  renderApuestas();
+  showToast('💰 Apuesta guardada · '+(total>=0?'+':'')+total+'€');
+}
+
+function togglePagado(apId, nombre) {
+  var apuestas = getApuestas();
+  var a = apuestas.find(function(x){ return x.id === apId; });
+  if (!a) return;
+  var j = a.jugadores.find(function(x){ return x.nombre === nombre; });
+  if (j) j.pagado = !j.pagado;
+  saveApuestas(apuestas);
+  renderApuestas();
+}
+
+function borrarApuesta(id) {
+  var apuestas = getApuestas().filter(function(a){ return a.id !== id; });
+  saveApuestas(apuestas);
+  renderApuestas();
+}
+
+function verJugador(nombre) {
+  var apuestas = getApuestas();
+  var rondas = [];
+  apuestas.forEach(function(a){
+    a.jugadores.forEach(function(j){
+      if (j.nombre === nombre) rondas.push({ fecha: a.fecha, notas: a.notas, cantidad: j.cantidad, pagado: j.pagado, apId: a.id });
+    });
+  });
+  var total = rondas.reduce(function(s,r){ return s+r.cantidad; }, 0);
+  var ganadas = rondas.filter(function(r){ return r.cantidad > 0; }).length;
+  var perdidas = rondas.filter(function(r){ return r.cantidad < 0; }).length;
+  var col = total >= 0 ? 'var(--success)' : 'var(--red)';
+  document.getElementById('modal-title').textContent = nombre;
+  document.getElementById('modal-body').innerHTML =
+    '<div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:12px">'+
+      '<div style="font-family:\'DM Serif Display\',serif;font-size:42px;line-height:1;color:'+col+'">'+(total>=0?'+':'')+total+'€</div>'+
+      '<div style="padding-bottom:4px">'+
+        '<div style="font-size:13px;font-weight:700;color:var(--success)">'+ganadas+' ganadas</div>'+
+        '<div style="font-size:13px;font-weight:700;color:var(--red)">'+perdidas+' perdidas</div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto">'+
+    rondas.slice().reverse().map(function(r){
+      var fecha = new Date(r.fecha+'T12:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'2-digit'});
+      var rcol = r.cantidad >= 0 ? 'var(--success)' : 'var(--red)';
+      return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--surface2);border-radius:8px">'+
+        '<div>'+
+          '<div style="font-size:12px;color:var(--muted)">'+fecha+(r.notas?' · '+r.notas:'')+'</div>'+
+        '</div>'+
+        '<div style="display:flex;align-items:center;gap:6px">'+
+          '<span style="font-size:14px;font-weight:700;color:'+rcol+'">'+(r.cantidad>=0?'+':'')+r.cantidad+'€</span>'+
+          '<span style="font-size:10px;padding:2px 6px;border-radius:10px;background:'+(r.pagado?'rgba(45,138,78,.1)':'rgba(217,64,64,.1)')+';color:'+(r.pagado?'var(--success)':'var(--red)')+'">'+( r.pagado?'✅':'⏳')+'</span>'+
+        '</div>'+
+      '</div>';
+    }).join('')+
+    '</div>';
+  document.getElementById('modal-confirm').textContent = 'Cerrar';
+  document.getElementById('modal-confirm').style.background = 'var(--accent)';
+  document.getElementById('modal-confirm').onclick = closeModal;
+  document.getElementById('modal').classList.add('open');
 }
 
 function renderRondas(tab) {
