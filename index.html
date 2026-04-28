@@ -847,79 +847,87 @@ const FIT_PLAN = [
 const DIETA = {
   semana: [
     {
-      dia: "Lunes · Gym Tren Superior", tipo: "Rompe ayuno a las 8:00 · ~1.900 kcal", kcal: 1900,
+      dia: "Lunes · Golf 19:30", tipo: "Trabajo desde 6:00 · Snack 10:00 · ~1.900 kcal", kcal: 1900,
       comidas: [
-        { tipo: "08:00 — Romper ayuno", nombre: "Yogur griego con arándanos y dátiles", desc: "1 yogur griego natural entero · puñado de arándanos frescos · 3-4 dátiles Medjool. Sin azúcar añadido.", kcal: 280, p: 10, c: 38, g: 8,
-          tip: "El yogur griego fermenta la lactosa — suele tolerarse bien. Los dátiles dan energía rápida y los arándanos son antioxidantes clave para la recuperación." },
-        { tipo: "13:00 — Comida (tupper)", nombre: "Arroz + pollo + tomate cherry + naranja", desc: "150g arroz cocido · 150g pechuga de pollo a la plancha · tomate cherry al natural · 1 naranja de postre.", kcal: 520, p: 45, c: 52, g: 8,
-          tip: "El pollo completa el plato — sin él apenas hay proteína. Prepáralo la noche anterior en filetes finos, viaja perfecto en tupper sin necesidad de recalentar." },
-        { tipo: "17:00 — Merienda pre-gym", nombre: "2 huevos duros + plátano", desc: "2 huevos duros · 1 plátano. Proteína + carbohidrato de rápida absorción antes del entrenamiento.", kcal: 280, p: 14, c: 28, g: 10, tip: null },
-        { tipo: "20:30 — Cena post-gym", nombre: "Salmón al horno + patata cocida + brócoli", desc: "200g salmón · 150g patata con piel · 150g brócoli al vapor. Omega-3 para recuperación muscular.", kcal: 580, p: 44, c: 40, g: 20,
-          tip: "El salmón post-gym reduce la inflamación. Come dentro de las 2h después del entrenamiento." },
-        { tipo: "22:00 — Snack cierre ventana", nombre: "Puñado de nueces (30g) o atún con pepino", desc: "30g nueces crudas o 1 lata de atún con rodajas de pepino. Cierra con proteína y grasas saludables.", kcal: 180, p: 10, c: 4, g: 14, tip: null }
+        { tipo: "06:00 — Inicio jornada", nombre: "Café solo sin azúcar", desc: "Solo café al empezar. El cuerpo lleva horas sin comer pero aún no es momento de romper el ayuno.", kcal: 5, p: 0, c: 0, g: 0, tip: null },
+        { tipo: "10:00 — Snack media mañana", nombre: "2 huevos duros + frutos secos + fruta", desc: "2 huevos duros preparados la noche anterior · 30g nueces o almendras · 1 manzana o naranja. Sin cocinar — lo llevas puesto.", kcal: 380, p: 18, c: 22, g: 22,
+          tip: "A las 10h llevas 4h trabajando desde las 6 — tu cuerpo lo necesita. Los huevos duros son perfectos para llevar al trabajo sin preparación." },
+        { tipo: "13:00 — Tupper (preparado noche anterior)", nombre: "Arroz + pollo a la plancha + tomate cherry + huevo duro", desc: "150g arroz cocido · 150g pechuga pollo · tomate cherry · 1 huevo duro. Preparado la noche del domingo.", kcal: 540, p: 46, c: 50, g: 12,
+          tip: "Prepara el tupper el domingo por la noche mientras haces la cena. Solo 15 min de trabajo extra." },
+        { tipo: "18:00 — Merienda pre-golf", nombre: "Plátano + 2 huevos duros", desc: "1 plátano + 2 huevos duros. Energía rápida + proteína para la ronda de las 19:30.", kcal: 280, p: 14, c: 28, g: 10, tip: null },
+        { tipo: "21:30 — Cena post-golf", nombre: "Pollo al horno con boniato asado + ensalada", desc: "220g pechuga o muslo de pollo al horno · 150g boniato asado · ensalada variada con AOVE. Prepara también el tupper del martes.", kcal: 560, p: 46, c: 42, g: 14,
+          tip: "Mientras el pollo está en el horno prepara el tupper del martes. Añade arroz y ternera para el día siguiente." },
+        { tipo: "22:00 — Snack cierre", nombre: "Lata de atún o puñado de nueces", desc: "1 lata de atún en AOVE o 30g nueces. Cierra la ventana con proteína de absorción lenta.", kcal: 160, p: 16, c: 2, g: 10, tip: null }
       ]
     },
     {
-      dia: "Martes · Tenis + Golf práctica", tipo: "Ayuno hasta 12:30 · Alta actividad · ~2.100 kcal", kcal: 2100,
+      dia: "Martes · Tenis 15:00 + Gym 17:00", tipo: "Ayuno 12:30-22:30 · Alta actividad · ~2.100 kcal", kcal: 2100,
       comidas: [
-        { tipo: "12:30 — Comida principal", nombre: "Pasta integral con atún, tomate natural y AOVE", desc: "160g pasta cocida · 2 latas atún · tomate frito casero sin lácteos · albahaca.", kcal: 640, p: 46, c: 74, g: 14,
-          tip: "Día de mayor gasto energético (tenis + golf). Más carbohidratos. La pasta integral da energía sostenida." },
-        { tipo: "14:30 — Pre-tenis (ligero)", nombre: "Plátano + 20g almendras", desc: "1 plátano maduro + un puñado pequeño de almendras crudas. 60 min antes del tenis.", kcal: 220, p: 4, c: 30, g: 10,
-          tip: "Cómelo 60 min antes de salir. El plátano sube la glucosa justo cuando empieza el tenis." },
-        { tipo: "17:00 — Entre tenis y golf", nombre: "2 huevos duros o batido de proteína vegetal", desc: "2 huevos duros o 1 cacito de proteína de guisante/arroz con agua. Recuperación entre actividades.", kcal: 180, p: 14, c: 4, g: 10, tip: null },
-        { tipo: "20:30 — Cena", nombre: "Pechuga de pavo + quinoa + espinacas salteadas", desc: "200g pavo a la plancha · 100g quinoa cocida · espinacas salteadas con ajo y AOVE.", kcal: 540, p: 52, c: 38, g: 14, tip: null }
+        { tipo: "12:30 — Romper ayuno", nombre: "3 huevos revueltos + tostada + fruta", desc: "3 huevos revueltos con AOVE · 1 tostada · 1 naranja. Rápido — 5 min de preparación.", kcal: 420, p: 24, c: 30, g: 18, tip: null },
+        { tipo: "14:00 — Pre-tenis (tupper)", nombre: "Ternera a la plancha + arroz + pimiento asado", desc: "200g filete de ternera a la plancha · 150g arroz · pimiento asado. Preparado la noche del lunes.", kcal: 600, p: 48, c: 54, g: 16,
+          tip: "Día de mayor gasto (tenis + gym). Más carbohidratos para aguantar las dos sesiones. Come 60 min antes del tenis." },
+        { tipo: "16:30 — Entre tenis y gym", nombre: "Plátano + 2 huevos duros o batido de proteína", desc: "1 plátano + 2 huevos duros o 1 cacito de proteína con agua. Recuperación entre actividades.", kcal: 280, p: 16, c: 28, g: 10, tip: null },
+        { tipo: "21:00 — Cena", nombre: "Salmón al horno + patata cocida + espárragos", desc: "200g salmón al horno con limón y eneldo · 150g patata cocida · espárragos a la plancha con AOVE. Prepara también el tupper del miércoles.", kcal: 620, p: 46, c: 42, g: 22,
+          tip: "El salmón post-gym reduce la inflamación muscular. El omega-3 acelera la recuperación para el PT del miércoles a las 6:30." },
+        { tipo: "22:00 — Snack cierre", nombre: "30g frutos secos o lata de sardinas", desc: "Nueces o almendras crudas / sardinas en AOVE. Grasas saludables para la noche.", kcal: 180, p: 10, c: 4, g: 14, tip: null }
       ]
     },
     {
-      dia: "Miércoles · PT 6:30 + Golf práctica larga", tipo: "PT en ayunas · Primera comida 12:30 · ~2.000 kcal", kcal: 2000,
+      dia: "Miércoles · PT 6:30 + Golf tarde", tipo: "PT en ayunas · Primera comida 12:30 · ~2.000 kcal", kcal: 2000,
       comidas: [
-        { tipo: "06:15 — Pre-entrenador personal", nombre: "Solo café solo sin azúcar", desc: "Café solo. Entrenas en ayunas — la cafeína mejora el rendimiento y moviliza grasa como combustible. Agua abundante.", kcal: 5, p: 0, c: 0, g: 0,
-          tip: "Entrenar en ayunas con el PT optimiza la quema de grasa. El cuerpo ya lleva 8h sin comer — el café activa el sistema nervioso." },
-        { tipo: "12:30 — Comida post-PT (importante)", nombre: "Merluza al horno + arroz + verduras asadas", desc: "250g merluza · 150g arroz integral · pimiento + calabacín al horno con AOVE.", kcal: 620, p: 52, c: 54, g: 14,
-          tip: "Primera comida del día tras el PT. Alta en proteína y carbos para recuperar el entrenamiento y cargar energía para el golf de tarde." },
-        { tipo: "15:00 — Pre-golf (antes de salir)", nombre: "2 tostadas sin gluten + aguacate + 2 huevos", desc: "2 tostadas de pan sin gluten · medio aguacate · 2 huevos duros. Energía para 1.5h de práctica.", kcal: 420, p: 22, c: 28, g: 24, tip: null },
-        { tipo: "21:00 — Cena", nombre: "Ternera a la plancha + boniato asado + rúcula", desc: "200g filete ternera · 150g boniato asado · rúcula + AOVE + limón.", kcal: 560, p: 44, c: 38, g: 18, tip: null }
+        { tipo: "06:15 — Pre-PT (ayunas)", nombre: "Café solo sin azúcar", desc: "Solo café. Entrenas en ayunas — la cafeína activa el sistema nervioso y moviliza grasa como combustible.", kcal: 5, p: 0, c: 0, g: 0,
+          tip: "Entrenar con el PT en ayunas es uno de los mejores momentos para quemar grasa. El cuerpo lleva 8h sin comer." },
+        { tipo: "12:30 — Primera comida (importante)", nombre: "Yogur griego + huevo duro + fruta + frutos secos", desc: "1 yogur griego · 2 huevos duros · 1 manzana · 30g almendras. Rápido pero completo.", kcal: 480, p: 30, c: 32, g: 22,
+          tip: "Primera comida tras el PT en ayunas — prioridad proteína. Los huevos y el yogur la aportan sin necesidad de cocinar." },
+        { tipo: "14:00 — Tupper pre-golf", nombre: "Pasta integral + atún + tomate + AOVE + huevo duro", desc: "150g pasta cocida · 2 latas de atún · tomate natural · AOVE · 1 huevo duro. Preparado la noche del martes.", kcal: 620, p: 52, c: 64, g: 16,
+          tip: "Carga de carbos antes de la práctica larga de golf. La pasta de la noche anterior está perfecta en frío con atún." },
+        { tipo: "21:00 — Cena", nombre: "Pescado azul al horno (caballa/sardinas/boquerón) + arroz + verduras", desc: "250g pescado azul al horno con limón y ajo · 120g arroz · calabacín o pimiento asado. Prepara también el tupper del jueves.", kcal: 580, p: 48, c: 44, g: 18,
+          tip: "El pescado azul una vez a la semana — omega-3 máximo. Caballa, sardinas grandes o boquerones son los más nutritivos." },
+        { tipo: "22:00 — Snack cierre", nombre: "2 huevos duros o lata de atún", desc: "Proteína pura para cerrar la ventana. Sin carbohidratos a esta hora.", kcal: 160, p: 14, c: 2, g: 10, tip: null }
       ]
     },
     {
-      dia: "Jueves · Gym Inferior + Golf putting", tipo: "Ayuno hasta 12:30 · ~1.900 kcal", kcal: 1900,
+      dia: "Jueves · Gym 15:30 + Golf putting", tipo: "Ayuno 12:30-22:30 · ~1.900 kcal", kcal: 1900,
       comidas: [
-        { tipo: "12:30 — Comida principal", nombre: "Garbanzos con langostinos al ajillo", desc: "200g garbanzos cocidos · 200g langostinos · ajo + AOVE + pimentón. Plato rápido y completo.", kcal: 540, p: 42, c: 44, g: 14,
-          tip: "Día de gym de tren inferior — proteína y carbos de legumbre para el trabajo de piernas. Los garbanzos son más digestivos que la carne antes del gym." },
-        { tipo: "17:00 — Pre-golf (post-gym)", nombre: "Plátano + 30g frutos secos mixtos", desc: "1 plátano + puñado de frutos secos. Energía rápida para la sesión de putting.", kcal: 240, p: 5, c: 32, g: 12, tip: null },
-        { tipo: "20:30 — Cena post-gym", nombre: "Pollo al horno con boniato y judías verdes", desc: "220g muslo de pollo sin piel al horno · 150g boniato · 150g judías verdes al vapor.", kcal: 560, p: 46, c: 42, g: 14, tip: null },
-        { tipo: "22:00 — Snack cierre", nombre: "Lata de sardinas en AOVE o 3 lonchas de pavo", desc: "Sardinas o pavo. Cierra la ventana con proteína de absorción lenta.", kcal: 160, p: 18, c: 2, g: 8, tip: null }
+        { tipo: "12:30 — Romper ayuno", nombre: "Batido de proteína + frutos secos + fruta", desc: "1 cacito de proteína con agua o leche de avena · 30g nueces · 1 plátano. Listo en 2 min.", kcal: 380, p: 30, c: 34, g: 14, tip: null },
+        { tipo: "14:30 — Tupper pre-gym", nombre: "Pollo al horno + boniato + ensalada + huevo duro", desc: "Restos de la cena del miércoles o preparado esa noche. 180g pollo · 150g boniato · ensalada · 1 huevo duro.", kcal: 560, p: 48, c: 44, g: 14,
+          tip: "Come 60-90 min antes del gym. El boniato da energía sostenida para el tren inferior sin pesar." },
+        { tipo: "17:00 — Entre gym y golf", nombre: "Plátano + 20g almendras", desc: "1 plátano + almendras. Recuperación rápida antes del putting.", kcal: 220, p: 5, c: 30, g: 10, tip: null },
+        { tipo: "21:00 — Cena", nombre: "Gambas/langostinos al ajillo + arroz + ensalada", desc: "250g gambas o langostinos salteados con ajo, guindilla y AOVE · 120g arroz · ensalada verde. Prepara también el tupper del viernes.", kcal: 520, p: 44, c: 40, g: 14,
+          tip: "Las gambas son proteína pura con muy poca grasa. El ajillo es rápido — 10 min de cocina máximo." },
+        { tipo: "22:00 — Snack cierre", nombre: "2 huevos duros o lata de sardinas en AOVE", desc: "Proteína + grasa saludable para cerrar la ventana. Sin carbohidratos.", kcal: 180, p: 16, c: 2, g: 12, tip: null }
       ]
     },
     {
-      dia: "Viernes · Gym Potencia", tipo: "Ayuno hasta 12:30 · ~1.900 kcal", kcal: 1900,
+      dia: "Viernes · Golf práctica libre", tipo: "Ayuno 12:30-22:30 · ~1.900 kcal", kcal: 1900,
       comidas: [
-        { tipo: "12:30 — Comida principal", nombre: "Pasta integral con pollo y pesto sin lácteos", desc: "160g pasta cocida · 180g pollo · pesto casero: albahaca + AOVE + piñones + ajo (sin queso).", kcal: 620, p: 48, c: 62, g: 18, tip: null },
-        { tipo: "15:00 — Pre-gym potencia", nombre: "Tostada sin gluten + aguacate + jamón serrano", desc: "1-2 tostadas sin gluten · medio aguacate · 2 lonchas jamón serrano. Pre-entreno de calidad.", kcal: 320, p: 18, c: 22, g: 18,
-          tip: "El día de potencia necesitas energía real. Grasa del aguacate + carbos de la tostada = combustible de 2-3h." },
-        { tipo: "20:30 — Cena post-potencia", nombre: "Salmón + arroz basmati + espárragos a la plancha", desc: "200g salmón · 120g arroz basmati · espárragos a la plancha con AOVE y limón.", kcal: 560, p: 46, c: 42, g: 18,
-          tip: "Recuperación pre-ronda. El salmón reduce la inflamación — mañana juegas y el cuerpo tiene que estar a tope." }
+        { tipo: "12:30 — Romper ayuno", nombre: "3 huevos + aguacate + tostada", desc: "3 huevos (revueltos o a la plancha) · medio aguacate · 1 tostada. Clásico rápido y completo.", kcal: 480, p: 24, c: 22, g: 28, tip: null },
+        { tipo: "14:30 — Tupper", nombre: "Gambas + arroz + verduras + huevo duro", desc: "Restos de la cena del jueves o preparado esa noche. Rico en proteína y ligero para el golf de tarde.", kcal: 520, p: 44, c: 42, g: 12, tip: null },
+        { tipo: "21:00 — Cena pre-ronda sábado", nombre: "Salmón a la plancha + patata + brócoli", desc: "200g salmón · 150g patata cocida · brócoli al vapor. Cena clave: mañana juegas la ronda completa. Prepara también snacks para el campo.", kcal: 580, p: 44, c: 40, g: 20,
+          tip: "Cena de carga pre-ronda. El salmón reduce la inflamación — el cuerpo llega mejor al campo. No cenes demasiado tarde." },
+        { tipo: "22:00 — Snack cierre", nombre: "30g nueces", desc: "Nueces crudas. Grasas saludables + algo de proteína para la noche pre-ronda.", kcal: 200, p: 5, c: 4, g: 18, tip: null }
       ]
     },
     {
-      dia: "Sábado · Ronda completa", tipo: "Ayuno hasta 12:30 · Día de mayor gasto · ~2.100 kcal", kcal: 2100,
+      dia: "Sábado · Ronda 18 hoyos", tipo: "Día de mayor gasto · ~2.100 kcal", kcal: 2100,
       comidas: [
-        { tipo: "12:30 — Pre-ronda (si juegas tarde)", nombre: "Tortilla 3 huevos + tostadas + fruta", desc: "3 huevos en tortilla con AOVE · 2 tostadas sin gluten · 1 naranja o plátano.", kcal: 520, p: 28, c: 48, g: 20,
-          tip: "Con el ayuno, esta primera comida es crítica. Sin ella el rendimiento cae desde el hoyo 1." },
-        { tipo: "Hoyos 9-10 (en campo)", nombre: "Plátano + barrita de frutos secos sin lácteos", desc: "1 plátano + barrita natural sin azúcar añadido. Mantiene la glucosa en la vuelta de atrás.", kcal: 240, p: 4, c: 36, g: 8,
-          tip: "Con el ayuno matinal el glucógeno baja antes. Este snack en los hoyos 9-10 es más importante que para otros jugadores." },
-        { tipo: "Post-ronda — comida principal", nombre: "Proteína a elección + patata + ensalada grande", desc: "Carne, pescado o huevos (ración generosa) + patata mediana + ensalada. Recuperación completa.", kcal: 680, p: 52, c: 52, g: 18,
-          tip: "La comida más importante del día de ronda. Recupera glucógeno y repara el músculo. Dentro de las 2h post-ronda." },
-        { tipo: "20:30 — Cena libre", nombre: "Día más flexible — adapta según cómo te encuentres", desc: "Restaurante o social. Mantén proteína alta. Evita exceso de alcohol si juegas al día siguiente.", kcal: 500, p: 30, c: 30, g: 22, tip: null }
+        { tipo: "12:30 — Pre-ronda", nombre: "Tortilla 3 huevos + tostada + plátano", desc: "Tortilla de 3 huevos con AOVE · 1-2 tostadas · 1 plátano. Comer 90 min antes de salir al campo.", kcal: 520, p: 28, c: 48, g: 18,
+          tip: "Nunca salgas al campo en ayunas. Esta comida es la más importante del día. El plátano da energía rápida, los huevos proteína sostenida." },
+        { tipo: "Hoyos 9-10 (en campo)", nombre: "Plátano + barrita de frutos secos", desc: "1 plátano maduro + barrita natural sin azúcar añadido. Mantiene la glucosa en la vuelta de atrás.", kcal: 240, p: 4, c: 36, g: 8,
+          tip: "Con el ayuno matinal el glucógeno baja antes que en otros jugadores. Este snack en los hoyos 9-10 es obligatorio." },
+        { tipo: "Post-ronda — comida principal", nombre: "Ternera + patata + ensalada grande", desc: "200g filete de ternera a la plancha · 150g patata · ensalada grande con AOVE. Dentro de las 2h post-ronda.", kcal: 620, p: 48, c: 46, g: 20,
+          tip: "La ventana anabólica post-ronda es mayor con el ayuno. Proteína + carbos en las 2h siguientes — obligatorio." },
+        { tipo: "21:00 — Cena", nombre: "Huevos revueltos + aguacate + tostadas", desc: "3 huevos revueltos · medio aguacate · 1-2 tostadas. Cena ligera — ya comiste bien post-ronda.", kcal: 460, p: 22, c: 24, g: 26, tip: null }
       ]
     },
     {
-      dia: "Domingo · Recuperación", tipo: "Ayuno hasta 12:30 · Menor demanda · ~1.700 kcal", kcal: 1700,
+      dia: "Domingo · Recuperación", tipo: "Ayuno 12:30-22:30 · Menor demanda · ~1.700 kcal", kcal: 1700,
       comidas: [
-        { tipo: "12:30 — Brunch", nombre: "Huevos revueltos + aguacate + tostadas + zumo naranja", desc: "3 huevos revueltos con AOVE · medio aguacate · 2 tostadas sin gluten · zumo de 2 naranjas natural.", kcal: 520, p: 24, c: 42, g: 26, tip: null },
-        { tipo: "17:00 — Merienda", nombre: "Fruta variada + nueces", desc: "Manzana o pera + 30g nueces. Antioxidantes para la recuperación del sábado.", kcal: 240, p: 4, c: 26, g: 14, tip: null },
-        { tipo: "20:30 — Cena ligera", nombre: "Gazpacho + bacalao al horno con pimientos", desc: "Vaso de gazpacho natural · 200g bacalao al horno con pimiento rojo + verde + tomate + AOVE.", kcal: 420, p: 42, c: 18, g: 14,
-          tip: "El gazpacho es hidratación + antioxidantes. El bacalao aporta proteína sin grasa para el día de descanso." }
+        { tipo: "12:30 — Brunch", nombre: "Huevos revueltos + aguacate + tostadas + zumo natural", desc: "3 huevos revueltos con AOVE · medio aguacate · 2 tostadas · zumo de 2 naranjas. El mejor brunch de la semana.", kcal: 560, p: 24, c: 44, g: 26, tip: null },
+        { tipo: "17:00 — Merienda", nombre: "Yogur griego + frutos secos + fruta", desc: "1 yogur griego · 30g nueces · 1 manzana o pera. Antioxidantes para la recuperación del sábado.", kcal: 320, p: 14, c: 28, g: 16, tip: null },
+        { tipo: "21:00 — Cena + prep semana", nombre: "Pollo asado + boniato + ensalada", desc: "220g pollo al horno · 150g boniato · ensalada grande. Aprovecha para preparar el tupper del lunes mientras cocinas.", kcal: 540, p: 44, c: 42, g: 14,
+          tip: "Noche perfecta para preparar el tupper del lunes. Con el pollo en el horno y el arroz en el fuego — 20 min de prep para arrancar bien la semana." },
+        { tipo: "22:00 — Snack cierre", nombre: "2 huevos duros o 30g almendras", desc: "Cierra la semana con proteína limpia.", kcal: 180, p: 14, c: 4, g: 12, tip: null }
       ]
     }
   ],
@@ -934,97 +942,72 @@ const DIETA = {
   ],
   compra: [
     {
-      categoria: "🥩 Proteínas",
+      categoria: "🥚 Proteínas base (todos los días)",
       items: [
-        { nombre: "Pechuga de pollo", gramos: "1.5 kg", nota: "Lunes, miércoles, viernes" },
-        { nombre: "Muslo de pollo (sin piel)", gramos: "500g", nota: "Jueves cena al horno" },
-        { nombre: "Pechuga de pavo (filetes)", gramos: "400g", nota: "Martes + snacks cierre" },
-        { nombre: "Salmón fresco (lomos)", gramos: "600g", nota: "Lunes y viernes — omega-3" },
-        { nombre: "Merluza (filetes)", gramos: "500g", nota: "Miércoles comida principal" },
-        { nombre: "Bacalao desalado", gramos: "400g", nota: "Domingo cena" },
-        { nombre: "Ternera (filete fino)", gramos: "400g", nota: "Miércoles cena" },
-        { nombre: "Langostinos", gramos: "400g", nota: "Jueves comida — garbanzos con langostinos" },
-        { nombre: "Huevos camperos", gramos: "18 uds", nota: "Varios días — base del plan" },
-        { nombre: "Atún en aceite de oliva (latas)", gramos: "6 latas", nota: "Martes comida + snacks" },
-        { nombre: "Sardinas en AOVE (latas)", gramos: "3 latas", nota: "Snack cierre ventana" },
-        { nombre: "Jamón serrano (lonchas)", gramos: "100g", nota: "Viernes pre-gym" },
-        { nombre: "Pavo en lonchas", gramos: "200g", nota: "Snack cierre ventana" }
+        { nombre: "Huevos camperos", gramos: "18-24 uds", nota: "Base del plan — desayunos, tuppers y cenas" },
+        { nombre: "Atún en AOVE (latas)", gramos: "8 latas", nota: "Miércoles tupper + snacks cierre ventana" },
+        { nombre: "Sardinas en AOVE (latas)", gramos: "4 latas", nota: "Snack cierre ventana martes y jueves" }
+      ]
+    },
+    {
+      categoria: "🥩 Proteínas cena",
+      items: [
+        { nombre: "Pechuga de pollo", gramos: "800g", nota: "Lunes cena + tupper martes" },
+        { nombre: "Muslo de pollo sin piel", gramos: "600g", nota: "Domingo cena + tupper lunes" },
+        { nombre: "Salmón fresco (lomos)", gramos: "600g", nota: "Martes cena + viernes cena" },
+        { nombre: "Ternera (filete fino)", gramos: "600g", nota: "Martes tupper + sábado post-ronda" },
+        { nombre: "Gambas o langostinos", gramos: "500g", nota: "Jueves cena al ajillo" },
+        { nombre: "Pescado azul (caballa/boquerón/sardina)", gramos: "500g", nota: "Miércoles cena — una vez a la semana" }
       ]
     },
     {
       categoria: "🌾 Carbohidratos",
       items: [
-        { nombre: "Arroz integral", gramos: "1 kg", nota: "Lunes y miércoles" },
-        { nombre: "Arroz basmati", gramos: "500g", nota: "Viernes cena" },
-        { nombre: "Pasta integral (espaguetis)", gramos: "500g", nota: "Martes y viernes" },
-        { nombre: "Quinoa", gramos: "500g", nota: "Martes cena" },
-        { nombre: "Garbanzos cocidos (bote)", gramos: "400g", nota: "Jueves comida — con langostinos" },
-        { nombre: "Patatas", gramos: "1 kg", nota: "Lunes y sábado" },
-        { nombre: "Boniatos", gramos: "1 kg", nota: "Miércoles y jueves" },
-        { nombre: "Pan sin gluten (tostadas)", gramos: "1 barra", nota: "Miércoles pre-golf + viernes" },
-        { nombre: "Plátanos", gramos: "8 uds", nota: "Pre-campo y pre-entreno diario" }
+        { nombre: "Arroz (blanco o integral)", gramos: "1 kg", nota: "Lunes, miércoles y jueves tuppers" },
+        { nombre: "Pasta integral", gramos: "500g", nota: "Miércoles tupper" },
+        { nombre: "Patatas", gramos: "1 kg", nota: "Martes cena + viernes cena + sábado" },
+        { nombre: "Boniatos", gramos: "1 kg", nota: "Lunes cena + jueves tupper" },
+        { nombre: "Tostadas (sin gluten o integrales)", gramos: "1 paquete", nota: "Desayunos y meriendas" },
+        { nombre: "Plátanos", gramos: "8 uds", nota: "Pre-actividad y meriendas diarias" }
       ]
     },
     {
-      categoria: "🥦 Verduras y Hortalizas",
+      categoria: "🥑 Grasas saludables y fruta",
       items: [
-        { nombre: "Brócoli", gramos: "1 ud", nota: "Lunes cena" },
-        { nombre: "Espinacas (bolsa)", gramos: "400g", nota: "Martes cena salteadas" },
-        { nombre: "Rúcula", gramos: "150g", nota: "Miércoles cena" },
-        { nombre: "Judías verdes", gramos: "300g", nota: "Jueves cena" },
-        { nombre: "Espárragos", gramos: "1 manojo", nota: "Viernes cena" },
-        { nombre: "Calabacín", gramos: "2 uds", nota: "Miércoles verduras asadas" },
-        { nombre: "Pimiento rojo y verde", gramos: "4 uds", nota: "Miércoles + domingo" },
-        { nombre: "Tomates maduros", gramos: "6 uds", nota: "Gazpacho + ensaladas" },
-        { nombre: "Pepino", gramos: "2 uds", nota: "Ensaladas + snack con atún" },
-        { nombre: "Zanahoria", gramos: "2 uds", nota: "Ensaladas" },
-        { nombre: "Cebolla", gramos: "2 uds", nota: "Bases de platos" },
-        { nombre: "Ajo", gramos: "1 cabeza", nota: "Para todo" }
+        { nombre: "Aguacates", gramos: "4 uds", nota: "Viernes desayuno + domingo brunch" },
+        { nombre: "Nueces", gramos: "200g", nota: "Snack cierre + meriendas" },
+        { nombre: "Almendras crudas", gramos: "150g", nota: "Snack pre-actividad y meriendas" },
+        { nombre: "Frutos secos mixtos", gramos: "100g", nota: "Snack en campo durante la ronda" },
+        { nombre: "Yogur griego natural", gramos: "6 uds", nota: "Lunes, miércoles y domingo romper ayuno" },
+        { nombre: "Proteína en polvo (guisante o arroz)", gramos: "1 bote", nota: "Jueves romper ayuno + entre sesiones" },
+        { nombre: "Naranjas", gramos: "6 uds", nota: "Domingo brunch + varios días" },
+        { nombre: "Manzanas/peras", gramos: "4 uds", nota: "Meriendas y snacks" }
       ]
     },
     {
-      categoria: "🥑 Frutas y Grasas Saludables",
+      categoria: "🥦 Verduras",
       items: [
-        { nombre: "Aguacates", gramos: "4 uds", nota: "Miércoles + viernes + domingo" },
-        { nombre: "Naranjas", gramos: "6 uds", nota: "Lunes merienda + sábado + domingo" },
-        { nombre: "Manzanas", gramos: "3 uds", nota: "Domingo merienda" },
-        { nombre: "Limones", gramos: "4 uds", nota: "Aderezos y pescados" },
-        { nombre: "Nueces", gramos: "200g", nota: "Snack cierre ventana + domingo" },
-        { nombre: "Almendras crudas", gramos: "150g", nota: "Pre-tenis y meriendas" },
-        { nombre: "Frutos secos mixtos", gramos: "100g", nota: "Snack en la ronda y pre-golf" },
-        { nombre: "Piñones", gramos: "80g", nota: "Pesto viernes" }
+        { nombre: "Brócoli o espárragos", gramos: "500g", nota: "Martes y viernes cenas" },
+        { nombre: "Pimiento rojo y verde", gramos: "4 uds", nota: "Tuppers y cenas" },
+        { nombre: "Calabacín", gramos: "2 uds", nota: "Miércoles cena con pescado" },
+        { nombre: "Tomate cherry", gramos: "500g", nota: "Tuppers de lunes y miércoles" },
+        { nombre: "Ensalada variada (bolsa)", gramos: "2 bolsas", nota: "Cenas diarias" },
+        { nombre: "Ajo", gramos: "1 cabeza", nota: "Para todo — especialmente gambas al ajillo" }
       ]
     },
     {
-      categoria: "🫙 Despensa y Condimentos",
+      categoria: "🫙 Despensa",
       items: [
-        { nombre: "Aceite de oliva virgen extra (AOVE)", gramos: "1 botella", nota: "Base de todo el plan" },
-        { nombre: "Tomate frito natural (sin lácteos)", gramos: "1 bote", nota: "Martes pasta" },
-        { nombre: "Albahaca fresca", gramos: "1 manojo", nota: "Pesto viernes" },
-        { nombre: "Pimentón dulce y picante", gramos: "1 bote", nota: "Garbanzos con langostinos" },
-        { nombre: "Sal, pimienta, orégano, comino", gramos: "Básicos", nota: "" },
-        { nombre: "Café (grano o molido)", gramos: "1 paquete", nota: "Pre-entrenador y durante ayuno" },
-        { nombre: "Barritas frutos secos sin lácteos", gramos: "4-6 uds", nota: "Snack en ronda de golf" }
+        { nombre: "Aceite de oliva virgen extra (AOVE)", gramos: "1 botella", nota: "Base de todo" },
+        { nombre: "Café (grano o molido)", gramos: "1 paquete", nota: "Pre-PT miércoles y ayuno diario" },
+        { nombre: "Barritas frutos secos sin azúcar", gramos: "4-6 uds", nota: "Snack en ronda hoyos 9-10" },
+        { nombre: "Sal, pimienta, pimentón, orégano", gramos: "Básicos", nota: "" }
       ]
     },
     {
-      categoria: "🥛 Lácteos",
+      categoria: "💊 Suplementos recomendados",
       items: [
-        { nombre: "Yogur griego natural entero", gramos: "2-3 uds", nota: "Lunes desayuno · fermentado = tolerable" }
-      ]
-    },
-    {
-      categoria: "🫐 Frutas especiales",
-      items: [
-        { nombre: "Arándanos frescos", gramos: "1 bandeja", nota: "Lunes desayuno con yogur" },
-        { nombre: "Dátiles Medjool", gramos: "200g", nota: "Lunes desayuno · 3-4 uds" }
-      ]
-    },
-    {
-      categoria: "💊 Suplementos (recomendados)",
-      items: [
-        { nombre: "Creatina monohidrato", gramos: "5g/dia", nota: "El suplemento con mas evidencia para potencia y distancia en el swing" },
-        { nombre: "Proteina vegetal (guisante o arroz)", gramos: "1 bote", nota: "Post-entreno martes entre tenis y golf" },
+        { nombre: "Creatina monohidrato", gramos: "5g/día", nota: "Máxima evidencia para potencia y distancia en el swing" },
         { nombre: "Magnesio", gramos: "1 bote", nota: "Recuperación muscular + calidad del sueño" },
         { nombre: "Vitamina D3", gramos: "1 bote", nota: "Aunque Sevilla tiene sol, suele faltar en sangre" }
       ]
