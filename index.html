@@ -469,6 +469,11 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         </div>
       </div>
       <div style="text-align:center;font-size:11px;color:var(--muted);padding:8px 0">Golf · Javier · App personal</div>
+      <div class="card" style="padding:16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Clave API Claude (Mi Dieta)</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5">'+(getApiKey() ? '✅ Clave guardada en este dispositivo' : '⚠️ Sin clave — necesaria para calcular calorías')+'</div>'+
+        '<button onclick="pedirApiKey(function(){ renderAjustes(); showToast(\'✅ Clave actualizada\'); })" style="width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--greenl);font-family:\'DM Sans\',sans-serif;font-size:13px;font-weight:600;cursor:pointer">'+(getApiKey() ? '🔑 Cambiar clave API' : '🔑 Introducir clave API')+'</button>'+
+      '</div>
     </div>
     <!-- Informe tab (hidden by default) -->
     <div id="ajustes-informe" style="display:none" id="report-container"></div>
@@ -1634,10 +1639,39 @@ function renderMiDieta() {
     '</div>';
 }
 
+function getApiKey() {
+  return localStorage.getItem('j_api_key') || '';
+}
+
+function pedirApiKey(callback) {
+  document.getElementById('modal-title').textContent = '🔑 Clave API de Claude';
+  document.getElementById('modal-body').innerHTML =
+    '<div style="font-size:12px;color:var(--muted);margin-bottom:8px;line-height:1.6">Necesitas tu clave de la API de Anthropic para calcular calorías. Solo se te pedirá una vez — se guarda en tu dispositivo.</div>'+
+    '<input id="api-key-input" type="password" placeholder="sk-ant-api03-..." class="field-input" style="margin-top:0;font-size:13px">'+
+    '<div style="font-size:11px;color:var(--muted);margin-top:6px">La clave se guarda solo en tu móvil, nunca se envía a ningún servidor externo.</div>';
+  document.getElementById('modal-confirm').textContent = 'Guardar y continuar';
+  document.getElementById('modal-confirm').style.background = 'var(--green)';
+  document.getElementById('modal-confirm').onclick = function() {
+    var key = document.getElementById('api-key-input').value.trim();
+    if (!key || !key.startsWith('sk-ant-')) { showToast('⚠️ Introduce una clave válida'); return; }
+    localStorage.setItem('j_api_key', key);
+    closeModal();
+    if (callback) callback();
+  };
+  document.getElementById('modal').classList.add('open');
+  setTimeout(function(){ var el = document.getElementById('api-key-input'); if(el) el.focus(); }, 100);
+}
+
 async function analizarComida() {
   var texto = document.getElementById('comida-input').value.trim();
   var tipo = document.getElementById('comida-tipo').value;
   if (!texto) { showToast('⚠️ Escribe lo que has comido'); return; }
+
+  var apiKey = getApiKey();
+  if (!apiKey) {
+    pedirApiKey(function(){ analizarComida(); });
+    return;
+  }
 
   var btn = document.getElementById('btn-analizar');
   var result = document.getElementById('analisis-result');
@@ -1651,7 +1685,7 @@ async function analizarComida() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': 'ANTHROPIC_KEY_PLACEHOLDER',
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
         'anthropic-dangerous-direct-browser-access': 'true'
       },
@@ -1665,6 +1699,16 @@ async function analizarComida() {
       })
     });
     var data = await response.json();
+    if (data.error) {
+      if (data.error.type === 'authentication_error') {
+        localStorage.removeItem('j_api_key');
+        result.innerHTML = '<div style="color:var(--orange);font-size:13px">❌ Clave inválida o caducada. <button onclick="pedirApiKey(function(){analizarComida();})" style="background:none;border:none;color:var(--greenl);font-size:13px;cursor:pointer;text-decoration:underline">Introducir nueva clave</button></div>';
+        btn.textContent = '🤖 Calcular';
+        btn.disabled = false;
+        return;
+      }
+      throw new Error(data.error.message);
+    }
     var raw = data.content && data.content[0] && data.content[0].text || '';
     var clean = raw.replace(/```json|```/g,'').trim();
     var parsed = JSON.parse(clean);
