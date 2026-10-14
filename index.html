@@ -206,6 +206,51 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 .tabs{display:flex;gap:0;background:var(--surface2);border-radius:10px;padding:3px;margin:14px 16px 0}
 .tab{flex:1;padding:9px 12px;border:none;border-radius:8px;background:none;color:var(--muted);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center}
 .tab.active{background:var(--surface3);color:var(--text)}
+/* FISIO */
+.fs-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.fs-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 10px;text-align:center}
+.fs-kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--text)}
+.fs-kpi span{font-size:11px;color:var(--muted)}
+.fs-ses{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.fs-ses.done{border-color:var(--accent)}
+.fs-ses-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border)}
+.fs-ses-t{font-size:15px;font-weight:700}
+.fs-ses-s{font-size:11px;color:var(--muted);margin-top:2px}
+.fs-pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--surface2);color:var(--muted)}
+.fs-ses.done .fs-pill{background:var(--accent);color:#fff}
+.fs-ex{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fs-ex:last-of-type{border-bottom:none}
+.fs-ck{width:24px;height:24px;border-radius:7px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.fs-ex.on .fs-ck{background:var(--accent);border-color:var(--accent)}
+.fs-ex.on .fs-n{text-decoration:line-through;color:var(--muted)}
+.fs-n{font-size:14px;font-weight:600}
+.fs-d{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.45}
+.fs-dose{font-size:12px;color:var(--accentd);font-weight:600;margin-top:2px}
+.fs-foot{display:flex;gap:8px;padding:10px 16px;border-top:1px solid var(--border)}
+.fs-btn{padding:9px 14px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--muted);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer}
+.fs-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.fs-hist{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px}
+.fs-hist h3,.fs-guide h3{font-size:13px;font-weight:700;margin:0 0 10px}
+.fs-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.fs-day{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;color:var(--muted)}
+.fs-dots{display:flex;gap:3px}
+.fs-dot{width:9px;height:9px;border-radius:50%;background:var(--surface2);border:1px solid var(--border)}
+.fs-dot.p{background:var(--accentl);border-color:var(--accentl)}
+.fs-dot.f{background:var(--accent);border-color:var(--accent)}
+.fs-day.today{color:var(--text);font-weight:700}
+.fs-legend{display:flex;gap:12px;font-size:11px;color:var(--muted);margin-top:10px;align-items:center}
+.fs-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.fs-guide{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px}
+.fs-g{padding:10px 0;border-top:1px solid var(--border)}
+.fs-g:first-of-type{border-top:none;padding-top:0}
+.fs-g ol{margin:6px 0 0 18px;padding:0;font-size:12px;color:var(--muted);line-height:1.5}
+.home-fisio{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:12px;cursor:pointer}
+.home-fisio .hf-t{font-size:14px;font-weight:700}
+.home-fisio .hf-s{font-size:12px;color:var(--muted);margin-top:1px}
+.home-fisio .hf-dots{display:flex;gap:5px;margin-left:auto}
+.home-fisio .hf-dots span{width:12px;height:12px;border-radius:50%;background:var(--surface2);border:1px solid var(--border)}
+.home-fisio .hf-dots span.f{background:var(--accent);border-color:var(--accent)}
+.home-fisio .hf-dots span.p{background:var(--accentl);border-color:var(--accentl)}
 
 /* Day tabs */
 .day-tabs{display:flex;gap:8px;padding:14px 16px 0;overflow-x:auto;scrollbar-width:none}
@@ -240,6 +285,9 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     </div>
   </div>
   <div class="wrap">
+
+    <!-- FISIO HOY -->
+    <div class="home-fisio" id="home-fisio" onclick="openFisio()"></div>
 
     <!-- HCP HERO -->
     <div class="hcp-hero">
@@ -361,7 +409,11 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   <div class="header">
     <div class="header-top">
       <div><h1>Plan Físico</h1><p>Golf · 2 días/sem · Espalda y hombro cuidados</p></div>
-      <span class="badge" style="background:var(--green)">2 días/sem</span>
+      <span class="badge" style="background:var(--green)" id="fit-badge">2 días/sem</span>
+    </div>
+    <div class="tabs" id="fit-tabs" style="margin-bottom:0">
+      <button class="tab active" data-ft="gym" onclick="switchFitTab('gym')">💪 Gimnasio</button>
+      <button class="tab" data-ft="fisio" onclick="switchFitTab('fisio')">🩺 Fisio</button>
     </div>
   </div>
   <div class="wrap" id="fit-container"></div>
@@ -962,7 +1014,7 @@ function navigate(s) {
   if (s==='home')    renderHome();
   if (s==='train')   renderTrain();
   if (s==='diet')    { currentDietTab='semana'; renderDiet('semana'); }
-  if (s==='fit')     renderFit();
+  if (s==='fit')     renderFitScreen();
   if (s==='report')  renderReport();
   if (s==='ajustes') renderAjustes();
 }
@@ -978,6 +1030,7 @@ function renderHome() {
   document.getElementById('streak-num').textContent = calcStreak();
   renderWeekGrid();
   renderHCPCard();
+  renderHomeFisio();
 }
 
 function renderHCPCard() {
@@ -1336,7 +1389,7 @@ function renderStats() {
 // ══════════════════════════════════════════════════════════
 function switchDietTab(tab, btn) {
   currentDietTab = tab;
-  document.querySelectorAll('.tabs .tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('#screen-diet .tabs .tab').forEach(function(t){ t.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   renderDiet(tab);
 }
@@ -1470,6 +1523,143 @@ function renderFit() {
       '</div>'+
     '</div>';
   }).join('');
+}
+
+// ══════════════════════════════════════════════════════════
+// FISIO · 4 ejercicios, 2 veces al día
+// ══════════════════════════════════════════════════════════
+var FISIO_EX = [
+  { id:'gato', nombre:'Gato-camello', dosis:'10 repeticiones lentas',
+    desc:'En cuadrupedia. Alterna redondear la espalda (mirando al ombligo) y arquearla (mirando al frente).',
+    pasos:['Manos bajo hombros, rodillas bajo caderas.','Espira y redondea la espalda empujando el suelo.','Inspira y arquea suavemente, sacando pecho.','Movimiento lento, sin dolor.'] },
+  { id:'lateral', nombre:'Estiramiento lateral en cuadrupedia', dosis:'3 × 20 s por lado',
+    desc:'Desde cuadrupedia, camina con las manos hacia un lado y lleva la cadera atrás hasta notar el costado contrario.',
+    pasos:['Empieza en cuadrupedia.','Desplaza las dos manos hacia un lado.','Lleva el culo hacia los talones.','Aguanta y cambia de lado.'] },
+  { id:'puente', nombre:'Puente de glúteo', dosis:'10–12 repeticiones · 2 s arriba',
+    desc:'Boca arriba, rodillas dobladas y pies apoyados. Sube la cadera apretando glúteo y baja controlando.',
+    pasos:['Tumbado, pies a la anchura de caderas, brazos al lado.','Aprieta glúteo y sube la cadera hasta alinear rodillas-cadera-hombros.','Aguanta 2 s arriba sin arquear la zona lumbar.','Baja vértebra a vértebra.'] },
+  { id:'isquio', nombre:'Estiramiento de isquios en supino', dosis:'10 extensiones por pierna',
+    desc:'Boca arriba, sujeta el muslo con la cadera a 90° y estira la rodilla hacia el techo; vuelve a doblar.',
+    pasos:['Tumbado, una pierna estirada en el suelo.','Agarra la otra por detrás del muslo, cadera a 90°.','Estira la rodilla hasta notar tensión detrás.','Dobla y repite; luego cambia de pierna.'] }
+];
+var FISIO_SES = [ {k:'m', t:'☀️ Mañana', s:'1ª sesión del día'}, {k:'t', t:'🌙 Tarde', s:'2ª sesión del día'} ];
+var currentFitTab = 'gym';
+try { currentFitTab = localStorage.getItem('j_fit_tab') || 'gym'; } catch(e) {}
+
+function fisioKey(d) { d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function fisioLoad() { try { return JSON.parse(localStorage.getItem('j_fisio')||'{}'); } catch(e) { return {}; } }
+function fisioSave(st) { try { localStorage.setItem('j_fisio', JSON.stringify(st)); } catch(e) {} }
+function fisioDay(st, key) {
+  var d = st[key] || {};
+  FISIO_SES.forEach(function(s){ if (!d[s.k]) d[s.k] = { ex:FISIO_EX.map(function(){return 0;}) }; });
+  return d;
+}
+function fisioSesDone(ses) { return ses && ses.ex && ses.ex.length && ses.ex.every(function(v){return v;}); }
+function fisioSesAny(ses) { return ses && ses.ex && ses.ex.some(function(v){return v;}); }
+function fisioCount(st, key) { var d=st[key]; if(!d) return 0; return FISIO_SES.filter(function(s){ return fisioSesDone(d[s.k]); }).length; }
+function fisioStreak(st) {
+  var d = new Date(), n = 0;
+  if (fisioCount(st, fisioKey(d)) < 2) d.setDate(d.getDate()-1); // hoy aún en curso
+  while (fisioCount(st, fisioKey(d)) === 2) { n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function fisioAdherence(st, days) {
+  var done = 0, d = new Date();
+  for (var i=0;i<days;i++) { done += fisioCount(st, fisioKey(d)); d.setDate(d.getDate()-1); }
+  return Math.round(done/(days*2)*100);
+}
+
+function switchFitTab(tab) {
+  currentFitTab = tab;
+  try { localStorage.setItem('j_fit_tab', tab); } catch(e) {}
+  renderFitScreen();
+}
+function renderFitScreen() {
+  document.querySelectorAll('#fit-tabs .tab').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-ft')===currentFitTab); });
+  var h1 = document.querySelector('#screen-fit h1'), p = document.querySelector('#screen-fit .header-top p'), badge = document.getElementById('fit-badge');
+  if (currentFitTab === 'fisio') {
+    h1.textContent = 'Fisio'; p.textContent = '4 ejercicios · 2 veces al día'; badge.textContent = '2×/día';
+    renderFisio();
+  } else {
+    h1.textContent = 'Plan Físico'; p.textContent = 'Golf · 2 días/sem · Espalda y hombro cuidados'; badge.textContent = '2 días/sem';
+    renderFit();
+  }
+}
+function openFisio() { currentFitTab='fisio'; try{localStorage.setItem('j_fit_tab','fisio');}catch(e){} navigate('fit'); }
+
+function renderFisio() {
+  var st = fisioLoad(), key = fisioKey(), day = fisioDay(st, key);
+  var hoy = fisioCount(st, key);
+  var html = '<div class="fs-sum">'+
+    '<div class="fs-kpi"><b>'+hoy+'/2</b><span>Hoy</span></div>'+
+    '<div class="fs-kpi"><b>'+fisioStreak(st)+'</b><span>Racha (días)</span></div>'+
+    '<div class="fs-kpi"><b>'+fisioAdherence(st,14)+'%</b><span>Cumplim. 14 d</span></div>'+
+  '</div>';
+
+  FISIO_SES.forEach(function(s){
+    var ses = day[s.k], n = ses.ex.filter(function(v){return v;}).length, done = n===FISIO_EX.length;
+    html += '<div class="fs-ses'+(done?' done':'')+'">'+
+      '<div class="fs-ses-h"><div><div class="fs-ses-t">'+s.t+'</div><div class="fs-ses-s">'+(done&&ses.at?'Hecha a las '+ses.at:s.s)+'</div></div>'+
+      '<span class="fs-pill">'+(done?'✓ Hecha':n+'/'+FISIO_EX.length)+'</span></div>';
+    FISIO_EX.forEach(function(ex,i){
+      var on = !!ses.ex[i];
+      html += '<div class="fs-ex'+(on?' on':'')+'" onclick="toggleFisio(\''+s.k+'\','+i+')">'+
+        '<div class="fs-ck">'+(on?'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'')+'</div>'+
+        '<div style="flex:1"><div class="fs-n">'+(i+1)+'. '+ex.nombre+'</div><div class="fs-dose">'+ex.dosis+'</div><div class="fs-d">'+ex.desc+'</div></div>'+
+      '</div>';
+    });
+    html += '<div class="fs-foot">'+
+      (done?'':'<button class="fs-btn pri" onclick="fisioAll(\''+s.k+'\',1)">Marcar todo</button>')+
+      (fisioSesAny(ses)?'<button class="fs-btn" onclick="fisioAll(\''+s.k+'\',0)">Desmarcar</button>':'')+
+    '</div></div>';
+  });
+
+  // Historial 14 días
+  var dn = ['D','L','M','X','J','V','S'], cells = '', d = new Date();
+  d.setDate(d.getDate()-13);
+  for (var i=0;i<14;i++) {
+    var k = fisioKey(d), dd = st[k] || {};
+    var dots = FISIO_SES.map(function(s){ var x=dd[s.k]; return '<i class="fs-dot'+(fisioSesDone(x)?' f':fisioSesAny(x)?' p':'')+'"></i>'; }).join('');
+    cells += '<div class="fs-day'+(k===key?' today':'')+'"><span>'+dn[d.getDay()]+' '+d.getDate()+'</span><div class="fs-dots">'+dots+'</div></div>';
+    d.setDate(d.getDate()+1);
+  }
+  html += '<div class="fs-hist"><h3>Últimos 14 días</h3><div class="fs-days">'+cells+'</div>'+
+    '<div class="fs-legend"><span><i style="background:var(--accent)"></i>Completa</span><span><i style="background:var(--accentl)"></i>A medias</span><span><i style="background:var(--surface2);border:1px solid var(--border)"></i>Sin hacer</span></div></div>';
+
+  // Guía
+  html += '<div class="fs-guide"><h3>Cómo hacer cada ejercicio</h3>'+
+    FISIO_EX.map(function(ex,i){ return '<div class="fs-g"><div class="fs-n">'+(i+1)+'. '+ex.nombre+' <span class="fs-dose" style="display:inline">· '+ex.dosis+'</span></div><ol>'+ex.pasos.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol></div>'; }).join('')+
+    '<div class="fs-d" style="margin-top:10px">Si alguno molesta o duele, para y coméntalo con el fisio.</div></div>';
+
+  document.getElementById('fit-container').innerHTML = html;
+}
+
+function fisioStamp(ses) {
+  if (fisioSesDone(ses)) { if (!ses.at) ses.at = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }
+  else delete ses.at;
+}
+function toggleFisio(sk, i) {
+  var st = fisioLoad(), key = fisioKey(), day = fisioDay(st, key), ses = day[sk];
+  var was = fisioSesDone(ses);
+  ses.ex[i] = ses.ex[i] ? 0 : 1;
+  fisioStamp(ses); st[key] = day; fisioSave(st);
+  if (!was && fisioSesDone(ses)) { if (navigator.vibrate) navigator.vibrate(40); showToast(fisioCount(st,key)===2?'🎉 ¡Fisio del día completo!':'✅ Sesión de fisio hecha'); }
+  renderFisio(); renderHomeFisio();
+}
+function fisioAll(sk, v) {
+  var st = fisioLoad(), key = fisioKey(), day = fisioDay(st, key), ses = day[sk];
+  ses.ex = FISIO_EX.map(function(){ return v; });
+  fisioStamp(ses); st[key] = day; fisioSave(st);
+  if (v) showToast(fisioCount(st,key)===2?'🎉 ¡Fisio del día completo!':'✅ Sesión de fisio hecha');
+  renderFisio(); renderHomeFisio();
+}
+function renderHomeFisio() {
+  var el = document.getElementById('home-fisio'); if (!el) return;
+  var st = fisioLoad(), key = fisioKey(), d = st[key] || {}, n = fisioCount(st, key);
+  var hr = new Date().getHours();
+  var sub = n===2 ? 'Completado hoy · racha '+fisioStreak(st)+' d' : (n===1 ? 'Te falta la '+(fisioSesDone(d.m)?'sesión de tarde':'sesión de mañana') : (hr<15?'Pendiente: mañana y tarde':'¡Hoy aún no la has hecho!'));
+  var dots = FISIO_SES.map(function(s){ var x=d[s.k]; return '<span class="'+(fisioSesDone(x)?'f':fisioSesAny(x)?'p':'')+'"></span>'; }).join('');
+  el.innerHTML = '<div style="font-size:22px">🩺</div><div><div class="hf-t">Fisio · '+n+'/2 hoy</div><div class="hf-s">'+sub+'</div></div><div class="hf-dots">'+dots+'</div>';
 }
 
 function toggleFitEx(di, ei) {
@@ -1905,7 +2095,7 @@ function exportarBackup() {
   var data={v:1,nombre:'Javier',sessions:sessions,
     hcp:localStorage.getItem('j_hcp'),obj:localStorage.getItem('j_obj'),
     hist:localStorage.getItem('j_hcp_hist'),meals:localStorage.getItem('j_meals'),
-    fit:localStorage.getItem('j_fit'),notes:localStorage.getItem('report_notes'),
+    fit:localStorage.getItem('j_fit'),fisio:localStorage.getItem('j_fisio'),notes:localStorage.getItem('report_notes'),
     freq:localStorage.getItem('informe_freq'),last_send:localStorage.getItem('informe_last_send'),
     date:new Date().toISOString()};
   var code=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
@@ -1939,8 +2129,8 @@ function confirmarImport() {
     document.getElementById('modal-confirm').style.background='var(--green)';
     document.getElementById('modal-confirm').onclick=function(){
       if(data.sessions){sessions=data.sessions;saveAll();}
-      ['j_hcp','j_obj','j_hcp_hist','j_meals','j_fit','report_notes','informe_freq','informe_last_send'].forEach(function(k,i){
-        var vals=[data.hcp,data.obj,data.hist,data.meals,data.fit,data.notes,data.freq,data.last_send];
+      ['j_hcp','j_obj','j_hcp_hist','j_meals','j_fit','report_notes','informe_freq','informe_last_send','j_fisio'].forEach(function(k,i){
+        var vals=[data.hcp,data.obj,data.hist,data.meals,data.fit,data.notes,data.freq,data.last_send,data.fisio];
         if(vals[i]) localStorage.setItem(k,vals[i]);
       });
       closeModal(); renderHome(); renderAjustes();
