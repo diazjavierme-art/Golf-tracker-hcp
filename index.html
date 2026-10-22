@@ -1561,7 +1561,7 @@ function renderFit() {
 }
 
 // ══════════════════════════════════════════════════════════
-// FISIO · 4 ejercicios, 2 veces al día
+// FISIO · ejercicios del fisio, 2 veces al día
 // ══════════════════════════════════════════════════════════
 var FISIO_EX = [
   { id:'gato', nombre:'Gato-camello', dosis:'10 repeticiones lentas',
@@ -1575,7 +1575,19 @@ var FISIO_EX = [
     pasos:['Tumbado, pies a la anchura de caderas, brazos al lado.','Aprieta glúteo y sube la cadera hasta alinear rodillas-cadera-hombros.','Aguanta 2 s arriba sin arquear la zona lumbar.','Baja vértebra a vértebra.'] },
   { id:'isquio', nombre:'Estiramiento de isquios en supino', dosis:'10 extensiones por pierna',
     desc:'Boca arriba, sujeta el muslo con la cadera a 90° y estira la rodilla hacia el techo; vuelve a doblar.',
-    pasos:['Tumbado, una pierna estirada en el suelo.','Agarra la otra por detrás del muslo, cadera a 90°.','Estira la rodilla hasta notar tensión detrás.','Dobla y repite; luego cambia de pierna.'] }
+    pasos:['Tumbado, una pierna estirada en el suelo.','Agarra la otra por detrás del muslo, cadera a 90°.','Estira la rodilla hasta notar tensión detrás.','Dobla y repite; luego cambia de pierna.'] },
+  { id:'puente_goma', nombre:'Puente de glúteo con goma', dosis:'3 × 15',
+    desc:'Igual que el puente, con una goma por encima de las rodillas empujando hacia fuera todo el rato.',
+    pasos:['Goma justo por encima de las rodillas, pies a la anchura de caderas.','Empuja las rodillas hacia fuera contra la goma.','Sube la cadera apretando glúteo, sin arquear la lumbar.','Baja controlando, sin perder la tensión de la goma.'] },
+  { id:'almeja', nombre:'Almeja', dosis:'3 × 12 por lado',
+    desc:'Tumbado de lado, rodillas dobladas y pies juntos: abre la rodilla de arriba sin mover la pelvis.',
+    pasos:['De lado, caderas y rodillas dobladas unos 45°, pies juntos.','Mantén la pelvis quieta, sin rodar hacia atrás.','Abre la rodilla de arriba manteniendo los pies juntos.','Cierra despacio; haz todas y cambia de lado.'] },
+  { id:'patada', nombre:'Patada hacia atrás en cuadrupedia', dosis:'3 × 10 por pierna',
+    desc:'En cuadrupedia, empuja un talón hacia el techo con la rodilla doblada, sin arquear la espalda.',
+    pasos:['Manos bajo hombros, rodillas bajo caderas, abdomen activo.','Con la rodilla a 90°, sube el talón hacia el techo.','Aprieta el glúteo arriba; la espalda no se mueve.','Baja sin apoyar del todo y repite; cambia de pierna.'] },
+  { id:'apertura', nombre:'Apertura de rodilla en cuadrupedia', dosis:'3 × 10 por pierna',
+    desc:'En cuadrupedia, abre una rodilla hacia el lado (doblada a 90°) sin girar el tronco.',
+    pasos:['Empieza en cuadrupedia, espalda neutra.','Abre la rodilla hacia el lado hasta la altura de la cadera.','El peso no se va al otro lado ni gira el tronco.','Baja controlando; haz todas y cambia de pierna.'] }
 ];
 var FISIO_SES = [ {k:'m', t:'☀️ Mañana', s:'1ª sesión del día'}, {k:'t', t:'🌙 Tarde', s:'2ª sesión del día'} ];
 var currentFitTab = 'fisio';
@@ -1586,10 +1598,14 @@ function fisioLoad() { try { return JSON.parse(localStorage.getItem('j_fisio')||
 function fisioSave(st) { try { localStorage.setItem('j_fisio', JSON.stringify(st)); } catch(e) {} }
 function fisioDay(st, key) {
   var d = st[key] || {};
-  FISIO_SES.forEach(function(s){ if (!d[s.k]) d[s.k] = { ex:FISIO_EX.map(function(){return 0;}) }; });
+  FISIO_SES.forEach(function(s){
+    if (!d[s.k]) d[s.k] = { ex:[] };
+    d[s.k].ex = FISIO_EX.map(function(_,i){ return d[s.k].ex[i] ? 1 : 0; });
+  });
   return d;
 }
-function fisioSesDone(ses) { return ses && ses.ex && ses.ex.length && ses.ex.every(function(v){return v;}); }
+// Los días antiguos se valoran con los ejercicios que había entonces (longitud guardada)
+function fisioSesDone(ses) { return !!(ses && ses.ex && ses.ex.length && ses.ex.every(function(v){ return v; })); }
 function fisioSesAny(ses) { return ses && ses.ex && ses.ex.some(function(v){return v;}); }
 function fisioCount(st, key) { var d=st[key]; if(!d) return 0; return FISIO_SES.filter(function(s){ return fisioSesDone(d[s.k]); }).length; }
 function fisioStreak(st) {
@@ -1613,7 +1629,7 @@ function renderFitScreen() {
   document.querySelectorAll('#fit-tabs .tab').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-ft')===currentFitTab); });
   var h1 = document.querySelector('#screen-fit h1'), p = document.querySelector('#screen-fit .header-top p'), badge = document.getElementById('fit-badge');
   if (currentFitTab === 'fisio') {
-    h1.textContent = 'Fisio'; p.textContent = '4 ejercicios · 2 veces al día'; badge.textContent = '2×/día';
+    h1.textContent = 'Fisio'; p.textContent = FISIO_EX.length+' ejercicios · 2 veces al día'; badge.textContent = '2×/día';
     renderFisio();
   } else {
     h1.textContent = 'Plan Físico'; p.textContent = 'Golf · 2 días/sem · Espalda y hombro cuidados'; badge.textContent = '2 días/sem';
@@ -1624,6 +1640,7 @@ function openFisio() { currentFitTab='fisio'; try{localStorage.setItem('j_fit_ta
 
 function renderFisio() {
   var st = fisioLoad(), key = fisioKey(), day = fisioDay(st, key);
+  st[key] = day;
   var hoy = fisioCount(st, key);
   var html = '<div class="fs-sum">'+
     '<div class="fs-kpi"><b>'+hoy+'/2</b><span>Hoy</span></div>'+
@@ -1811,7 +1828,7 @@ function fisioReportText() {
     '\n*Actividad*\n🚶 Andar: '+actA.d+(actA.d===1?' día':' días')+(actA.m?' · '+actA.m+' min':'')+'\n🚴 Bici estática: '+actB.d+(actB.d===1?' día':' días')+(actB.m?' · '+actB.m+' min':'')+'\n'+
     '\n*Día a día* (mañana/tarde · 🌅 levantarme · 🌙 acostarme · 🚶 andar · 🚴 bici)\n'+rows.join('\n')+
     (notas.length?'\n\n*Notas*\n'+notas.join('\n'):'')+
-    '\n\nEjercicios: gato-camello, estiramiento lateral en cuadrupedia, puente de glúteo, isquios en supino.';
+    '\n\nEjercicios: '+FISIO_EX.map(function(e){ return e.nombre.toLowerCase()+' ('+e.dosis+')'; }).join(', ')+'.';
   return t;
 }
 function sendFisioReport() {
@@ -1826,7 +1843,7 @@ function copyFisioReport() {
 
 function renderHomeFisio() {
   var el = document.getElementById('home-fisio'); if (!el) return;
-  var st = fisioLoad(), key = fisioKey(), d = st[key] || {}, n = fisioCount(st, key);
+  var st = fisioLoad(), key = fisioKey(), d = fisioDay(st, key); st[key] = d; var n = fisioCount(st, key);
   var hr = new Date().getHours();
   var ev = d.ev || {};
   var evMsg = (!ev.lev && hr<13) ? 'Valora cómo te levantas' : (!ev.aco && hr>=21) ? 'Valora cómo te acuestas' : '';
@@ -2014,7 +2031,7 @@ function renderReport() {
       '<div style="display:flex;flex-direction:column;gap:8px">'+
         [
           {icon:'⛳', label:'Golf', val:'2 días/sem · 1h · Putting, juego corto, hierros'},
-          {icon:'🩺', label:'Fisio', val:'4 ejercicios · 2 veces al día · Estado de la lesión mañana y noche'},
+          {icon:'🩺', label:'Fisio', val:FISIO_EX.length+' ejercicios · 2 veces al día · Estado de la lesión mañana y noche'},
           {icon:'🎯', label:'Objetivo', val:'Bajar de HCP 12 a HCP '+obj.toFixed(1)}
         ].map(function(row){
           return '<div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);border-radius:10px;padding:11px 14px">'+
